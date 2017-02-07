@@ -11,11 +11,11 @@ using namespace std;
 /**
  * Ensures that the user's input is an integer >= 0.
  *
- * @param   userIn      the user's input string
- * @param   userInput   the variable in which to store the user's input as an
+ * @param   input       the user's input string
+ * @param   sizeVar     the variable in which to store the user's input as an
  *                      integer
  */
-void validateInt(string userIn, int& userInput);
+void validateInt(string input, int& sizeVar);
 
 /**
  * Dynamically allocates an array of type int and returns a pointer to it.
@@ -41,10 +41,10 @@ void loadNumberData(int* arr, int size);
  *
  * Uses pointer arithmetic to step through the array.
  *
- * @param   numberData          the array of whose contents to display
- * @param   qtyOfRandomNumbers  the size of the array
+ * @param   arr     the array of whose contents to display
+ * @param   size    the size of the array
  */
-void displayArray(int* numberData, int qtyOfRandomNumbers);
+void displayArray(int* arr, int size);
 
 /**
  * Sorts the contents of a given array into ascending order by means of a
@@ -90,42 +90,55 @@ int mode(int* arr, int size);
 ******************************************************************************/
 
 int main() {
-	string inputStr;
-	int inputInt;
+	string input;
+	int size;
 
 	cout << "Enter the amount of integers to generate (>= 0): ";
 
 	do {
-		getline(cin, inputStr);
-		validateInt(inputStr, inputInt);
-	} while (inputInt == -1);
+		getline(cin, input);
+		validateInt(input, size);
+	} while (size == -1);
+
+	int* array = makeArray(size);
+
+	cout << endl;
+	loadNumberData(array, size);
+	displayArray(array, size);
+	selectionSort(array, size);
+	displayArray(array, size);
+
+	//TODO: Format numbers?
+	cout << "\nAverage: " << average(array, size) << "\n";
+	cout << "Median: " << median(array, size) << "\n";
+	cout << "Mode: " << mode(array, size) << endl;
 }
 
-void validateInt(string userIn, int& userInput) {
-	userInput = -2;
+void validateInt(string input, int& sizeVar) {
+	sizeVar = -2;
 
-	if (userIn.empty()) {
+	if (input.empty()) {
 		cout << "The input given is empty. Please try again: ";
-		userInput = -1;
-	} else if (userIn.find(" ") != string::npos) {
+		sizeVar = -1;
+	} else if (input.find(" ") != string::npos) {
 		cout << "Spaces are not allowed. Please try again: ";
-		userInput = -1;
+		sizeVar = -1;
 	} else {
-		size_t length = userIn.length();
+		size_t length = input.length();
 
 		// Iterates through every character in the input string and checks if
 		// it's a digit.
-		for (int index = 0; index < length && userInput != -1; index++) {
-			if (!isdigit(userIn[index])) {
+		for (int index = 0; index < length && sizeVar != -1; index++) {
+			if (!isdigit(input[index])) {
 				cout << "The selection is not an integer greater than or "
 						"equal to 0. Please try again: ";
-				userInput = -1;
+				sizeVar = -1;
 			}
 		}
 	}
 
-	if (userInput != -1) {
-		userInput = stoi(userIn);
+	if (sizeVar != -1) {
+		sizeVar = stoi(input);
 	}
 }
 
@@ -134,21 +147,28 @@ int* makeArray(int size) {
 }
 
 void loadNumberData(int* arr, int size) {
+	int* arrEndPtr = &arr[size];
+
 	srand(time(nullptr));
 
-	while (arr < &arr[size]) {
+	while (arr < arrEndPtr) {
 		*arr = rand() % 100 + 1;
 		arr++;
 	}
 }
 
-void displayArray(int* numberData, int qtyOfRandomNumbers) {
-	while (numberData < &numberData[qtyOfRandomNumbers]) {
-		cout << *numberData;
-		numberData++;
-	}
+void displayArray(int* arr, int size) {
+	int* arrEndPtr = &arr[size];
 
-	cout << endl;
+	while (arr < arrEndPtr) {
+		if (arr == arrEndPtr - 1) {
+			cout << *arr << endl;
+		} else {
+			cout << *arr << ", ";
+		}
+
+		arr++;
+	}
 }
 
 void selectionSort(int arr[], int size) {
