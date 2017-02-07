@@ -55,7 +55,6 @@ void displayArray(int* numberData, int qtyOfRandomNumbers);
  */
 void selectionSort(int arr[], int size);
 
-
 /**
  * Calculates and returns the average of the values in a given array.
  *
@@ -113,15 +112,15 @@ void selectionSort(int arr[], int size) {
 
 }
 
-double average(int* arr, int num) {
+double average(int* arr, int size) {
 	return 0;
 }
 
-double median(int* arr, int num) {
+double median(int* arr, int size) {
 	return 0;
 }
 
-int mode(int* arr, int num) {
+int mode(int* arr, int size) {
 	// TODO: Handle cases of multiple values with the same frequency?
 	return -1;
 }
