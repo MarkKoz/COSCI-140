@@ -191,7 +191,7 @@ void selectionSort(int arr[], int size) {
 
 double average(int* arr, int size) {
 	int* arrEndPtr = &arr[size];
-	double total;
+	double total = 0;
 
 	while (arr < arrEndPtr) {
 		total += *arr;
@@ -208,11 +208,33 @@ double median(int* arr, int size) {
 		int iMin = (size / 2) - 1; // Index of the lesser median
 		int valMin = arr[iMin]; // Value of the lesser median
 		double diff = arr[iMin + 1] - valMin; // Difference between medians
+
 		return valMin + (diff / 2);
 	}
 }
 
 int mode(int* arr, int size) {
 	// TODO: Handle cases of multiple values with the same frequency?
-	return -1;
+	int* arrEndPtr = &arr[size];
+	int* maxPtr = nullptr;
+	int maxFreq = 0;
+
+	while (arr < arrEndPtr) {
+		int* search = arr;
+		int freq = 1;
+
+		while (*(search + 1) == *search) {
+			freq++;
+			search++;
+		}
+
+		if (freq > maxFreq) {
+			maxPtr = arr;
+			maxFreq = freq;
+		}
+
+		arr += freq;
+	}
+
+	return maxFreq <= 1 ? -1 : *maxPtr;
 }
