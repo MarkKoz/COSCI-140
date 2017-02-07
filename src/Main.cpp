@@ -202,7 +202,14 @@ double average(int* arr, int size) {
 }
 
 double median(int* arr, int size) {
-	return 0;
+	if (size % 2 != 0) { // odd
+		return arr[(size - 1) / 2];
+	} else { // even
+		int iMin = (size / 2) - 1; // Index of the lesser median
+		int valMin = arr[iMin]; // Value of the lesser median
+		double diff = arr[iMin + 1] - valMin; // Difference between medians
+		return valMin + (diff / 2);
+	}
 }
 
 int mode(int* arr, int size) {
