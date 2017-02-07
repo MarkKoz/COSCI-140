@@ -1,12 +1,14 @@
 ### CMake template
-cmake-build-debug/CMakeCache.txt
-cmake-build-debug/CMakeFiles
-cmake-build-debug/CMakeScripts
-cmake-build-debug/Makefile
-cmake-build-debug/cmake_install.cmake
-cmake-build-debug/install_manifest.txt
-cmake-build-debug/CTestTestfile.cmake
-cmake-build-debug/*.cbp
+bin/*/CMakeCache.txt
+bin/*/CMakeFiles
+bin/*/CMakeScripts
+bin/*/Makefile
+bin/*/cmake_install.cmake
+bin/*/install_manifest.txt
+bin/*/CTestTestfile.cmake
+bin/*/*.cbp
+
+bin
 
 ### C++ template
 # Prerequisites

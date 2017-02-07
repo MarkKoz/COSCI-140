@@ -1,6 +1,6 @@
 #include <iostream>
-#include <stdlib.h> // srand, rand
-#include <time.h> // time
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -90,22 +90,65 @@ int mode(int* arr, int size);
 ******************************************************************************/
 
 int main() {
-	
+	string inputStr;
+	int inputInt;
+
+	cout << "Enter the amount of integers to generate: ";
+
+	do {
+		cin >> inputStr;
+		validateInt(inputStr, inputInt);
+	} while (inputInt == -1);
 }
 
 void validateInt(string userIn, int& userInput) {
+	userInput = -2;
 
+	if (userIn.empty()) {
+		cout << "The input given is empty. Please try again: ";
+		userInput = -1;
+	} else if (userIn.find(" ") != string::npos) {
+		cout << "Spaces are not allowed. Please try again: ";
+		userInput = -1;
+	} else {
+		size_t length = userIn.length();
+
+		// Iterates through every character in the input string and checks if
+		// it's a digit.
+		for (int index = 0; index < length && userInput != -1; index++) {
+			if (!isdigit(userIn[index])) {
+				cout << "The selection is not an integer greater than or "
+						"equal to 0. Please try again: ";
+				userInput = -1;
+			}
+		}
+	}
+
+	if (userInput != -1) {
+		userInput = stoi(userIn);
+	}
 }
 
 int* makeArray(int size) {
-	return nullptr;
+	return new int[size];
 }
 
 void loadNumberData(int* arr, int size) {
+	srand(time(nullptr));
+
+	while (arr < &arr[size]) {
+		*arr = rand();
+		arr++;
+	}
 }
 
 void displayArray(int* numberData, int qtyOfRandomNumbers) {
+	while (numberData < &numberData[qtyOfRandomNumbers]) {
+		cout << *numberData;
+		numberData++;
+	}
 
+	cout << endl;
 }
 
 void selectionSort(int arr[], int size) {
