@@ -93,10 +93,10 @@ int main() {
 	string inputStr;
 	int inputInt;
 
-	cout << "Enter the amount of integers to generate: ";
+	cout << "Enter the amount of integers to generate (>= 0): ";
 
 	do {
-		cin >> inputStr;
+		getline(cin, inputStr);
 		validateInt(inputStr, inputInt);
 	} while (inputInt == -1);
 }
@@ -137,7 +137,7 @@ void loadNumberData(int* arr, int size) {
 	srand(time(nullptr));
 
 	while (arr < &arr[size]) {
-		*arr = rand();
+		*arr = rand() % 100 + 1;
 		arr++;
 	}
 }
