@@ -1,6 +1,7 @@
-#include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -141,7 +142,7 @@ void validateInt(string input, int& sizeVar) {
 	}
 
 	if (sizeVar != -1) {
-		sizeVar = stoi(input);
+		sizeVar = atoi(input.c_str()); // Could use stoi
 	}
 }
 
