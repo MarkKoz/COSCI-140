@@ -106,12 +106,15 @@ int main() {
 	loadNumberData(array, size);
 	displayArray(array, size);
 	selectionSort(array, size);
+	cout << endl;
 	displayArray(array, size);
 
-	//TODO: Format numbers?
+	// TODO: Format numbers?
 	cout << "\nAverage: " << average(array, size) << "\n";
 	cout << "Median: " << median(array, size) << "\n";
 	cout << "Mode: " << mode(array, size) << endl;
+
+	delete [] array; // Redundant since the program ends right after anyway...
 }
 
 void validateInt(string input, int& sizeVar) {
@@ -223,6 +226,7 @@ int mode(int* arr, int size) {
 		int* search = arr;
 		int freq = 1;
 
+		// Finds how many following elements have the same value.
 		while (*(search + 1) == *search) {
 			freq++;
 			search++;
@@ -233,6 +237,8 @@ int mode(int* arr, int size) {
 			maxFreq = freq;
 		}
 
+		// Next iteration will start at the first element with a value not
+		// equal to the value of the last searched element.
 		arr += freq;
 	}
 
