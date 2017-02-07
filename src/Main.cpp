@@ -172,7 +172,21 @@ void displayArray(int* arr, int size) {
 }
 
 void selectionSort(int arr[], int size) {
+	int iMin;
 
+	for (int iToSort = 0; iToSort < size - 1; iToSort++) {
+		iMin = iToSort;
+
+		for (int iUnsorted = iToSort + 1; iUnsorted < size; iUnsorted++) {
+			if (arr[iUnsorted] < arr[iMin]) {
+				iMin = iUnsorted;
+			}
+		}
+
+		int buffer = arr[iToSort];
+		arr[iToSort] = arr[iMin];
+		arr[iMin] = buffer;
+	}
 }
 
 double average(int* arr, int size) {
