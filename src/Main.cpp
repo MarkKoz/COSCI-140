@@ -190,7 +190,15 @@ void selectionSort(int arr[], int size) {
 }
 
 double average(int* arr, int size) {
-	return 0;
+	int* arrEndPtr = &arr[size];
+	double total;
+
+	while (arr < arrEndPtr) {
+		total += *arr;
+		arr++;
+	}
+
+	return total / size;
 }
 
 double median(int* arr, int size) {
