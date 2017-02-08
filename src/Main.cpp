@@ -117,6 +117,7 @@ int main() {
 	cout << "Mode: " << (modeVal == -1 ? "none" : to_string(modeVal)) << endl;
 
 	delete [] array; // Redundant since the program ends right after anyway...
+	array = nullptr;
 }
 
 void validateInt(string input, int& sizeVar) {
