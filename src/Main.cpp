@@ -113,7 +113,8 @@ int main() {
 	// TODO: Format numbers?
 	cout << "\nAverage: " << average(array, size) << "\n";
 	cout << "Median: " << median(array, size) << "\n";
-	cout << "Mode: " << mode(array, size) << endl;
+	int modeVal = mode(array, size);
+	cout << "Mode: " << (modeVal == -1 ? "none" : to_string(modeVal)) << endl;
 
 	delete [] array; // Redundant since the program ends right after anyway...
 }
