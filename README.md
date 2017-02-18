@@ -1,8 +1,8 @@
 # CO SCI 140 - Chapter 09 Quiz
-**Course Title:** C++ Programming II
-**Section:** 7477
-**Instructor:** Luis Flores
-**Semester:** Spring 2017 (2017-02-06 to 2017-06-05)
+**Course Title:** C++ Programming II<br/>
+**Section:** 7477<br/>
+**Instructor:** Luis Flores<br/>
+**Semester:** Spring 2017 (2017-02-06 to 2017-06-05)<br/>
 **Textbook:** [Gaddis, Tony. _Starting Out with C++ from Control Structures to Objects_. 8th ed.](https://www.pearsonhighered.com/program/Gaddis-Starting-Out-with-C-from-Control-Structures-to-Objects-plus-My-Programming-Lab-with-Pearson-e-Text-Access-Card-Package-8th-Edition/PGM112149.html) (ISBN-13: 978-0133769395)
 
 ### Tasks
