@@ -1,23 +1,30 @@
-# Chapter 09 - Quiz 01
-### Write a program which:
-1. Prompts the user for a positive integer >= 0
-2. Validates the user input to ensure it is a positive integer >= 0
-3. Allocate (dynamically) an array big enough for the data.
-4. Load the array with random numbers ranging in value from1 to 100
-5. Display the elements of the array (unsorted)
-6. Display the elements of the array (sorted)
-7. Display the average
-8. Display the median
-9. Display the mode, if none, display appropriate message
+# CO SCI 140 - Chapter 09 Quiz
+**Course Title:** C++ Programming II
+**Section:** 7477
+**Instructor:** Luis Flores
+**Semester:** Spring 2017 (2017-02-06 to 2017-06-05)
+**Textbook:** [Gaddis, Tony. _Starting Out with C++ from Control Structures to Objects_. 8th ed.](https://www.pearsonhighered.com/program/Gaddis-Starting-Out-with-C-from-Control-Structures-to-Objects-plus-My-Programming-Lab-with-Pearson-e-Text-Access-Card-Package-8th-Edition/PGM112149.html) (ISBN-13: 978-0133769395)
 
-### General Restrictions
-  * No global variables
-  * No infinite loops, examples include:
-      * `for(;;)`
-      * `while(1)`
-      * `while(true)`
-      * `do { // code } while(1);`
-  * No break statements to exit loops
+### Tasks
+1. Prompt the user to input an integer >= 0.
+2. Validate the input is an integer >= 0.
+3. Dynamically allocate an array big enough for the input.
+4. Populate the array with random integers [1, 100].
+5. Display the value of each element in the array (unsorted).
+6. Display the value of each element in the array (sorted).
+7. Display the average.
+8. Display the median.
+9. Display the mode.
+    * If none, display an appropriate message.
 
-### Specific Restrictions
-  * You must use the `Starter.cpp` file and ALL the function prototypes
+### Requirements
+* Use all function declarations in the provided `chapter09Starter.cpp` file.
+
+### Prohibitions
+* Global variables.
+* Infinite loops. Examples:
+    * `for(;;)`
+    * `while(1)`
+    * `while(true)`
+    * `do { // code } while(1);`
+* `break` to exit loops.
