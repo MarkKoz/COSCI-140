@@ -6,15 +6,23 @@
 using namespace std;
 
 int main() {
-	char* input = getInput();
+	char cont;
 
-	cout << "\nYour input is: ";
+	do {
+		char* input = getInput();
 
-	for (int i = 0; *(input + i) != '\0'; i++) {
-		cout << *(input + i);
-	}
+/*		cout << "\nYour input is: ";
 
-	cout << endl;
+		for (int i = 0; *(input + i) != '\0'; i++) {
+			cout << *(input + i);
+		}
+
+		cout << endl;*/
+
+		cout << "\nEnter [q/Q] to quit or any other character to input a new "
+				"sequence." << endl;
+		cin >> cont;
+	} while (tolower(cont) != 'q');
 
 	return 0;
 }
