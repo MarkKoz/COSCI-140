@@ -12,9 +12,9 @@ char* getInput();
  * Appends a character to the end of a C string.
  *
  * @param   c           the character to be appended
- * @param   cstring     the C string to which to append
+ * @param   cstring     a pointer to the C string to which to append
  * @param   length      the length of cstring including NUL
  */
-void appendChar(char c, char* cstring, int length);
+void appendChar(char c, char** cstring, int length);
 
 #endif
