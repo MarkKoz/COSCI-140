@@ -6,7 +6,7 @@
 using namespace std;
 
 int main() {
-	char cont;
+	char cont = 0;
 
 	do {
 		char* input = getInput();
@@ -20,8 +20,14 @@ int main() {
 		cout << endl;*/
 
 		cout << "\nEnter [q/Q] to quit or any other character to input a new "
-				"sequence." << endl;
-		cin >> cont;
+				"sequence: ";
+		cin.get(cont);
+
+		while (cin.get() != '\n') { // Ignores all following characters.
+			cont = 0; // Continues if > 1 char entered.
+		}
+
+		cout << endl;
 	} while (tolower(cont) != 'q');
 
 	return 0;
