@@ -13,8 +13,17 @@ char* getInput();
  *
  * @param   c           the character to be appended
  * @param   cstring     a pointer to the C string to which to append
- * @param   length      the length of cstring including NUL
  */
-void appendChar(char c, char** cstring, int length);
+void appendChar(char c, char** cstring);
+
+/**
+ * Searches for given characters in a C string and returns their frequencies.
+ *
+ * @param   cstring     the C string to search
+ * @param   chars       a C string of chars for which to search
+ * @return              an array of ints representing the frequency for each
+ *                      char in the same order as chars
+ */
+int* getCharFreq(char* cstring, char* chars);
 
 #endif

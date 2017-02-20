@@ -51,19 +51,20 @@ char* getInput() {
 	cin.get(c);
 
 	while (c != '\n') {
-		appendChar(c, &input, length);
-		length++;
+		appendChar(c, &input);
 		cin.get(c);
 	}
 
-/*	for (cin.get(c); c != '\n'; length++, cin.get(c)) {
-		appendChar(c, input, length);
+/*	for (cin.get(c); c != '\n'; cin.get(c)) {
+		appendChar(c, input);
 	}*/
 
 	return input;
 }
 
-void appendChar(char c, char** cstring, int length) {
+void appendChar(char c, char** cstring) {
+	size_t length = strlen(*cstring) + 1;
+
 	// Copies current string.
 	char* buffer = new char[length];
 	strcpy(buffer, *cstring);
