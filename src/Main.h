@@ -24,7 +24,7 @@ void appendChar(char c, char** cstring);
  * @return              an array of ints representing the frequency for each
  *                      char in the same order as chars
  */
-int* getFreqsChars(char* cstring, char* chars);
+int* getFreqsChars(char* cstring, const char* chars);
 
 /**
  * Prints the given characters and their frequency as a list. Prints the
@@ -36,6 +36,6 @@ int* getFreqsChars(char* cstring, char* chars);
  * @param   chars       a char array of chars to print
  * @param   freqs       an int array of frequencies for chars
  */
-void printCharsFreqs(char* chars, int* freqs);
+void printCharsFreqs(const char* chars, const int* freqs);
 
 #endif

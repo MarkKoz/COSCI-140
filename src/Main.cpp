@@ -10,10 +10,10 @@ int main() {
 
 	do {
 		char* input = getInput();
-		char lowerVowels[] = {'a', 'e', 'i', 'o', 'u'};
-		char upperVowels[] = {'A', 'E', 'I', 'O', 'U'};
-		int * lowerFreqs = getFreqsChars(input, lowerVowels);
-		int * upperFreqs = getFreqsChars(input, upperVowels);
+		const char lowerVowels[] = {'a', 'e', 'i', 'o', 'u'};
+		const char upperVowels[] = {'A', 'E', 'I', 'O', 'U'};
+		const int * lowerFreqs = getFreqsChars(input, lowerVowels);
+		const int * upperFreqs = getFreqsChars(input, upperVowels);
 
 		delete [] input;
 		cout << "Lower-case vowels present: ";
@@ -63,7 +63,7 @@ char* getInput() {
 }
 
 void appendChar(char c, char** cstring) {
-	size_t length = strlen(*cstring) + 1;
+	const size_t length = strlen(*cstring) + 1;
 
 	// Copies current string.
 	char* buffer = new char[length];
@@ -80,8 +80,8 @@ void appendChar(char c, char** cstring) {
 	*(*cstring + length) = '\0';
 }
 
-int* getFreqsChars(char* cstring, char* chars) {
-	size_t length = strlen(chars);
+int* getFreqsChars(char* cstring, const char* chars) {
+	const size_t length = strlen(chars);
 	int* freqs = new int[length];
 
 	// Initialises array with zeroes.
@@ -100,8 +100,8 @@ int* getFreqsChars(char* cstring, char* chars) {
 	return freqs;
 }
 
-void printCharsFreqs(char* chars, int* freqs) {
-	size_t length = strlen(chars);
+void printCharsFreqs(const char* chars, const int* freqs) {
+	const size_t length = strlen(chars);
 	int highestFreq = 0;
 	int highestIndex = -1; // Index of char with highest frequency.
 	bool noHighest = false;
