@@ -10,14 +10,7 @@ int main() {
 
 	do {
 		char* input = getInput();
-
-/*		cout << "\nYour input is: ";
-
-		for (int i = 0; *(input + i) != '\0'; i++) {
-			cout << *(input + i);
-		}
-
-		cout << endl;*/
+		delete [] input;
 
 		cout << "\nEnter [q/Q] to quit or any other character to input a new "
 				"sequence: ";
@@ -34,12 +27,8 @@ int main() {
 }
 
 char* getInput() {
-	char* input = nullptr;
-	char c = 0;
-	int length = 2;
-
 	cout << "Enter any sequence of characters: ";
-	cin.get(c);
+	char c = cin.get();
 
 	// TODO: Disallow whitespace as first character?
 	while (isspace(c) && c != ' ') {
@@ -47,7 +36,7 @@ char* getInput() {
 		cin.get(c);
 	}
 
-	input = new char[length] {c, '\0'};
+	char* input = new char[2] {c, '\0'};
 	cin.get(c);
 
 	while (c != '\n') {
@@ -78,4 +67,25 @@ void appendChar(char c, char** cstring) {
 	// Puts next char into string and terminates it with NUL.
 	*(*cstring + length - 1) = c;
 	*(*cstring + length) = '\0';
+}
+
+int* getCharFreq(char* cstring, char* chars) {
+	size_t strLength = strlen(cstring);
+	size_t charsLength = strlen(chars);
+	int* freqs = new int[charsLength];
+
+	// Initialises array with zeroes.
+	for (int i = 0; i < charsLength; i++) {
+		freqs[i] = 0;
+	}
+
+	for (int i = 0; i < charsLength; i++) {
+		for (int j = 0; j < strLength; j++) {
+			if (cstring[j] == chars[i]) {
+				freqs[i]++;
+			}
+		}
+	}
+
+	return freqs;
 }
