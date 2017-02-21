@@ -12,8 +12,8 @@ int main() {
 		char* input = getInput();
 		const char lowerVowels[] = {'a', 'e', 'i', 'o', 'u'};
 		const char upperVowels[] = {'A', 'E', 'I', 'O', 'U'};
-		const int * lowerFreqs = getFreqsChars(input, lowerVowels);
-		const int * upperFreqs = getFreqsChars(input, upperVowels);
+		const int* lowerFreqs = getFreqsChars(input, lowerVowels);
+		const int* upperFreqs = getFreqsChars(input, upperVowels);
 		delete [] input;
 
 		if (lowerFreqs == nullptr) {
@@ -50,7 +50,6 @@ char* getInput() {
 	cout << "Enter any sequence of characters: ";
 	char c = cin.get();
 
-	// TODO: Disallow whitespace as first character?
 	while (isspace(c) && c != ' ') {
 		cout << endl << "Nothing was entered. Please try again: ";
 		cin.get(c);
@@ -63,10 +62,6 @@ char* getInput() {
 		appendChar(c, &input);
 		cin.get(c);
 	}
-
-/*	for (cin.get(c); c != '\n'; cin.get(c)) {
-		appendChar(c, input);
-	}*/
 
 	return input;
 }
