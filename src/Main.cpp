@@ -14,14 +14,23 @@ int main() {
 		const char upperVowels[] = {'A', 'E', 'I', 'O', 'U'};
 		const int * lowerFreqs = getFreqsChars(input, lowerVowels);
 		const int * upperFreqs = getFreqsChars(input, upperVowels);
-
 		delete [] input;
-		cout << "Lower-case vowels present: ";
-		printCharsFreqs(lowerVowels, lowerFreqs);
-		delete [] lowerFreqs;
-		cout << "Upper-case vowels present: ";
-		printCharsFreqs(upperVowels, upperFreqs);
-		delete [] upperFreqs;
+
+		if (lowerFreqs == nullptr) {
+			cout << "\nLower-case vowels present: none" << endl;
+		} else {
+			cout << "\nLower-case vowels present: ";
+			printCharsFreqs(lowerVowels, lowerFreqs);
+			delete [] lowerFreqs;
+		}
+
+		if (upperFreqs == nullptr) {
+			cout << "\nUpper-case vowels present: none" << endl;
+		} else {
+			cout << "\nUpper-case vowels present: ";
+			printCharsFreqs(upperVowels, upperFreqs);
+			delete [] upperFreqs;
+		}
 
 		cout << "\nEnter [q/Q] to quit or any other character to input a new "
 				"sequence: ";
@@ -83,6 +92,7 @@ void appendChar(char c, char** cstring) {
 int* getFreqsChars(char* cstring, const char* chars) {
 	const size_t length = strlen(chars);
 	int* freqs = new int[length];
+	bool isEmpty = true;
 
 	// Initialises array with zeroes.
 	for (int i = 0; i < length; i++) {
@@ -93,8 +103,14 @@ int* getFreqsChars(char* cstring, const char* chars) {
 		for (int j = 0; cstring[j] != '\0'; j++) {
 			if (cstring[j] == chars[i]) {
 				freqs[i]++;
+				isEmpty = false;
 			}
 		}
+	}
+
+	if (isEmpty) {
+		delete [] freqs;
+		freqs = nullptr;
 	}
 
 	return freqs;
@@ -102,6 +118,7 @@ int* getFreqsChars(char* cstring, const char* chars) {
 
 void printCharsFreqs(const char* chars, const int* freqs) {
 	const size_t length = strlen(chars);
+	bool isFirst = true;
 	int highestFreq = 0;
 	int highestIndex = -1; // Index of char with highest frequency.
 	bool noHighest = false;
@@ -110,11 +127,12 @@ void printCharsFreqs(const char* chars, const int* freqs) {
 		int freq = freqs[i];
 
 		if (freq != 0) {
-			if (i != 0) {
+			if (!isFirst) {
 				cout << ", ";
 			}
 
 			cout << chars[i] << " [" << freq << "]";
+			isFirst = false;
 		}
 
 		// Prints line feed after the last char.

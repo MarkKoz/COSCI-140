@@ -18,6 +18,7 @@ void appendChar(char c, char** cstring);
 
 /**
  * Searches for given characters in a C string and returns their frequencies.
+ * Returns nullptr if all frequencies are 0.
  *
  * @param   cstring     the C string to search
  * @param   chars       a C string of chars for which to search
