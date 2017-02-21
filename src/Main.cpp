@@ -110,10 +110,18 @@ void printCharsFreqs(char* chars, int* freqs) {
 		int freq = freqs[i];
 
 		if (freq != 0) {
+			if (i != 0) {
+				cout << ", ";
+			}
+
 			cout << chars[i] << " [" << freq << "]";
 		}
 
-		cout << (i == length - 1 ? "\n" : ", ");
+		// Prints line feed after the last char.
+		if (i == length - 1) {
+			cout << "\n";
+		}
+
 		noHighest = freq == highestFreq;
 
 		if (freq > highestFreq) {
