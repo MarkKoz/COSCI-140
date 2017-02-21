@@ -122,9 +122,9 @@ void printCharsFreqs(char* chars, int* freqs) {
 			cout << "\n";
 		}
 
-		noHighest = freq == highestFreq;
-
-		if (freq > highestFreq) {
+		if (freq == highestFreq) {
+			noHighest = true;
+		} else if (freq > highestFreq) {
 			highestFreq = freq;
 			highestIndex = i;
 			noHighest = false;
