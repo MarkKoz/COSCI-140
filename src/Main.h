@@ -24,6 +24,18 @@ void appendChar(char c, char** cstring);
  * @return              an array of ints representing the frequency for each
  *                      char in the same order as chars
  */
-int* getCharFreq(char* cstring, char* chars);
+int* getFreqsChars(char* cstring, char* chars);
+
+/**
+ * Prints the given characters and their frequency as a list. Prints the
+ * character with the highest frequency on a separate line.
+ *
+ * If two or more characters share the highest frequency, a message
+ * indicating a lack of a highest frequency is printed instead.
+ *
+ * @param   chars       a char array of chars to print
+ * @param   freqs       an int array of frequencies for chars
+ */
+void printCharsFreqs(char* chars, int* freqs);
 
 #endif

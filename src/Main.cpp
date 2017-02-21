@@ -10,7 +10,18 @@ int main() {
 
 	do {
 		char* input = getInput();
+		char lowerVowels[] = {'a', 'e', 'i', 'o', 'u'};
+		char upperVowels[] = {'A', 'E', 'I', 'O', 'U'};
+		int * lowerFreqs = getFreqsChars(input, lowerVowels);
+		int * upperFreqs = getFreqsChars(input, upperVowels);
+
 		delete [] input;
+		cout << "Lower-case vowels present: ";
+		printCharsFreqs(lowerVowels, lowerFreqs);
+		delete [] lowerFreqs;
+		cout << "Upper-case vowels present: ";
+		printCharsFreqs(upperVowels, upperFreqs);
+		delete [] upperFreqs;
 
 		cout << "\nEnter [q/Q] to quit or any other character to input a new "
 				"sequence: ";
@@ -69,18 +80,17 @@ void appendChar(char c, char** cstring) {
 	*(*cstring + length) = '\0';
 }
 
-int* getCharFreq(char* cstring, char* chars) {
-	size_t strLength = strlen(cstring);
-	size_t charsLength = strlen(chars);
-	int* freqs = new int[charsLength];
+int* getFreqsChars(char* cstring, char* chars) {
+	size_t length = strlen(chars);
+	int* freqs = new int[length];
 
 	// Initialises array with zeroes.
-	for (int i = 0; i < charsLength; i++) {
+	for (int i = 0; i < length; i++) {
 		freqs[i] = 0;
 	}
 
-	for (int i = 0; i < charsLength; i++) {
-		for (int j = 0; j < strLength; j++) {
+	for (int i = 0; i < length; i++) {
+		for (int j = 0; cstring[j] != '\0'; j++) {
 			if (cstring[j] == chars[i]) {
 				freqs[i]++;
 			}
@@ -88,4 +98,36 @@ int* getCharFreq(char* cstring, char* chars) {
 	}
 
 	return freqs;
+}
+
+void printCharsFreqs(char* chars, int* freqs) {
+	size_t length = strlen(chars);
+	int highestFreq = 0;
+	int highestIndex = -1; // Index of char with highest frequency.
+	bool noHighest = false;
+
+	for (int i = 0; i < length; i++) {
+		int freq = freqs[i];
+
+		if (freq != 0) {
+			cout << chars[i] << " [" << freq << "]";
+		}
+
+		cout << (i == length - 1 ? "\n" : ", ");
+		noHighest = freq == highestFreq;
+
+		if (freq > highestFreq) {
+			highestFreq = freq;
+			highestIndex = i;
+			noHighest = false;
+		}
+ 	}
+
+	cout << "Most frequently occurring: ";
+
+	if (noHighest) {
+		cout << "none" << endl;
+	} else {
+		cout << chars[highestIndex] << " [" << highestFreq << "]" << endl;
+	}
 }
