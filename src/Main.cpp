@@ -13,13 +13,14 @@ int main() {
 	studentType* students = nullptr;
 	int numStudents = 0;
 
-	parseFile("Data.txt", &students, &numStudents);
+	parseFile("Data.txt", &students, numStudents);
 
 	return 0;
 }
 
-void readFile(string fileName, string** lines, int* numLines) {
+void parseFile(string fileName, studentType** students, int &numStudents) {
 	string line;
+	int col = 0;
 	ifstream stream;
 
 	stream.open(fileName);
@@ -27,34 +28,34 @@ void readFile(string fileName, string** lines, int* numLines) {
 	if (stream.fail()) {
 		cout << "\nError opening file '" << fileName << "'." << endl;
 	} else {
-		while (getline(stream, line)) {
-			string* buffer = new string[numLines];
+		while (getline(stream, line, ' ')) {
+			if (col == 0) {
+				studentType* buffer = new studentType[numStudents];
 
-			for (int i = 0; i < *numLines; i++) {
-				buffer[i] = *lines[i];
+				for (int i = 0; i < numStudents; i++) {
+					buffer[i] = *students[i];
+				}
+
+				delete [] students;
+				numStudents++;
+				*students = new studentType[numStudents];
+
+				for (int i = 0; i < numStudents - 1; i++) {
+					*students[i] = buffer[i];
+				}
+
+				delete [] buffer;
+				students[numStudents]->studentFName = line;
+			} else if (col == 1) {
+				students[numStudents]->studentLName = line;
+			} else if (col == 2) {
+				students[numStudents]->grade = line[0];
+				col = -1;
 			}
 
-			delete [] lines;
-			numLines++;
-			*lines = new string[numLines];
-
-			for (int i = 0; i < *numLines - 1; i++) {
-				*lines[i] = buffer[i];
-			}
-
-			delete [] buffer;
-			*lines[*numLines] = line;
+			col++;
 		}
-	}
-}
 
-void parseFile(string fileName, studentType** students, int* numStudents) {
-	string* lines = nullptr;
-	int numLines = 0;
-
-	readFile(fileName, &lines, &numLines);
-
-	for (int i = 0; i < numLines; i++) {
-		*students[i];
+		stream.close();
 	}
 }

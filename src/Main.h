@@ -5,8 +5,8 @@
 
 using namespace std;
 
-void readFile(string fileName, string** lines, int* numLines);
+struct studentType;
 
-void parseFile(string fileName);
+void parseFile(string fileName, studentType** students, int &numStudents);
 
 #endif
