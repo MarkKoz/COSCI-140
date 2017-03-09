@@ -14,7 +14,8 @@ int main() {
 	int numStudents = 0;
 
 	parseFile("Data.txt", &students, numStudents);
-	setGrades(&students, numStudents);
+	setGrades(students, numStudents);
+	writeFile("Out.txt", students, numStudents);
 
 	return 0;
 }
@@ -61,9 +62,18 @@ void parseFile(string fileName, studentType** students, int &numStudents) {
 	}
 }
 
-void setGrades(studentType** students, int numStudents) {
+void writeFile(string fileName, studentType* students, int numStudents,
+               int highestScore, studentType* highestStudents) {
+	ofstream stream;
+
+	stream.open(fileName);
+
+	stream.close();
+}
+
+void setGrades(studentType* students, int numStudents) {
 	for (int i = 0; i < numStudents; i++) {
-		int score = students[i]->testScore;
+		int score = students[i].testScore;
 		char grade = 0;
 
 		if (score >= 90) {
@@ -78,6 +88,6 @@ void setGrades(studentType** students, int numStudents) {
 			grade = 'F';
 		}
 
-		students[i]->grade = grade;
+		students[i].grade = grade;
 	}
 }

@@ -9,6 +9,9 @@ struct studentType;
 
 void parseFile(string fileName, studentType** students, int &numStudents);
 
-void setGrades(studentType** students, int numStudents);
+void writeFile(string fileName, studentType* students, int numStudents,
+               int highestScore, studentType* highestStudents);
+
+void setGrades(studentType* students, int numStudents);
 
 #endif
