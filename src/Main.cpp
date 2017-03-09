@@ -14,6 +14,7 @@ int main() {
 	int numStudents = 0;
 
 	parseFile("Data.txt", &students, numStudents);
+	setGrades(&students, numStudents);
 
 	return 0;
 }
@@ -60,7 +61,7 @@ void parseFile(string fileName, studentType** students, int &numStudents) {
 	}
 }
 
-void setGrade(studentType** students, int numStudents) {
+void setGrades(studentType** students, int numStudents) {
 	for (int i = 0; i < numStudents; i++) {
 		int score = students[i]->testScore;
 		char grade = 0;

@@ -9,4 +9,6 @@ struct studentType;
 
 void parseFile(string fileName, studentType** students, int &numStudents);
 
+void setGrades(studentType** students, int numStudents);
+
 #endif
