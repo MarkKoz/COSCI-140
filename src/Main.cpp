@@ -59,3 +59,24 @@ void parseFile(string fileName, studentType** students, int &numStudents) {
 		stream.close();
 	}
 }
+
+void setGrade(studentType** students, int numStudents) {
+	for (int i = 0; i < numStudents; i++) {
+		int score = students[i]->testScore;
+		char grade = 0;
+
+		if (score >= 90) {
+			grade = 'A';
+		} else if (score >= 80) {
+			grade = 'B';
+		} else if (score >= 70) {
+			grade = 'C';
+		} else if (score >= 60) {
+			grade = 'D';
+		} else {
+			grade = 'F';
+		}
+
+		students[i]->grade = grade;
+	}
+}
