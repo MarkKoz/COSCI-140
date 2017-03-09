@@ -49,7 +49,7 @@ void parseFile(string fileName, studentType** students, int &numStudents) {
 			} else if (col == 1) {
 				students[numStudents]->studentLName = line;
 			} else if (col == 2) {
-				students[numStudents]->grade = line[0];
+				students[numStudents]->testScore = stoi(line);
 				col = -1;
 			}
 
