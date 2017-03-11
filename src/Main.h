@@ -9,7 +9,8 @@ struct studentType;
 
 int getHighestScore(studentType* students, int numStudents);
 
-studentType* getStudentsWithScore(int score, studentType* students, int numStudents);
+void getStudentsWithScore(int score, studentType* students, int numStudents,
+                          studentType** out, int& outSize);
 
 void parseFile(string fileName, studentType** students, int &numStudents);
 

@@ -17,9 +17,11 @@ int main() {
 	setGrades(students, numStudents);
 
 	int scoreHighest = getHighestScore(students, numStudents);
-	studentType* studentsHighest = getStudentsWithScore(scoreHighest, students, numStudents);
+	studentType* studentsHighest = nullptr;
 	int numStudentsHighest = 0;
 
+	getStudentsWithScore(scoreHighest, students, numStudents,
+	                     &studentsHighest, numStudentsHighest);
 	writeFile("Out.txt", students, numStudents, scoreHighest,
 	          studentsHighest, numStudentsHighest);
 
@@ -40,7 +42,8 @@ int getHighestScore(studentType* students, int numStudents) {
 	return highestScore;
 }
 
-studentType* getStudentsWithScore(int score, studentType* students, int numStudents) {
+void getStudentsWithScore(int score, studentType* students, int numStudents,
+                          studentType** out, int& outSize) {
 	studentType* studentsWithScore = nullptr;
 	int size = 0;
 
@@ -51,7 +54,7 @@ studentType* getStudentsWithScore(int score, studentType* students, int numStude
 	}
 }
 
-void parseFile(string fileName, studentType** students, int &numStudents) {
+void parseFile(string fileName, studentType** students, int& numStudents) {
 	string line;
 	int col = 0;
 	ifstream stream;
@@ -112,7 +115,7 @@ void setGrades(studentType* students, int numStudents) {
 
 // Would use a template, but it doesn't really matter since this function is
 // only used for arrays of type studentType.
-void expandArray(studentType** array, int &size, int increment) {
+void expandArray(studentType** array, int& size, int increment) {
 	studentType* buffer = new studentType[size];
 
 	for (int i = 0; i < size; i++) {
