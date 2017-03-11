@@ -44,12 +44,13 @@ int getHighestScore(studentType* students, int numStudents) {
 
 void getStudentsWithScore(int score, studentType* students, int numStudents,
                           studentType** out, int& outSize) {
-	studentType* studentsWithScore = nullptr;
-	int size = 0;
 
 	for (int i = 0; i < numStudents; i++) {
-		if (students[i].testScore == score) {
-			expandArray(&studentsWithScore, size, 1);
+		studentType student = students[i];
+
+		if (student.testScore == score) {
+			expandArray(out, outSize, 1);
+			*out[outSize] = student;
 		}
 	}
 }
