@@ -15,9 +15,40 @@ int main() {
 
 	parseFile("Data.txt", &students, numStudents);
 	setGrades(students, numStudents);
-	writeFile("Out.txt", students, numStudents);
+
+	int scoreHighest = getHighestScore(students, numStudents);
+	studentType* studentsHighest = getStudentsWithScore(scoreHighest, students, numStudents);
+	int numStudentsHighest = 0;
+
+	writeFile("Out.txt", students, numStudents, scoreHighest,
+	          studentsHighest, numStudentsHighest);
 
 	return 0;
+}
+
+int getHighestScore(studentType* students, int numStudents) {
+	int highestScore = 0;
+
+	for (int i = 0; i < numStudents; i++) {
+		int studentScore = students[i].testScore;
+
+		if (studentScore > highestScore) {
+			highestScore = studentScore;
+		}
+	}
+
+	return highestScore;
+}
+
+studentType* getStudentsWithScore(int score, studentType* students, int numStudents) {
+	studentType* studentsWithScore = nullptr;
+	int size = 0;
+
+	for (int i = 0; i < numStudents; i++) {
+		if (students[i].testScore == score) {
+			expandArray(&studentsWithScore, size, 1);
+		}
+	}
 }
 
 void parseFile(string fileName, studentType** students, int &numStudents) {
@@ -32,21 +63,7 @@ void parseFile(string fileName, studentType** students, int &numStudents) {
 	} else {
 		while (getline(stream, line, ' ')) {
 			if (col == 0) {
-				studentType* buffer = new studentType[numStudents];
-
-				for (int i = 0; i < numStudents; i++) {
-					buffer[i] = *students[i];
-				}
-
-				delete [] students;
-				numStudents++;
-				*students = new studentType[numStudents];
-
-				for (int i = 0; i < numStudents - 1; i++) {
-					*students[i] = buffer[i];
-				}
-
-				delete [] buffer;
+				expandArray(students, numStudents, 1);
 				students[numStudents]->studentFName = line;
 			} else if (col == 1) {
 				students[numStudents]->studentLName = line;
@@ -63,7 +80,8 @@ void parseFile(string fileName, studentType** students, int &numStudents) {
 }
 
 void writeFile(string fileName, studentType* students, int numStudents,
-               int highestScore, studentType* highestStudents) {
+               int scoreHighest, studentType* studentsHighest, int
+               numStudentsHighest) {
 	ofstream stream;
 
 	stream.open(fileName);
@@ -90,4 +108,24 @@ void setGrades(studentType* students, int numStudents) {
 
 		students[i].grade = grade;
 	}
+}
+
+// Would use a template, but it doesn't really matter since this function is
+// only used for arrays of type studentType.
+void expandArray(studentType** array, int &size, int increment) {
+	studentType* buffer = new studentType[size];
+
+	for (int i = 0; i < size; i++) {
+		buffer[i] = *array[i];
+	}
+
+	delete [] array;
+	size += increment;
+	*array = new studentType[size];
+
+	for (int i = 0; i < size - 1; i++) {
+		*array[i] = buffer[i];
+	}
+
+	delete [] buffer;
 }
