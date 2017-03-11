@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 #include "Main.h"
 
 struct studentType {
@@ -60,10 +61,10 @@ void parseFile(string fileName, studentType** students, int& numStudents) {
 	int col = 0;
 	ifstream stream;
 
-	stream.open(fileName);
+	stream.open(fileName, ios::in);
 
 	if (stream.fail()) {
-		cout << "\nError opening file '" << fileName << "'." << endl;
+		cout << "\nError opening file '" << fileName << "'.\n";
 	} else {
 		while (getline(stream, line, ' ')) {
 			if (col == 0) {
@@ -88,9 +89,36 @@ void writeFile(string fileName, studentType* students, int numStudents,
                numStudentsHighest) {
 	ofstream stream;
 
-	stream.open(fileName);
+	stream.open(fileName, ios::out);
 
-	stream.close();
+	if (stream.fail()) {
+		cout << "\nError creating file '" << fileName << "'.\n";
+	} else {
+		cout << left << setw(28) << "Student Name";
+		cout << right << setw(12) << "Test Score";
+		cout << setw(8) << "Grade\n";
+
+		for (int i = 0; i < numStudents; i++) {
+			studentType student = students[i];
+			string name = student.studentFName + ", " + student.studentLName;
+
+			cout << left << setw(28) << name;
+			cout << right << setw(12) << student.testScore;
+			cout << setw(8) << student.grade << '\n';
+		}
+
+		cout << "\nHighest Test Score:" << scoreHighest << '\n';
+		cout << "Students having the highest test score:\n";
+
+		for (int i = 0; i < numStudentsHighest; i++) {
+			studentType student = studentsHighest[i];
+			string name = student.studentFName + ", " + student.studentLName;
+
+			cout << left << setw(28) << name;
+		}
+
+		stream.close();
+	}
 }
 
 void setGrades(studentType* students, int numStudents) {
