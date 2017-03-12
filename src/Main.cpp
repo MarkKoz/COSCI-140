@@ -14,7 +14,10 @@ int main() {
 	studentType** students = nullptr;
 	int numStudents = 0;
 
-	parseFile("Data.txt", &students, numStudents);
+	if(!parseFile("Data.txt", &students, numStudents)) {
+		return 1;
+	}
+
 	setGrades(students, numStudents);
 
 	int scoreHighest = getHighestScore(students, numStudents);
@@ -23,8 +26,11 @@ int main() {
 
 	getStudentsWithScore(scoreHighest, students, numStudents,
 	                     &studentsHighest, numStudentsHighest);
-	writeFile("Out.txt", students, numStudents, scoreHighest,
-	          studentsHighest, numStudentsHighest);
+
+	if (!writeFile("Out.txt", students, numStudents, scoreHighest,
+	               studentsHighest, numStudentsHighest)) {
+		return 1;
+	}
 
 	cout << "Process complete.\n";
 
@@ -58,7 +64,7 @@ void getStudentsWithScore(int score, studentType** students, int numStudents,
 	}
 }
 
-void parseFile(string fileName, studentType*** students, int& numStudents) {
+bool parseFile(string fileName, studentType*** students, int& numStudents) {
 	string line;
 	ifstream stream;
 
@@ -66,6 +72,8 @@ void parseFile(string fileName, studentType*** students, int& numStudents) {
 
 	if (stream.fail()) {
 		cout << "\nError opening file '" << fileName << "'.\n";
+
+		return false;
 	} else {
 		while (getline(stream, line)) {
 			size_t index;
@@ -96,10 +104,12 @@ void parseFile(string fileName, studentType*** students, int& numStudents) {
 		}
 
 		stream.close();
+
+		return true;
 	}
 }
 
-void writeFile(string fileName, studentType** students, int numStudents,
+bool writeFile(string fileName, studentType** students, int numStudents,
                int scoreHighest, studentType** studentsHighest, int
                numStudentsHighest) {
 	ofstream stream;
@@ -108,6 +118,8 @@ void writeFile(string fileName, studentType** students, int numStudents,
 
 	if (stream.fail()) {
 		cout << "\nError creating file '" << fileName << "'.\n";
+
+		return false;
 	} else {
 		stream << left << setw(28) << "Student Name";
 		stream << right << setw(12) << "Test Score";
@@ -133,6 +145,8 @@ void writeFile(string fileName, studentType** students, int numStudents,
 		}
 
 		stream.close();
+
+		return true;
 	}
 }
 

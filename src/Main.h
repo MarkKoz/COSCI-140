@@ -12,9 +12,9 @@ int getHighestScore(studentType** students, int numStudents);
 void getStudentsWithScore(int score, studentType** students, int numStudents,
                           studentType*** out, int& outSize);
 
-void parseFile(string fileName, studentType*** students, int &numStudents);
+bool parseFile(string fileName, studentType*** students, int &numStudents);
 
-void writeFile(string fileName, studentType** students, int numStudents,
+bool writeFile(string fileName, studentType** students, int numStudents,
                int scoreHighest, studentType** studentsHighest, int
                numStudentsHighest);
 
