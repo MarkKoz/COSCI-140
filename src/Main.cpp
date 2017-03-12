@@ -26,6 +26,8 @@ int main() {
 	writeFile("Out.txt", students, numStudents, scoreHighest,
 	          studentsHighest, numStudentsHighest);
 
+	cout << "Process complete.\n";
+
 	return 0;
 }
 
@@ -107,27 +109,27 @@ void writeFile(string fileName, studentType** students, int numStudents,
 	if (stream.fail()) {
 		cout << "\nError creating file '" << fileName << "'.\n";
 	} else {
-		cout << left << setw(28) << "Student Name";
-		cout << right << setw(12) << "Test Score";
-		cout << setw(8) << "Grade" << '\n';
+		stream << left << setw(28) << "Student Name";
+		stream << right << setw(12) << "Test Score";
+		stream << setw(8) << "Grade" << '\n';
 
 		for (int i = 0; i < numStudents; i++) {
 			studentType* student = students[i];
 			string name = student->studentFName + ", " + student->studentLName;
 
-			cout << left << setw(28) << name;
-			cout << right << setw(12) << student->testScore;
-			cout << setw(8) << student->grade << '\n';
+			stream << left << setw(28) << name;
+			stream << right << setw(12) << student->testScore;
+			stream << setw(8) << student->grade << '\n';
 		}
 
-		cout << "\nHighest Test Score: " << scoreHighest << '\n';
-		cout << "Students having the highest test score:\n";
+		stream << "\nHighest Test Score: " << scoreHighest << '\n';
+		stream << "Students having the highest test score:\n";
 
 		for (int i = 0; i < numStudentsHighest; i++) {
 			studentType* student = studentsHighest[i];
 			string name = student->studentFName + ", " + student->studentLName;
 
-			cout << left << name << '\n';
+			stream << left << name << '\n';
 		}
 
 		stream.close();
