@@ -109,7 +109,7 @@ void writeFile(string fileName, studentType** students, int numStudents,
 	} else {
 		cout << left << setw(28) << "Student Name";
 		cout << right << setw(12) << "Test Score";
-		cout << setw(8) << "Grade\n";
+		cout << setw(8) << "Grade" << '\n';
 
 		for (int i = 0; i < numStudents; i++) {
 			studentType* student = students[i];
@@ -120,14 +120,14 @@ void writeFile(string fileName, studentType** students, int numStudents,
 			cout << setw(8) << student->grade << '\n';
 		}
 
-		cout << "\nHighest Test Score:" << scoreHighest << '\n';
+		cout << "\nHighest Test Score: " << scoreHighest << '\n';
 		cout << "Students having the highest test score:\n";
 
 		for (int i = 0; i < numStudentsHighest; i++) {
 			studentType* student = studentsHighest[i];
 			string name = student->studentFName + ", " + student->studentLName;
 
-			cout << left << setw(28) << name;
+			cout << left << name << '\n';
 		}
 
 		stream.close();
