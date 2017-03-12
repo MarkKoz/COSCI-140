@@ -11,14 +11,14 @@ struct studentType {
 };
 
 int main() {
-	studentType* students = nullptr;
+	studentType** students = nullptr;
 	int numStudents = 0;
 
 	parseFile("Data.txt", &students, numStudents);
 	setGrades(students, numStudents);
 
 	int scoreHighest = getHighestScore(students, numStudents);
-	studentType* studentsHighest = nullptr;
+	studentType** studentsHighest = nullptr;
 	int numStudentsHighest = 0;
 
 	getStudentsWithScore(scoreHighest, students, numStudents,
@@ -29,11 +29,11 @@ int main() {
 	return 0;
 }
 
-int getHighestScore(studentType* students, int numStudents) {
+int getHighestScore(studentType** students, int numStudents) {
 	int highestScore = 0;
 
 	for (int i = 0; i < numStudents; i++) {
-		int studentScore = students[i].testScore;
+		int studentScore = students[i]->testScore;
 
 		if (studentScore > highestScore) {
 			highestScore = studentScore;
@@ -43,22 +43,21 @@ int getHighestScore(studentType* students, int numStudents) {
 	return highestScore;
 }
 
-void getStudentsWithScore(int score, studentType* students, int numStudents,
-                          studentType** out, int& outSize) {
+void getStudentsWithScore(int score, studentType** students, int numStudents,
+                          studentType*** out, int& outSize) {
 
 	for (int i = 0; i < numStudents; i++) {
-		studentType student = students[i];
+		studentType* student = students[i];
 
-		if (student.testScore == score) {
+		if (student->testScore == score) {
 			expandArray(out, outSize, 1);
-			*out[outSize] = student;
+			(*out)[outSize - 1] = student;
 		}
 	}
 }
 
-void parseFile(string fileName, studentType** students, int& numStudents) {
+void parseFile(string fileName, studentType*** students, int& numStudents) {
 	string line;
-	int col = 0;
 	ifstream stream;
 
 	stream.open(fileName, ios::in);
@@ -66,26 +65,40 @@ void parseFile(string fileName, studentType** students, int& numStudents) {
 	if (stream.fail()) {
 		cout << "\nError opening file '" << fileName << "'.\n";
 	} else {
-		while (getline(stream, line, ' ')) {
-			if (col == 0) {
-				expandArray(students, numStudents, 1);
-				students[numStudents]->studentFName = line;
-			} else if (col == 1) {
-				students[numStudents]->studentLName = line;
-			} else if (col == 2) {
-				students[numStudents]->testScore = stoi(line);
-				col = -1;
-			}
+		while (getline(stream, line)) {
+			size_t index;
+			string forename;
+			string surname;
+			string score;
 
-			col++;
+			// Wanted to read line by a line and create a stringstream of the
+			// lines, allowing me to use getline with a space
+			// delimiter instead of having to do all of this below.
+			index = line.find(' ');
+			forename = line.substr(0, index);
+			line.erase(0, index + 1);
+
+			index = line.find(' ');
+			surname = line.substr(0, index);
+			line.erase(0, index + 1);
+
+			index = line.find(' ');
+			score = line.substr(0, index);
+
+			expandArray(students, numStudents, 1);
+
+			(*students)[numStudents - 1] = new studentType;
+			(*students)[numStudents - 1]->studentFName = forename;
+			(*students)[numStudents - 1]->studentLName = surname;
+			(*students)[numStudents - 1]->testScore = stoi(score);
 		}
 
 		stream.close();
 	}
 }
 
-void writeFile(string fileName, studentType* students, int numStudents,
-               int scoreHighest, studentType* studentsHighest, int
+void writeFile(string fileName, studentType** students, int numStudents,
+               int scoreHighest, studentType** studentsHighest, int
                numStudentsHighest) {
 	ofstream stream;
 
@@ -99,20 +112,20 @@ void writeFile(string fileName, studentType* students, int numStudents,
 		cout << setw(8) << "Grade\n";
 
 		for (int i = 0; i < numStudents; i++) {
-			studentType student = students[i];
-			string name = student.studentFName + ", " + student.studentLName;
+			studentType* student = students[i];
+			string name = student->studentFName + ", " + student->studentLName;
 
 			cout << left << setw(28) << name;
-			cout << right << setw(12) << student.testScore;
-			cout << setw(8) << student.grade << '\n';
+			cout << right << setw(12) << student->testScore;
+			cout << setw(8) << student->grade << '\n';
 		}
 
 		cout << "\nHighest Test Score:" << scoreHighest << '\n';
 		cout << "Students having the highest test score:\n";
 
 		for (int i = 0; i < numStudentsHighest; i++) {
-			studentType student = studentsHighest[i];
-			string name = student.studentFName + ", " + student.studentLName;
+			studentType* student = studentsHighest[i];
+			string name = student->studentFName + ", " + student->studentLName;
 
 			cout << left << setw(28) << name;
 		}
@@ -121,9 +134,10 @@ void writeFile(string fileName, studentType* students, int numStudents,
 	}
 }
 
-void setGrades(studentType* students, int numStudents) {
+void setGrades(studentType** students, int numStudents) {
 	for (int i = 0; i < numStudents; i++) {
-		int score = students[i].testScore;
+		studentType* student = students[i];
+		int score = student->testScore;
 		char grade = 0;
 
 		if (score >= 90) {
@@ -138,26 +152,29 @@ void setGrades(studentType* students, int numStudents) {
 			grade = 'F';
 		}
 
-		students[i].grade = grade;
+		student->grade = grade;
 	}
 }
 
 // Would use a template, but it doesn't really matter since this function is
 // only used for arrays of type studentType.
-void expandArray(studentType** array, int& size, int increment) {
-	studentType* buffer = new studentType[size];
+void expandArray(studentType*** array, int& size, int increment) {
+	if (size == 0 || *array == nullptr) {
+		size = increment;
+		*array = new studentType*[size];
+	} else {
+		studentType* buffer[size];
 
-	for (int i = 0; i < size; i++) {
-		buffer[i] = *array[i];
+		for (int i = 0; i < size; i++) {
+			buffer[i] = (*array)[i];
+		}
+
+		delete [] *array;
+		size += increment;
+		*array = new studentType*[size];
+
+		for (int i = 0; i < size - increment; i++) {
+			(*array)[i] = buffer[i];
+		}
 	}
-
-	delete [] array;
-	size += increment;
-	*array = new studentType[size];
-
-	for (int i = 0; i < size - 1; i++) {
-		*array[i] = buffer[i];
-	}
-
-	delete [] buffer;
 }

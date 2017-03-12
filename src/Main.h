@@ -7,19 +7,19 @@ using namespace std;
 
 struct studentType;
 
-int getHighestScore(studentType* students, int numStudents);
+int getHighestScore(studentType** students, int numStudents);
 
-void getStudentsWithScore(int score, studentType* students, int numStudents,
-                          studentType** out, int& outSize);
+void getStudentsWithScore(int score, studentType** students, int numStudents,
+                          studentType*** out, int& outSize);
 
-void parseFile(string fileName, studentType** students, int &numStudents);
+void parseFile(string fileName, studentType*** students, int &numStudents);
 
-void writeFile(string fileName, studentType* students, int numStudents,
-               int scoreHighest, studentType* studentsHighest, int
+void writeFile(string fileName, studentType** students, int numStudents,
+               int scoreHighest, studentType** studentsHighest, int
                numStudentsHighest);
 
-void setGrades(studentType* students, int numStudents);
+void setGrades(studentType** students, int numStudents);
 
-void expandArray(studentType** array, int &size, int increment);
+void expandArray(studentType*** array, int &size, int increment);
 
 #endif
