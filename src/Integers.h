@@ -3,10 +3,12 @@
 
 class Integers {
 public:
-	int inputSize = 5;
-	int inputArray[];
+	int inputSize;
+	int* inputArray;
 
-	Integers(int inputSize);
+	Integers(int& inputSize);
+
+	~Integers();
 
 	void setUserEntry();
 
