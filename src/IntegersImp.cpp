@@ -36,8 +36,16 @@ void Integers::setUserEntry() {
 bool Integers::validate(string input) {
 	size_t length = input.length();
 
+	if (input.empty()) {
+		cout << "The input given is empty. Please try again.\n";
+
+		return false;
+	}
+
 	for (int i = 0; i < length; i++) {
-		if (!isdigit(input[i])) {
+		char c = input[i];
+
+		if ((i == 0 && c != '-' && !isdigit(c)) || (i != 0 && !isdigit(c))) {
 			cout << "The input given is not an integer. Please try again.\n";
 
 			return false;
