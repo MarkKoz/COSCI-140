@@ -7,6 +7,12 @@ using namespace std;
 Integers::Integers(int inputSize) {
 	this->inputSize = inputSize;
 	inputArray = new int[inputSize];
+
+	// Why is this necessary if the program will never access the values of
+	// the array before it has been filled with valid integers?
+	for (int i = 0; i < inputSize; i++) {
+		inputArray[i] = 0;
+	}
 }
 
 Integers::~Integers() {
@@ -42,9 +48,36 @@ bool Integers::validate(string input) {
 }
 
 void Integers::displayIntegers() const {
+	cout << "The integers inputted were: ";
 
+	for (int i = 0; i < inputSize; i++) {
+		cout << inputArray[i];
+
+		if (i == inputSize - 1) {
+			cout << '\n';
+		} else {
+			cout << ", ";
+		}
+	}
 }
 
 void Integers::getLargestSmallestIntegers() {
+	int first = inputArray[0];
+	int smallest = first;
+	int largest = first;
 
+	for (int i = 1; i < inputSize; i++) {
+		int input = inputArray[i];
+
+		if (input < smallest) {
+			smallest = input;
+		}
+
+		if (input > largest) {
+			largest = input;
+		}
+	}
+
+	cout << "Smallest integer: " << smallest << '\n';
+	cout << "Largest integer: " << largest << '\n';
 }

@@ -7,9 +7,6 @@ using namespace std;
 
 class Integers {
 public:
-	int inputSize;
-	int* inputArray;
-
 	Integers(int inputSize);
 
 	~Integers();
@@ -21,6 +18,10 @@ public:
 	void displayIntegers() const;
 
 	void getLargestSmallestIntegers();
+
+private:
+	int inputSize;
+	int* inputArray;
 };
 
 #endif

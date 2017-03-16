@@ -5,10 +5,13 @@ using namespace std;
 
 int main() {
 	char cont = 0;
+
 	do {
 		Integers integers(5);
 
 		integers.setUserEntry();
+		integers.displayIntegers();
+		integers.getLargestSmallestIntegers();
 
 		cout << "\nEnter [q/Q] to quit or any other character to input new "
 				"integers: ";
