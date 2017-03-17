@@ -7,11 +7,10 @@
 
 ### Tasks
 1. Prompt the user to input 5 integers.
-2. Print the largest and smallest integer of the set inputted.
+2. Prints all the integers inputted.
+2. Print the largest integer and smallest integer of the set inputted.
 
 ### Requirements
-* Store user inputs into a one-dimensional array of type `int`.
-    * Assume all integers in the array are unique and distinct.
 * `class Integers`
     * `public: setUserEntry()`
         1. Prompts the user to input an integer.
@@ -19,11 +18,14 @@
             * If not an integer, prompts the user to input a new value.
     * `public: validate()`
         * Validates that a given user input is an integer.
-    * `const displayIntegers()`
+    * `public: displayIntegers() const`
         * Uses a loop to display the values of the array.
         * No parameters.
-    * `getLargestSmallestIntegers()`
+    * `public: getLargestSmallestIntegers()`
         * Displays the largest and smallest integers in the array.
+    * `private` array of type `int`
+        * User inputs are stored here.
+        * Assume all integers in the array are unique and distinct.
     * Loop in constructor to initialise elements in the array to 0.
 * Continue/quit loop in `main()`.
 * Submit the following 3 files:
