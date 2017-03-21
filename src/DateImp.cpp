@@ -111,14 +111,14 @@ void Date::showDate3() {
 /**
  * Determines if the given year is a leap year.
  *
- * A year is a leap year if it is divisible by 4 and not divisible by 100
- * (unless it is also divisible by 400).
+ * A year is a leap year if it is exactly divisible by 4 and not exactly
+ * divisible by 100 (unless it is also exactly divisible by 400).
  *
  * @param   y       the year to be checked
  * @return          true if a leap year, false otherwise
  */
 bool Date::isLeapYear(int y) {
-	return false;
+	return y % 4 == 0 && (y % 100 != 0 || (y % 100 == 0 && y % 400 == 0));
 }
 
 /******************************************************************************
