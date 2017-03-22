@@ -36,10 +36,18 @@ Date::Date(int m, int d, int y) {
 /**
  * Sets the month to the given integer.
  *
+ * Validates the month to be in the range [1, 12].
+ *
  * @param   m       the month to set to
  * @return          true if the given month is valid, false otherwise
  */
 bool Date::setMonth(int m) {
+	if (m >= 1 && m <= NUM_MONTHS) {
+		month = m;
+
+		return true;
+	}
+
 	return false;
 }
 
@@ -56,10 +64,18 @@ bool Date::setDay(int d) {
 /**
  * Sets the year to the given integer.
  *
+ * Validates the year to be in the range [1900, 9999].
+ *
  * @param   y       the year to set to
  * @return          true if the given year is valid, false otherwise
  */
 bool Date::setYear(int y) {
+	if (y >= 1900 && y <= 9999) {
+		year = y;
+
+		return true;
+	}
+
 	return false;
 }
 
