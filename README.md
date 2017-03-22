@@ -16,7 +16,7 @@
     | `++`     | Increment (Prefix & Postfix) | Increments `day`.                                  |
     | `--`     | Decrement (Prefix & Postfix) | Decrements `day`.                                  |
     | `-`      | Subtraction                  | Calculates the number of days between two dates.   |
-    | `<<`     | Stream Insertion             | Formats the date like so: January 1, 1900          |
+    | `<<`     | Stream Insertion             | Formats the date like so: January 21, 2001         |
     | `>>`     | Stream Extraction            | Prompts the user for a date to store.              |
 
     * Detect and handle the following conditions accordingly:

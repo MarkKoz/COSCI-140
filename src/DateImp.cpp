@@ -245,11 +245,16 @@ bool Date::operator<(const Date&) {
 /**
  * Stream insertion operator (<<).
  *
+ * Formats the date in the following format: %B %d, %Y
  *
+ * Example: January 21, 2001
  *
- * @return
+ * @return          a stream with the formatted date
  */
 ostream& operator<<(ostream& stream, Date& date) {
+	stream << date.names[date.month + 1] << " " << date.day << ", "
+	       << date.year;
+
 	return stream;
 }
 
@@ -259,7 +264,7 @@ ostream& operator<<(ostream& stream, Date& date) {
  * Prompts the user to input a date and validates it. If valid, stores the
  * date into a Date object.
  *
- * @return
+ * @return          a stream with the inputted date
  */
 istream& operator>>(istream& stream, Date& date) {
 	bool isValid;
