@@ -4,10 +4,6 @@
 
 using namespace std;
 
-/******************************************************************************
- Constructors
- ******************************************************************************/
-
 /**
  * Default constructor.
  */
@@ -31,10 +27,6 @@ Date::Date(int m, int d, int y) {
 	setDay(d);
 	setYear(y);
 }
-
-/******************************************************************************
- Mutators
- ******************************************************************************/
 
 /**
  * Sets the month to the given integer.
@@ -126,10 +118,6 @@ void Date::setDays() {
 	}
 }
 
-/******************************************************************************
- Other Member Functions
- ******************************************************************************/
-
 /**
  * Prints to console the date in the following format: %m/%d/%Y
  *
@@ -145,7 +133,7 @@ void Date::showDate1() {
  * Example: January 21, 2001
  */
 void Date::showDate2() {
-	cout << names[month + 1] << " " << day << ", " << year << '\n';
+	cout << names[month - 1] << " " << day << ", " << year << '\n';
 }
 
 /**
@@ -154,7 +142,7 @@ void Date::showDate2() {
  * Example: 21 January, 2001
  */
 void Date::showDate3() {
-	cout << day << " " << names[month + 1] << " " << year << '\n';
+	cout << day << " " << names[month - 1] << " " << year << '\n';
 }
 
 /**
@@ -170,19 +158,43 @@ bool Date::isLeapYear(int y) {
 	return y % 4 == 0 && (y % 100 != 0 || (y % 100 == 0 && y % 400 == 0));
 }
 
-/******************************************************************************
- Overloaded Operators
- ******************************************************************************/
-
 /**
  * Prefix increment operator (++).
  *
  * Increments the day by 1.
  *
+ * Exits the program if the year of the resulting date is outside of the valid
+ * range [1900,9999].
+ *
  * @return          the new date after being incremented by 1 day
  */
 Date Date::operator++() {
-	return Date();
+	int d = day + 1;
+	int m = month;
+	int y = year;
+
+	if (d > numDays[month - 1]) {
+		m = month + 1;
+		d = 1;
+	}
+
+	if (m > NUM_MONTHS) {
+		m = 1;
+		y = year + 1;
+	}
+
+	if (y > 9999) {
+		cout << "Year " << y << "is outside of the valid range [1900,9999]. "
+				"Exiting program.\n";
+
+		exit(EXIT_FAILURE);
+	}
+
+	day = d;
+	month = m;
+	year = y;
+
+	return *this;
 }
 
 /**
@@ -190,10 +202,38 @@ Date Date::operator++() {
  *
  * Increments the day by 1.
  *
+ * Exits the program if the year of the resulting date is outside of the valid
+ * range [1900,9999].
+ *
  * @return          the new date after being incremented by 1 day
  */
 Date Date::operator++(int) {
-	return Date();
+	int d = day + 1;
+	int m = month;
+	int y = year;
+
+	if (d > numDays[month - 1]) {
+		m = month + 1;
+		d = 1;
+	}
+
+	if (m > NUM_MONTHS) {
+		m = 1;
+		y = year + 1;
+	}
+
+	if (y > 9999) {
+		cout << "Year " << y << "is outside of the valid range [1900,9999]. "
+				"Exiting program.\n";
+
+		exit(EXIT_FAILURE);
+	}
+
+	day = d;
+	month = m;
+	year = y;
+
+	return *this;
 }
 
 /**
@@ -204,7 +244,7 @@ Date Date::operator++(int) {
  * @return          the new date after being decremented by 1 day
  */
 Date Date::operator--() {
-	return Date();
+	return *this;
 }
 
 /**
@@ -215,7 +255,7 @@ Date Date::operator--() {
  * @return          the new date after being decremented by 1 day
  */
 Date Date::operator--(int) {
-	return Date();
+	return *this;
 }
 
 /*
@@ -252,7 +292,7 @@ bool Date::operator<(const Date&) {
  * @return          a stream with the formatted date
  */
 ostream& operator<<(ostream& stream, Date& date) {
-	stream << date.names[date.month + 1] << " " << date.day << ", "
+	stream << date.names[date.month - 1] << " " << date.day << ", "
 	       << date.year;
 
 	return stream;
