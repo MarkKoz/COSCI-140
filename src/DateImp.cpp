@@ -183,16 +183,15 @@ Date Date::operator++() {
 		y = year + 1;
 	}
 
-	if (y > 9999) {
-		cout << "Year " << y << "is outside of the valid range [1900,9999]. "
+	if (!setYear(y)) {
+		cout << "Year " << y << " is outside of the valid range [1900,9999]. "
 				"Exiting program.\n";
 
 		exit(EXIT_FAILURE);
 	}
 
-	day = d;
-	month = m;
-	year = y;
+	setMonth(m);
+	setDay(d);
 
 	return *this;
 }
@@ -222,16 +221,15 @@ Date Date::operator++(int) {
 		y = year + 1;
 	}
 
-	if (y > 9999) {
-		cout << "Year " << y << "is outside of the valid range [1900,9999]. "
+	if (!setYear(y)) {
+		cout << "Year " << y << " is outside of the valid range [1900,9999]. "
 				"Exiting program.\n";
 
 		exit(EXIT_FAILURE);
 	}
 
-	day = d;
-	month = m;
-	year = y;
+	setMonth(m);
+	setDay(d);
 
 	return *this;
 }
@@ -240,10 +238,40 @@ Date Date::operator++(int) {
  * Prefix decrement operator (--).
  *
  * Decrements the day by 1.
+ *
+ * Exits the program if the year of the resulting date is outside of the valid
+ * range [1900,9999].
  *
  * @return          the new date after being decremented by 1 day
  */
 Date Date::operator--() {
+	int d = day - 1;
+	int m = month;
+	int y = year;
+
+	if (d < 1) {
+		m = month - 1;
+	}
+
+	if (m < 1) {
+		m = 12;
+		y = year - 1;
+	}
+
+	if (!setYear(y)) {
+		cout << "Year " << y << " is outside of the valid range [1900,9999]. "
+				"Exiting program.\n";
+
+		exit(EXIT_FAILURE);
+	}
+
+	if (d < 1) {
+		d = numDays[m - 1];
+	}
+
+	setMonth(m);
+	setDay(d);
+
 	return *this;
 }
 
@@ -252,9 +280,39 @@ Date Date::operator--() {
  *
  * Decrements the day by 1.
  *
+ * Exits the program if the year of the resulting date is outside of the valid
+ * range [1900,9999].
+ *
  * @return          the new date after being decremented by 1 day
  */
 Date Date::operator--(int) {
+	int d = day - 1;
+	int m = month;
+	int y = year;
+
+	if (d < 1) {
+		m = month - 1;
+	}
+
+	if (m < 1) {
+		m = 12;
+		y = year - 1;
+	}
+
+	if (!setYear(y)) {
+		cout << "Year " << y << " is outside of the valid range [1900,9999]. "
+				"Exiting program.\n";
+
+		exit(EXIT_FAILURE);
+	}
+
+	if (d < 1) {
+		d = numDays[m - 1];
+	}
+
+	setMonth(m);
+	setDay(d);
+
 	return *this;
 }
 
