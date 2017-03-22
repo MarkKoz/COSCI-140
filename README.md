@@ -26,7 +26,7 @@
         * When a date is set to January 1 and decremented, it should become December 31 of the previous year.
     * Input validation for `>>`.
         * Invalid dates: 13/45/2014
-        * Valid year range: [1900, 9999]
+        * Valid year range: [1900,9999]
 
 ### Prohibitions
 * Global variables.

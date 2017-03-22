@@ -39,7 +39,7 @@ Date::Date(int m, int d, int y) {
 /**
  * Sets the month to the given integer.
  *
- * Validates the month to be in the range [1, NUM_MONTHS].
+ * Validates the month to be in the range [1,NUM_MONTHS].
  *
  * @param   m       the month to set to
  * @return          true if the given month is valid, false otherwise
@@ -76,7 +76,7 @@ bool Date::setDay(int d) {
 /**
  * Sets the year to the given integer.
  *
- * Validates the year to be in the range [1900, 9999].
+ * Validates the year to be in the range [1900,9999].
  *
  * @param   y       the year to set to
  * @return          true if the given year is valid, false otherwise
@@ -232,7 +232,7 @@ bool Date::operator>(const Date&) {
  *
  * @return          the number of days between two dates
  */
-int Date::operator-(const Date&) {
+int Date::operator-(const Date& subtrahend) {
 	return 0;
 }
 
@@ -249,17 +249,125 @@ bool Date::operator<(const Date&) {
  *
  * @return
  */
-ostream& operator<<(ostream&, Date&) {
-	return <#initializer#>;
+ostream& operator<<(ostream& stream, Date& date) {
+	return stream;
 }
 
 /**
  * Stream extraction operator (>>).
  *
- *
+ * Prompts the user to input a date and validates it. If valid, stores the
+ * date into a Date object.
  *
  * @return
  */
-istream& operator>>(istream&, Date&) {
-	return <#initializer#>;
+istream& operator>>(istream& stream, Date& date) {
+	bool isValid;
+
+	do {
+		string y;
+		isValid = true;
+
+		cout << "Enter the year as an integer [1900,9999]: ";
+		stream >> y;
+		cout << '\n';
+
+		if (y.empty()) {
+			cout << "The input given is empty. Please try again.\n\n";
+
+			isValid = false;
+		}
+
+		size_t length = y.length();
+
+		for (int i = 0; isValid && i < length; i++) {
+			if (!isdigit(y[i])) {
+				cout << "The input given is not an integer. "
+						"Please try again.\n\n";
+
+				isValid = false;
+			}
+		}
+
+		if(isValid && !date.setYear(stoi(y))) {
+			cout << "The year given is outside of the valid range. Please try "
+					"again.\n\n";
+
+			isValid = false;
+		}
+	} while (!isValid);
+
+	cout << '\n';
+
+	do {
+		string m;
+		isValid = true;
+
+		cout << "Enter the month as an integer [1,12]: ";
+		stream >> m;
+		cout << '\n';
+
+		if (m.empty()) {
+			cout << "The input given is empty. Please try again.\n\n";
+
+			isValid = false;
+		}
+
+		size_t length = m.length();
+
+		for (int i = 0; isValid && i < length; i++) {
+			if (!isdigit(m[i])) {
+				cout << "The input given is not an integer. "
+						"Please try again.\n\n";
+
+				isValid = false;
+			}
+		}
+
+		if(isValid && !date.setMonth(stoi(m))) {
+			cout << "The month given is outside of the valid range. Please try "
+					"again.\n\n";
+
+			isValid = false;
+		}
+	} while (!isValid);
+
+	cout << '\n';
+
+	do {
+		string d;
+		isValid = true;
+
+		cout << "Enter the day as an integer: ";
+		stream >> d;
+		cout << '\n';
+
+		if (d.empty()) {
+			cout << "The input given is empty. Please try again.\n\n";
+
+			isValid = false;
+		}
+
+		size_t length = d.length();
+
+		for (int i = 0; isValid && i < length; i++) {
+			if (!isdigit(d[i])) {
+				cout << "The input given is not an integer. "
+						"Please try again.\n\n";
+
+				isValid = false;
+			}
+		}
+
+		if(isValid && !date.setDay(stoi(d))) {
+			cout << "The day given is outside of the valid range. Please try "
+					"again.\n\n";
+
+			isValid = false;
+		}
+	} while (!isValid);
+
+	cout << '\n';
+
+	return stream;
 }
