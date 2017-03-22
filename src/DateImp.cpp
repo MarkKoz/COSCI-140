@@ -13,6 +13,7 @@ using namespace std;
  */
 Date::Date() {
 	setNames();
+	setDays();
 }
 
 /**
@@ -23,10 +24,12 @@ Date::Date() {
  * @param   y       the year
  */
 Date::Date(int m, int d, int y) {
+	setNames();
+	setDays();
+
 	setMonth(m);
 	setDay(d);
 	setYear(y);
-	setNames();
 }
 
 /******************************************************************************
@@ -36,7 +39,7 @@ Date::Date(int m, int d, int y) {
 /**
  * Sets the month to the given integer.
  *
- * Validates the month to be in the range [1, 12].
+ * Validates the month to be in the range [1, NUM_MONTHS].
  *
  * @param   m       the month to set to
  * @return          true if the given month is valid, false otherwise
@@ -54,10 +57,19 @@ bool Date::setMonth(int m) {
 /**
  * Sets the day to the given integer.
  *
+ * Validates the day to be within the valid range of days for the month
+ * corresponding to the current value of the month field.
+ *
  * @param   d       the day to set to
  * @return          true if the given day is valid, false otherwise
  */
 bool Date::setDay(int d) {
+	if (d <= numDays[month - 1]) {
+		day = d;
+
+		return true;
+	}
+
 	return false;
 }
 
@@ -99,6 +111,9 @@ void Date::setNames() {
 
 /**
  * Populates the numDays array with the number of days for each month.
+ *
+ * Accounts for leap year based the year corresponding to the current value
+ * of the year field.
  */
 void Date::setDays() {
 	int adj = isLeapYear(year) ? 2 : 1; // Number of days to subtract from Feb.
