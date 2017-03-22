@@ -83,18 +83,36 @@ bool Date::setYear(int y) {
  * Populates the names array with the names of the months.
  */
 void Date::setNames() {
-
+	names[0] = "January";
+	names[1] = "February";
+	names[2] = "March";
+	names[3] = "April";
+	names[4] = "May";
+	names[5] = "June";
+	names[6] = "July";
+	names[7] = "August";
+	names[8] = "September";
+	names[9] = "October";
+	names[10] = "November";
+	names[11] = "December";
 }
 
 /**
  * Populates the numDays array with the number of days for each month.
  */
 void Date::setDays() {
+	int adj = isLeapYear(year) ? 2 : 1; // Number of days to subtract from Feb.
 
+	for (int m = 1; m <= NUM_MONTHS; m++) {
+		numDays[m - 1] = 30 + // Base. Formula below adds 1 or 0 to base.
+		                 (m + (m / 8)) % 2 - // Reverses pattern at m >= 8.
+		                 ((2 / m) * adj) + // Applies only to 1 <= m <= 2.
+		                 ((1 / m) * adj * 2); // Applies only to m = 1.
+	}
 }
 
 /******************************************************************************
- Other Functions
+ Other Member Functions
  ******************************************************************************/
 
 /**
