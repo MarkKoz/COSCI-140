@@ -10,6 +10,10 @@ using namespace std;
  * Default constructor.
  */
 Date::Date() {
+	setYear(1900);
+	setMonth(1);
+	setDay(1);
+
 	setNames();
 	setDays();
 }
