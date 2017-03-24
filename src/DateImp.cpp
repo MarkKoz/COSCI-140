@@ -33,56 +33,50 @@ Date::Date(int m, int d, int y) {
 /**
  * Sets the month to the given integer.
  *
- * Validates the month to be in the range [1,NUM_MONTHS].
+ * Validates the month to be in the range [1,NUM_MONTHS] but sets it
+ * regardless of validity.
  *
  * @param   m       the month to set to
  * @return          true if the given month is valid, false otherwise
  */
 bool Date::setMonth(int m) {
-	if (m >= 1 && m <= NUM_MONTHS) {
-		month = m;
+	month = m;
 
-		return true;
-	}
+	return m >= 1 && m <= NUM_MONTHS;
 
-	return false;
 }
 
 /**
  * Sets the day to the given integer.
  *
  * Validates the day to be within the valid range of days for the month
- * corresponding to the current value of the month field.
+ * corresponding to the current value of the month field. Sets it
+ * regardless of validity.
  *
  * @param   d       the day to set to
  * @return          true if the given day is valid, false otherwise
  */
 bool Date::setDay(int d) {
-	if (d <= numDays[month - 1]) {
-		day = d;
+	day = d;
 
-		return true;
-	}
+	return d <= numDays[month - 1];
 
-	return false;
 }
 
 /**
  * Sets the year to the given integer.
  *
- * Validates the year to be in the range [1900,9999].
+ * Validates the year to be in the range [1900,9999] but sets it regardless
+ * of validity.
  *
  * @param   y       the year to set to
  * @return          true if the given year is valid, false otherwise
  */
 bool Date::setYear(int y) {
-	if (y >= 1900 && y <= 9999) {
-		year = y;
+	year = y;
 
-		return true;
-	}
+	return y >= 1900 && y <= 9999;
 
-	return false;
 }
 
 /**
@@ -379,7 +373,6 @@ istream& operator>>(istream& stream, Date& date) {
 
 		cout << "Enter the year as an integer [1900,9999]: ";
 		stream >> y;
-		cout << '\n';
 
 		if (y.empty()) {
 			cout << "The input given is empty. Please try again.\n\n";
@@ -406,13 +399,14 @@ istream& operator>>(istream& stream, Date& date) {
 		}
 	} while (!isValid);
 
+	cout << '\n';
+
 	do {
 		string m;
 		isValid = true;
 
 		cout << "Enter the month as an integer [1,12]: ";
 		stream >> m;
-		cout << '\n';
 
 		if (m.empty()) {
 			cout << "The input given is empty. Please try again.\n\n";
@@ -439,13 +433,14 @@ istream& operator>>(istream& stream, Date& date) {
 		}
 	} while (!isValid);
 
+	cout << '\n';
+
 	do {
 		string d;
 		isValid = true;
 
 		cout << "Enter the day as an integer: ";
 		stream >> d;
-		cout << '\n';
 
 		if (d.empty()) {
 			cout << "The input given is empty. Please try again.\n\n";
@@ -471,6 +466,8 @@ istream& operator>>(istream& stream, Date& date) {
 			isValid = false;
 		}
 	} while (!isValid);
+
+	cout << '\n';
 
 	return stream;
 }
