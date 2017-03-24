@@ -1,3 +1,5 @@
+#include <cctype>
+#include <cstdlib>
 #include <iostream>
 #include <string>
 #include "Date.h"
@@ -110,7 +112,7 @@ void Date::setNames() {
 void Date::setDays() {
 	int adj = isLeapYear(year) ? 2 : 1; // Number of days to subtract from Feb.
 
-	for (int m = 1; m <= NUM_MONTHS; m++) {
+	for (int m = 1; m <= NUM_MONTHS; ++m) {
 		numDays[m - 1] = 30 + // Base. Formula below adds 1 or 0 to base.
 		                 (m + (m / 8)) % 2 - // Reverses pattern at m >= 8.
 		                 ((2 / m) * adj) + // Applies only to 1 <= m <= 2.
@@ -204,9 +206,11 @@ Date Date::operator++() {
  * Exits the program if the year of the resulting date is outside of the valid
  * range [1900,9999].
  *
- * @return          the new date after being incremented by 1 day
+ * @return          the date before being incremented by 1 day
  */
 Date Date::operator++(int) {
+	Date temp = *this;
+
 	int d = day + 1;
 	int m = month;
 	int y = year;
@@ -231,7 +235,7 @@ Date Date::operator++(int) {
 	setMonth(m);
 	setDay(d);
 
-	return *this;
+	return temp;
 }
 
 /**
@@ -283,9 +287,11 @@ Date Date::operator--() {
  * Exits the program if the year of the resulting date is outside of the valid
  * range [1900,9999].
  *
- * @return          the new date after being decremented by 1 day
+ * @return          the date before being decremented by 1 day
  */
 Date Date::operator--(int) {
+	Date temp = *this;
+
 	int d = day - 1;
 	int m = month;
 	int y = year;
@@ -313,7 +319,7 @@ Date Date::operator--(int) {
 	setMonth(m);
 	setDay(d);
 
-	return *this;
+	return temp;
 }
 
 /*
@@ -349,7 +355,7 @@ bool Date::operator<(const Date&) {
  *
  * @return          a stream with the formatted date
  */
-ostream& operator<<(ostream& stream, Date& date) {
+ostream& operator<<(ostream& stream, const Date& date) {
 	stream << date.names[date.month - 1] << " " << date.day << ", "
 	       << date.year;
 
@@ -383,7 +389,7 @@ istream& operator>>(istream& stream, Date& date) {
 
 		size_t length = y.length();
 
-		for (int i = 0; isValid && i < length; i++) {
+		for (int i = 0; isValid && i < length; ++i) {
 			if (!isdigit(y[i])) {
 				cout << "The input given is not an integer. "
 						"Please try again.\n\n";
@@ -399,8 +405,6 @@ istream& operator>>(istream& stream, Date& date) {
 			isValid = false;
 		}
 	} while (!isValid);
-
-	cout << '\n';
 
 	do {
 		string m;
@@ -418,7 +422,7 @@ istream& operator>>(istream& stream, Date& date) {
 
 		size_t length = m.length();
 
-		for (int i = 0; isValid && i < length; i++) {
+		for (int i = 0; isValid && i < length; ++i) {
 			if (!isdigit(m[i])) {
 				cout << "The input given is not an integer. "
 						"Please try again.\n\n";
@@ -434,8 +438,6 @@ istream& operator>>(istream& stream, Date& date) {
 			isValid = false;
 		}
 	} while (!isValid);
-
-	cout << '\n';
 
 	do {
 		string d;
@@ -453,7 +455,7 @@ istream& operator>>(istream& stream, Date& date) {
 
 		size_t length = d.length();
 
-		for (int i = 0; isValid && i < length; i++) {
+		for (int i = 0; isValid && i < length; ++i) {
 			if (!isdigit(d[i])) {
 				cout << "The input given is not an integer. "
 						"Please try again.\n\n";
@@ -469,8 +471,6 @@ istream& operator>>(istream& stream, Date& date) {
 			isValid = false;
 		}
 	} while (!isValid);
-
-	cout << '\n';
 
 	return stream;
 }
