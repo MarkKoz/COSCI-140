@@ -348,58 +348,69 @@ int Date::operator-(const Date& subtrahend) {
 	int diff = 0;
 
 	// Minuend
-	int mDays[NUM_MONTHS]; // Number of days in each month
-
-	// Same as setDays() but not tied to year field.
-	int adj = isLeapYear(year) ? 2 : 1; // Number of days to subtract from Feb.
-
-	for (int m = 1; m <= NUM_MONTHS; ++m) {
-		mDays[m - 1] = 30 + // Base. Formula below adds 1 or 0 to base.
-		               (m + (m / 8)) % 2 - // Reverses pattern at m >= 8.
-		               ((2 / m) * adj) + // Applies only to 1 <= m <= 2.
-		               ((1 / m) * adj * 2); // Applies only to m = 1.
-	}
+	int mY;
+	int mM;
+	int mD;
+	int const* mDays;
 
 	// Subtrahend
-	int sY = subtrahend.year;
-	int sM = subtrahend.month;
-	int sD = subtrahend.day;
-	int sDays[NUM_MONTHS];
+	int sY;
+	int sM;
+	int sD;
+	int const* sDays;
 
-	// TODO: Swap minuend and subtrahend if subtrahend > minuend
+	// Swaps minuend and subtrahend
+	if (*this < subtrahend) {
+		mY = subtrahend.year;
+		mM = subtrahend.month;
+		mD = subtrahend.day;
+		mDays = subtrahend.numDays;
 
-	if (year == sY) { // Copies minuend's array if years are the same.
-		for (int i = 0; i < NUM_MONTHS; ++i) {
-			sDays[i] = mDays[i];
-		}
-	} else { // Same as setDays() but not tied to year field.
-		adj = isLeapYear(year) ? 2 : 1; // Number of days to subtract from Feb.
+		sY = year;
+		sM = month;
+		sD = day;
+		sDays = numDays;
+	} else {
+		mY = year;
+		mM = month;
+		mD = day;
+		mDays = numDays;
 
-		for (int m = 1; m <= NUM_MONTHS; ++m) {
-			sDays[m - 1] = 30 + // Base. Formula below adds 1 or 0 to base.
-			               (m + (m / 8)) % 2 - // Reverses pattern at m >= 8.
-			               ((2 / m) * adj) + // Applies only to 1 <= m <= 2.
-			               ((1 / m) * adj * 2); // Applies only to m = 1.
-		}
+		sY = subtrahend.year;
+		sM = subtrahend.month;
+		sD = subtrahend.day;
+		sDays = subtrahend.numDays;
 	}
 
-	for (int y = sY + 1; y < year; ++y) {
+	for (int y = sY + 1; y < mY; ++y) {
 		isLeapYear(y) ? diff += 366 : diff += 365;
 	}
 
-	// Adds days for full months in the minuend's year.
-	for (int m = 1; m < month; ++m) {
-		diff += mDays[m - 1];
-	}
+	if (mY == sY) {
+		// Adds days for full months between the subtrahend's and minuend's
+		// months.
+		for (int m = sM + 1; m < mM; ++m) {
+			diff += mDays[m - 1];
+		}
+	} else {
+		// Adds days for full months in the minuend's year.
+		for (int m = 1; m < mM; ++m) {
+			diff += mDays[m - 1];
+		}
 
-	// Adds days for full months in the subtrahends's year.
-	for (int m = sM + 1; m <= NUM_MONTHS; ++m) {
-		diff += sDays[m - 1];
+		// Adds days for full months in the subtrahends's year.
+		for (int m = sM + 1; m <= NUM_MONTHS; ++m) {
+			diff += sDays[m - 1];
+		}
 	}
 
 	// Excludes day of end date.
-	diff += day;
-	diff += sDays[sM - 1] - sD;
+	if (mY == sY && mM == sM) {
+		diff += mD - sD;
+	} else {
+		diff += mD;
+		diff += sDays[sM - 1] - sD;
+	}
 
 	return diff;
 }
