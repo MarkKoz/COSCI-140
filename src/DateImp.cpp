@@ -68,7 +68,8 @@ bool Date::setDay(int d) {
 }
 
 /**
- * Sets the year to the given integer.
+ * Sets the year to the given integer and updates the maximum number of days
+ * for each month.
  *
  * Validates the year to be in the range [1900,9999] but sets it regardless
  * of validity.
@@ -78,6 +79,7 @@ bool Date::setDay(int d) {
  */
 bool Date::setYear(int y) {
 	year = y;
+	setDays();
 
 	return y >= 1900 && y <= 9999;
 
@@ -335,7 +337,66 @@ bool Date::operator>(const Date&) {
  * @return          the number of days between two dates
  */
 int Date::operator-(const Date& subtrahend) {
-	return 0;
+	int diff = 0;
+
+	// Minuend
+	int mY = this->year;
+	int mM = this->month;
+	int mD = this->day;
+	int mDays[NUM_MONTHS]; // Number of days in each month
+
+	// Same as setDays() but not tied to year field.
+	int adj = isLeapYear(mY) ? 2 : 1; // Number of days to subtract from Feb.
+
+	for (int m = 1; m <= NUM_MONTHS; ++m) {
+		mDays[m - 1] = 30 + // Base. Formula below adds 1 or 0 to base.
+		               (m + (m / 8)) % 2 - // Reverses pattern at m >= 8.
+		               ((2 / m) * adj) + // Applies only to 1 <= m <= 2.
+		               ((1 / m) * adj * 2); // Applies only to m = 1.
+	}
+
+	// Subtrahend
+	int sY = subtrahend.year;
+	int sM = subtrahend.month;
+	int sD = subtrahend.day;
+	int sDays[NUM_MONTHS];
+
+	// TODO: Swap minuend and subtrahend if subtrahend > minuend
+
+	if (mY == sY) { // Copies minuend's array if years are the same.
+		for (int i = 0; i < NUM_MONTHS; ++i) {
+			sDays[i] = mDays[i];
+		}
+	} else { // Same as setDays() but not tied to year field.
+		adj = isLeapYear(mY) ? 2 : 1; // Number of days to subtract from Feb.
+
+		for (int m = 1; m <= NUM_MONTHS; ++m) {
+			sDays[m - 1] = 30 + // Base. Formula below adds 1 or 0 to base.
+			               (m + (m / 8)) % 2 - // Reverses pattern at m >= 8.
+			               ((2 / m) * adj) + // Applies only to 1 <= m <= 2.
+			               ((1 / m) * adj * 2); // Applies only to m = 1.
+		}
+	}
+
+	for (int y = sY + 1; y < mY; ++y) {
+		isLeapYear(y) ? diff += 366 : diff += 365;
+	}
+
+	// Adds days for full months in the minuend's year.
+	for (int m = 1; m < mM; ++m) {
+		diff += mDays[m - 1];
+	}
+
+	// Adds days for full months in the subtrahends's year.
+	for (int m = sM + 1; m <= NUM_MONTHS; ++m) {
+		diff += sDays[m - 1];
+	}
+
+	// Excludes day of end date.
+	diff += mD;
+	diff += sDays[sM - 1] - sD;
+
+	return diff;
 }
 
 /*
