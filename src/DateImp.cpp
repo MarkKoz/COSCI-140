@@ -41,7 +41,7 @@ Date::Date(int m, int d, int y) {
  * regardless of validity.
  *
  * @param   m       the month to set to
- * @return          true if the given month is valid, false otherwise
+ * @return          true if the given month is valid; false otherwise
  */
 bool Date::setMonth(int m) {
 	month = m;
@@ -58,7 +58,7 @@ bool Date::setMonth(int m) {
  * regardless of validity.
  *
  * @param   d       the day to set to
- * @return          true if the given day is valid, false otherwise
+ * @return          true if the given day is valid; false otherwise
  */
 bool Date::setDay(int d) {
 	day = d;
@@ -75,7 +75,7 @@ bool Date::setDay(int d) {
  * of validity.
  *
  * @param   y       the year to set to
- * @return          true if the given year is valid, false otherwise
+ * @return          true if the given year is valid; false otherwise
  */
 bool Date::setYear(int y) {
 	year = y;
@@ -154,7 +154,7 @@ void Date::showDate3() {
  * divisible by 100 (unless it is also exactly divisible by 400).
  *
  * @param   y       the year to be checked
- * @return          true if a leap year, false otherwise
+ * @return          true if a leap year; false otherwise
  */
 bool Date::isLeapYear(int y) {
 	return y % 4 == 0 && (y % 100 != 0 || (y % 100 == 0 && y % 400 == 0));
@@ -322,11 +322,19 @@ Date Date::operator--(int) {
 	return temp;
 }
 
-/*
-bool Date::operator>(const Date&) {
-	return false;
+/**
+ * Greater-than operator (>).
+ *
+ * Compares the value to the left of the operator to the value to the right
+ * of the operator to check if the left value is greater than the right value.
+ *
+ * @return          true if left is greater than right; false otherwise
+ */
+bool Date::operator>(const Date& right) {
+	return year > right.year
+	       || (year == right.year && month > right.month)
+	       || (year == right.year && month == right.month && day > right.day);
 }
-*/
 
 /**
  * Subtraction operator (-).
@@ -340,13 +348,10 @@ int Date::operator-(const Date& subtrahend) {
 	int diff = 0;
 
 	// Minuend
-	int mY = this->year;
-	int mM = this->month;
-	int mD = this->day;
 	int mDays[NUM_MONTHS]; // Number of days in each month
 
 	// Same as setDays() but not tied to year field.
-	int adj = isLeapYear(mY) ? 2 : 1; // Number of days to subtract from Feb.
+	int adj = isLeapYear(year) ? 2 : 1; // Number of days to subtract from Feb.
 
 	for (int m = 1; m <= NUM_MONTHS; ++m) {
 		mDays[m - 1] = 30 + // Base. Formula below adds 1 or 0 to base.
@@ -363,12 +368,12 @@ int Date::operator-(const Date& subtrahend) {
 
 	// TODO: Swap minuend and subtrahend if subtrahend > minuend
 
-	if (mY == sY) { // Copies minuend's array if years are the same.
+	if (year == sY) { // Copies minuend's array if years are the same.
 		for (int i = 0; i < NUM_MONTHS; ++i) {
 			sDays[i] = mDays[i];
 		}
 	} else { // Same as setDays() but not tied to year field.
-		adj = isLeapYear(mY) ? 2 : 1; // Number of days to subtract from Feb.
+		adj = isLeapYear(year) ? 2 : 1; // Number of days to subtract from Feb.
 
 		for (int m = 1; m <= NUM_MONTHS; ++m) {
 			sDays[m - 1] = 30 + // Base. Formula below adds 1 or 0 to base.
@@ -378,12 +383,12 @@ int Date::operator-(const Date& subtrahend) {
 		}
 	}
 
-	for (int y = sY + 1; y < mY; ++y) {
+	for (int y = sY + 1; y < year; ++y) {
 		isLeapYear(y) ? diff += 366 : diff += 365;
 	}
 
 	// Adds days for full months in the minuend's year.
-	for (int m = 1; m < mM; ++m) {
+	for (int m = 1; m < month; ++m) {
 		diff += mDays[m - 1];
 	}
 
@@ -393,17 +398,25 @@ int Date::operator-(const Date& subtrahend) {
 	}
 
 	// Excludes day of end date.
-	diff += mD;
+	diff += day;
 	diff += sDays[sM - 1] - sD;
 
 	return diff;
 }
 
-/*
-bool Date::operator<(const Date&) {
-	return false;
+/**
+ * Greater-than operator (<).
+ *
+ * Compares the value to the left of the operator to the value to the right
+ * of the operator to check if the left value is less than the right value.
+ *
+ * @return          true if left is less than right; false otherwise
+ */
+bool Date::operator<(const Date& right) {
+	return year < right.year
+	       || (year == right.year && month < right.month)
+	       || (year == right.year && month == right.month && day < right.day);
 }
-*/
 
 /**
  * Stream insertion operator (<<).
