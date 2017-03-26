@@ -47,7 +47,6 @@ bool Date::setMonth(int m) {
 	month = m;
 
 	return m >= 1 && m <= NUM_MONTHS;
-
 }
 
 /**
@@ -64,7 +63,6 @@ bool Date::setDay(int d) {
 	day = d;
 
 	return d <= numDays[month - 1];
-
 }
 
 /**
@@ -82,7 +80,6 @@ bool Date::setYear(int y) {
 	setDays();
 
 	return y >= 1900 && y <= 9999;
-
 }
 
 /**
@@ -110,7 +107,7 @@ void Date::setNames() {
  * of the year field.
  */
 void Date::setDays() {
-	int adj = isLeapYear(year) ? 2 : 1; // Number of days to subtract from Feb.
+	int adj = isLeapYear(year) ? 1 : 2; // Number of days to subtract from Feb.
 
 	for (int m = 1; m <= NUM_MONTHS; ++m) {
 		numDays[m - 1] = 30 + // Base. Formula below adds 1 or 0 to base.
