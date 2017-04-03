@@ -1,15 +1,15 @@
 #ifndef Division_h
 #define Division_h
 
-#include <string> 
-#include <iostream> 
+#include <string>
+#include <iostream>
+
 using namespace std;
 
-class Division
-{
-
+class Division {
 	//Overload the stream insertion and extraction operators
-	friend ostream& operator<< (ostream&, const Division&);
+	friend ostream& operator<<(ostream&, const Division&);
+
 public:
 	Division();
 	//default constructor
@@ -36,4 +36,5 @@ private:
 	int theAnswer;//variable to store the answer to the problem
 	int userResponse;//variable to store the user response to the problem in int format
 };
+
 #endif

@@ -2,14 +2,14 @@
 #define Addition_h
 
 #include <string> 
-#include <iostream> 
+#include <iostream>
+
 using namespace std;
 
-class Addition
-{
-
+class Addition {
 	//Overload the stream insertion and extraction operators
-	friend ostream& operator<< (ostream&, const Addition&);
+	friend ostream& operator<<(ostream&, const Addition&);
+
 public:
 	Addition();
 	//default constructor
@@ -24,7 +24,7 @@ public:
 	bool checkAnswer();
 	//Function to check userAnswer with problem answer (theAnswer)
 	//Postcondition: if theAnswer==userResponse appropriate feedback is displayed
-    // returns true if user answer is correct or returns false if user answer is incorrect;
+	// returns true if user answer is correct or returns false if user answer is incorrect;
 
 	void validate(string str1);
 	//Function to validate user response
@@ -36,4 +36,5 @@ private:
 	int theAnswer;//variable to store the answer to the problem
 	int userResponse;//variable to store the user response to the problem in int format
 };
+
 #endif

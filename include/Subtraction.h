@@ -1,15 +1,15 @@
 #ifndef Subtraction_h
 #define Subtraction_h
 
-#include <string> 
-#include <iostream> 
+#include <string>
+#include <iostream>
+
 using namespace std;
 
-class Subtraction
-{
-
+class Subtraction {
 	//Overload the stream insertion and extraction operators
-	friend ostream& operator<< (ostream&, const Subtraction&);
+	friend ostream& operator<<(ostream&, const Subtraction&);
+
 public:
 	Subtraction();
 	//default constructor
@@ -36,4 +36,5 @@ private:
 	int theAnswer;//variable to store the answer to the problem
 	int userResponse;//variable to store the user response to the problem in int format
 };
+
 #endif

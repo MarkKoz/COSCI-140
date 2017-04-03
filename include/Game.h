@@ -1,16 +1,14 @@
 #ifndef Game_h
 #define Game_h
 
-
-#include <string> 
-#include <iostream> 
+#include <string>
+#include <iostream>
 #include <fstream>
+
 using namespace std;
 
-class Game
-{
+class Game {
 public:
-	
 	Game();
 	//default constructor
 	//Postcondition: 
@@ -20,35 +18,35 @@ public:
 	totalCorrect = 0;//variable to store the total of correct responses
 	totalWrong = 0;//variable to store the total of incorrect responses
 	*/
-	void  splashScreen ();
+	void splashScreen();
 	//Function to display credits and developer information. 
 
-	void  menu();
+	void menu();
 	//Function to display the menu options and validate them.
-     //Postcondition: continu is equal to: 1 or 2 or 3 or or 5 or n or N; 
+	//Postcondition: continu is equal to: 1 or 2 or 3 or or 5 or n or N;
 
-	void  updateStats(bool correct);
+	void updateStats(bool correct);
 	//Function to update game statistics
-     //Postcondition: updates totalWages and totalCorrect and totalWrong; 
+	//Postcondition: updates totalWages and totalCorrect and totalWrong;
 
-	void  displayStats();
+	void displayStats();
 	//Function to display player statistics
-    
-	void  requestName();
+
+	void requestName();
 	//Function to get userName
 	//This function also invokes the validate method which ensures that the userName is valid; that is, it is not numbers, blanks, non-alpha chars or a combination thereof
-     //Postcondition: creates a new text file if user is a first-time player or reads statistics from text file if user is a returniong player
+	//Postcondition: creates a new text file if user is a first-time player or reads statistics from text file if user is a returniong player
 	//if the player is a "returning player", the statistics are read into: userName, totalWages, totalCorrect, and totalWrong
 
-	void  saveStats();
+	void saveStats();
 	//Function to save statistics into text file
-     //Postcondition:statistics saved are: userName, totalWages, totalCorrect, and totalWrong
+	//Postcondition:statistics saved are: userName, totalWages, totalCorrect, and totalWrong
 
 	void validate(string& str1);
 	//Function to validate userName
 	//userName is not allowed to be more than one word or numbers, blanks, non-alpha chars or a combination thereof
-     //Postcondition: userName is a single word made of alpha chars only
-	
+	//Postcondition: userName is a single word made of alpha chars only
+
 private:
 	string userName;//variable to store the user name
 	double totalWages;//variable to store the total earning
@@ -59,4 +57,5 @@ private:
 	ofstream outData;//used to open file for saving stats
 	ifstream inData;//used to open file for retrieving stats
 };
+
 #endif
