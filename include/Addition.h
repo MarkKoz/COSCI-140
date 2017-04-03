@@ -1,7 +1,7 @@
 #ifndef Addition_h
 #define Addition_h
 
-#include <string> 
+#include <string>
 #include <iostream>
 
 using namespace std;

@@ -7,18 +7,18 @@
 
 ### Tasks
 Develop a program that will teach youngsters basic mathematics: addition, subtraction, multiplication, and division.
-    * Generates random math problems for the user to answer.
-    * The user receives a reward for a correct answer and a pentalty for an incorrect answer.
-    * The user's statistcs need to be recorded into a text file so that the file can be read by the program in the future to retrieve that user's statistics.
-    * The user should be allowed to see his or her own statistics at any time from the menu of the program.
+* Generates random math problems for the user to answer.
+* The user receives a reward for a correct answer and a pentalty for an incorrect answer.
+* The user's statistcs need to be recorded into a text file so that the file can be read by the program in the future to retrieve that user's statistics.
+* The user should be allowed to see his or her own statistics at any time from the menu of the program.
 
 ### Requirements
 * Implement the given header files.
-* Randomly select an operator to use for a problem.
 * Separate classes for each operator.
 	* Ability to generate and display a math problem.
-	* Overload the `<<`operator to display the problem.
+	* Overload the `<<` operator to display the problem.
 	* Check if the user's answer is correct.
+	* Operands are generated randomly.
 	* Addition
 	    * Total is an integer >= 0.
         * `Addition.h` and `Addition.cpp`
