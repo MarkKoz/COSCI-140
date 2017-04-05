@@ -54,8 +54,8 @@ void Subtraction::validate(string str1) {
 			isInvalid = true;
 		}
 
-		for (int index = 0; index < str1.length() && !isInvalid; index++) {
-			if (!isdigit(str1[index])) {
+		for (int i = 0; i < str1.length() && !isInvalid; ++i) {
+			if (!isdigit(str1[i])) {
 				cout << "The answer given is not an integer, please try "
 						"again: ";
 				getline(cin, str1);
