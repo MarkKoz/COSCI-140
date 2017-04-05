@@ -27,9 +27,11 @@ bool Multiplication::checkAnswer() {
 }
 
 void Multiplication::validate(string str1) {
-	bool isInvalid = false;
+	bool isInvalid;
 
 	do {
+		isInvalid = false;
+
 		if (str1 == "") {
 			cout << "The answer given is empty, please try again: ";
 			getline(cin, str1);
@@ -70,7 +72,7 @@ void Multiplication::validate(string str1) {
 }
 
 ostream& operator<<(ostream& stream, const Multiplication& obj) {
-	stream << num1 << " * " << num2 << " = ";
+	stream << obj.num1 << " * " << obj.num1 << " = ";
 
 	return stream;
 }

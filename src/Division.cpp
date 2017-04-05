@@ -31,9 +31,11 @@ bool Division::checkAnswer() {
 }
 
 void Division::validate(string str1) {
-	bool isInvalid = false;
+	bool isInvalid;
 
 	do {
+		isInvalid = false;
+
 		if (str1 == "") {
 			cout << "The answer given is empty, please try again: ";
 			getline(cin, str1);
@@ -74,7 +76,7 @@ void Division::validate(string str1) {
 }
 
 ostream& operator<<(ostream& stream, const Division& obj) {
-	stream << num1 << " / " << num2 << " = ";
+	stream << obj.num1 << " / " << obj.num2 << " = ";
 
 	return stream;
 }
