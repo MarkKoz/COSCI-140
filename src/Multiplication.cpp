@@ -72,7 +72,7 @@ void Multiplication::validate(string str1) {
 }
 
 ostream& operator<<(ostream& stream, const Multiplication& obj) {
-	stream << obj.num1 << " * " << obj.num1 << " = ";
+	stream << obj.num1 << " * " << obj.num2 << " = ";
 
 	return stream;
 }

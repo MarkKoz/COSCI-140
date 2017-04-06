@@ -1,4 +1,5 @@
 #include <cstring>
+#include <iomanip>
 #include <iostream>
 #include "../include/Game.h"
 #include "../include/Addition.h"
@@ -65,7 +66,8 @@ void Game::menu() {
 			cout << add;
 			getline(cin, answer);
 			add.validate(answer);
-			add.checkAnswer();
+			updateStats(add.checkAnswer());
+			saveStats();
 		} else if (input == '2') {
 			Subtraction sub = Subtraction();
 			string answer;
@@ -73,7 +75,8 @@ void Game::menu() {
 			cout << sub;
 			getline(cin, answer);
 			sub.validate(answer);
-			sub.checkAnswer();
+			updateStats(sub.checkAnswer());
+			saveStats();
 		} else if (input == '3') {
 			Multiplication mult = Multiplication();
 			string answer;
@@ -81,7 +84,8 @@ void Game::menu() {
 			cout << mult;
 			getline(cin, answer);
 			mult.validate(answer);
-			mult.checkAnswer();
+			updateStats(mult.checkAnswer());
+			saveStats();
 		} else if (input == '4') {
 			Division div = Division();
 			string answer;
@@ -89,7 +93,8 @@ void Game::menu() {
 			cout << div;
 			getline(cin, answer);
 			div.validate(answer);
-			div.checkAnswer();
+			updateStats(div.checkAnswer());
+			saveStats();
 		} else if (input == '5') {
 			displayStats();
 		} else {
@@ -104,27 +109,89 @@ void Game::updateStats(bool correct) {
 		++totalCorrect;
 		totalWages += 0.05;
 	} else {
-		--totalCorrect;
+		++totalWrong;
 		totalWages -= 0.03;
 	}
 }
 
 void Game::displayStats() {
-
+	cout << "\nStatistics:\n\n";
+    cout << "Name: " << userName << '\n';
+    cout << "Correct: " << totalCorrect << '\n';
+    cout << "Wrong: " << totalWrong << '\n';
+	cout << "Earnings: " << setprecision(3) << totalWages << '\n';
 }
 
 void Game::requestName() {
+	string name;
 
+	cout << "Enter your name: ";
+	getline(cin, name);
+	cout << '\n';
+	validate(name);
+
+	fstream stream;
+	string line;
+
+	stream.open(name + ".txt");
+
+	if (stream.fail()) {
+		stream.open(name + ".txt", ios::in | ios::out | ios::trunc);
+
+		stream << userName << '\n';
+		stream << totalCorrect << '\n';
+		stream << totalWrong << '\n';
+		stream << setprecision(3) << totalWages << '\n';
+
+		stream.close();
+	} else {
+		for (int i = 1; i <= 4; ++i) {
+			getline(stream, line);
+
+			// Does not validate. Assumes file has not been tampered with.
+			switch (i) {
+				case 1:
+					userName = line;
+					break;
+				case 2:
+					totalCorrect = stoi(line);
+					break;
+				case 3:
+					totalWrong = stoi(line);
+					break;
+				case 4:
+					totalWages = stod(line);
+					break;
+			}
+		}
+
+		stream.close();
+	}
 }
 
 void Game::saveStats() {
+	ofstream stream;
 
+	stream.open(userName + ".txt", ios::out | ios::trunc);
+
+	if (stream.fail()) {
+		cout << "Error saving statistics to file.\n";
+	} else {
+		stream << userName << '\n';
+		stream << totalCorrect << '\n';
+		stream << totalWrong << '\n';
+		stream << setprecision(3) << totalWages << '\n';
+
+		stream.close();
+	}
 }
 
 void Game::validate(string& str1) {
-	bool isInvalid = false;
+	bool isInvalid;
 
 	do {
+		isInvalid = false;
+
 		if (str1 == "") {
 			cout << "The name given is empty, please try again: ";
 			getline(cin, str1);
