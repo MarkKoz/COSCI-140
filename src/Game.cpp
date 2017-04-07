@@ -9,6 +9,9 @@
 
 using namespace std;
 
+/**
+ * Constructor. Initialises user's statistics to default values.
+ */
 Game::Game() {
 	userName = "";
 	totalCorrect = 0;
@@ -16,6 +19,9 @@ Game::Game() {
 	totalWages = 0;
 }
 
+/**
+ * Prints to console the title of the game and the author's name.
+ */
 void Game::splashScreen() {
 	cout << "******************************************************************************\n"
 	     << "*   _____ _           ___  ___      _   _       _____                        *\n"
@@ -30,6 +36,21 @@ void Game::splashScreen() {
          << "******************************************************************************\n";
 }
 
+/**
+ * Displays a menu with the following choices and allows the user to make a
+ * selection:
+ *
+ * 1. Addition Expression - displays an addition expression for the user to
+ * solve.
+ * 2. Subtraction Expression - displays a subtraction expression for the user
+ * to solve.
+ * 3. Multiplication Expression - displays a multiplication expression for
+ * the user to solve.
+ * 4. Division Expression - displays a division expression for the user to
+ * solve.
+ * 5. Statistics - displays the user's statistics
+ * 6. Save & Quit - saves the users statistics to file and quits the game.
+ */
 void Game::menu() {
 	cout << "==============================================================================\n"
          << "=--=         Choose an option from the right column and enter the         =--=\n"
@@ -104,16 +125,27 @@ void Game::menu() {
 	} while (retry);
 }
 
+/**
+ * Updates the total correct/wrong answers counter and the total
+ * earnings statistics. Adds/deducts values as defined in the REWARD &
+ * PENALTY constants, respectively.
+ *
+ * @param   correct     true if the user's answer was correct; false otherwise
+ */
 void Game::updateStats(bool correct) {
 	if (correct) {
 		++totalCorrect;
-		totalWages += 0.05;
+		totalWages += REWARD;
 	} else {
 		++totalWrong;
-		totalWages -= 0.03;
+		totalWages -= PENALTY;
 	}
 }
 
+/**
+ * Prints to console the user's statistics (name, total correct, total wrong,
+ * & total earnings).
+ */
 void Game::displayStats() {
 	cout << "\nStatistics:\n\n";
     cout << "Name: " << userName << '\n';
@@ -122,21 +154,28 @@ void Game::displayStats() {
 	cout << "Earnings: " << setprecision(3) << totalWages << '\n';
 }
 
+/**
+ * Prompts the user to enter a name and calls for it to be validated.
+ *
+ * Creates a statistics file with the given name if a statistics file with
+ * the given name does not already exist. Instead, if the file exists, reads
+ * the statistics from the file.
+ */
 void Game::requestName() {
 	string name;
+	string line;
 
 	cout << "Enter your name: ";
 	getline(cin, name);
 	cout << '\n';
 	validate(name);
 
-	fstream stream;
-	string line;
+	inData.open(name + ".txt");
 
-	stream.open(name + ".txt");
+	if (inData.fail()) {
+		ofstream stream;
 
-	if (stream.fail()) {
-		stream.open(name + ".txt", ios::in | ios::out | ios::trunc);
+		stream.open(name + ".txt", ios::out | ios::trunc);
 
 		stream << userName << '\n';
 		stream << totalCorrect << '\n';
@@ -146,7 +185,7 @@ void Game::requestName() {
 		stream.close();
 	} else {
 		for (int i = 1; i <= 4; ++i) {
-			getline(stream, line);
+			getline(inData, line);
 
 			// Does not validate. Assumes file has not been tampered with.
 			switch (i) {
@@ -165,27 +204,37 @@ void Game::requestName() {
 			}
 		}
 
-		stream.close();
+		inData.close();
 	}
 }
 
+/**
+ * Writes to file the user's statistics. Overwrites the previous content in
+ * the file.
+ */
 void Game::saveStats() {
-	ofstream stream;
+	outData.open(userName + ".txt", ios::out | ios::trunc);
 
-	stream.open(userName + ".txt", ios::out | ios::trunc);
-
-	if (stream.fail()) {
+	if (outData.fail()) {
 		cout << "Error saving statistics to file.\n";
 	} else {
-		stream << userName << '\n';
-		stream << totalCorrect << '\n';
-		stream << totalWrong << '\n';
-		stream << setprecision(3) << totalWages << '\n';
+		outData << userName << '\n';
+		outData << totalCorrect << '\n';
+		outData << totalWrong << '\n';
+		outData << setprecision(3) << totalWages << '\n';
 
-		stream.close();
+		outData.close();
 	}
 }
 
+/**
+ * Validates that the given string consists only of alphabetical characters.
+ *
+ * If valid, assigns the given string to the userName field. If invalid,
+ * prompts the user for a new input until valid.
+ *
+ * @param   str1    the string to validate
+ */
 void Game::validate(string& str1) {
 	bool isInvalid;
 
@@ -193,7 +242,7 @@ void Game::validate(string& str1) {
 		isInvalid = false;
 
 		if (str1 == "") {
-			cout << "The name given is empty, please try again: ";
+			cout << "The str1 given is empty, please try again: ";
 			getline(cin, str1);
 			cout << '\n';
 
@@ -210,7 +259,7 @@ void Game::validate(string& str1) {
 
 		for (int index = 0; index < str1.length() && !isInvalid; ++index) {
 			if (!isalpha(str1[index])) {
-				cout << "The name given contains invalid characters, "
+				cout << "The str1 given contains invalid characters, "
 						"please try again: ";
 				getline(cin, str1);
 				cout << '\n';

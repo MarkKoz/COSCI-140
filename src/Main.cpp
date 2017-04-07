@@ -17,7 +17,7 @@ int main() {
 		cin.get(input); // Gets the first character.
 
 		while (cin.get() != '\n') { // Ignores all following characters.
-			// Assumes invalid if > 1 char entered regardless of first char.
+			// Assumes continue if > 1 char entered regardless of first char.
 			input = 0;
 		}
 
