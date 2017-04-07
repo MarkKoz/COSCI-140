@@ -1,11 +1,11 @@
 #include <cstring>
 #include <iomanip>
 #include <iostream>
-#include "../include/Game.h"
 #include "../include/Addition.h"
-#include "../include/Subtraction.h"
-#include "../include/Multiplication.h"
 #include "../include/Division.h"
+#include "../include/Game.h"
+#include "../include/Multiplication.h"
+#include "../include/Subtraction.h"
 
 using namespace std;
 
