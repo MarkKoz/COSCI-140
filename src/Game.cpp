@@ -173,36 +173,12 @@ void Game::requestName() {
 	inData.open(name + ".txt");
 
 	if (inData.fail()) {
-		ofstream stream;
-
-		stream.open(name + ".txt", ios::out | ios::trunc);
-
-		stream << userName << '\n';
-		stream << totalCorrect << '\n';
-		stream << totalWrong << '\n';
-		stream << setprecision(3) << totalWages << '\n';
-
-		stream.close();
+		saveStats();
 	} else {
-		for (int i = 1; i <= 4; ++i) {
-			getline(inData, line);
-
-			// Does not validate. Assumes file has not been tampered with.
-			switch (i) {
-				case 1:
-					userName = line;
-					break;
-				case 2:
-					totalCorrect = stoi(line);
-					break;
-				case 3:
-					totalWrong = stoi(line);
-					break;
-				case 4:
-					totalWages = stod(line);
-					break;
-			}
-		}
+		inData >> userName;
+		inData >> totalCorrect;
+		inData >> totalWrong;
+		inData >> totalWages;
 
 		inData.close();
 	}
@@ -257,8 +233,8 @@ void Game::validate(string& str1) {
 			isInvalid = true;
 		}
 
-		for (int index = 0; index < str1.length() && !isInvalid; ++index) {
-			if (!isalpha(str1[index])) {
+		for (int i = 0; i < str1.length() && !isInvalid; ++i) {
+			if (!isalpha(str1[i])) {
 				cout << "The str1 given contains invalid characters, "
 						"please try again: ";
 				getline(cin, str1);

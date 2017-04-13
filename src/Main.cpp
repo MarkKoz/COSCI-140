@@ -10,12 +10,13 @@ int main() {
 	game.splashScreen();
 	cout << '\n';
 	game.requestName();
-	game.menu();
 
 	char input;
 	bool doCont;
 
 	do {
+		game.menu();
+
 		cout << "\nEnter [q]/[q] to save and quit "
 				"or any other key to continue: ";
 		cin.get(input); // Gets the first character.
@@ -27,10 +28,7 @@ int main() {
 
 		doCont = tolower(input) != 'q';
 
-		if (doCont) {
-			cout << '\n';
-			game.menu();
-		}
+		cout << '\n';
 	} while (doCont);
 
 	return 0;
