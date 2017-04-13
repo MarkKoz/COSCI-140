@@ -1,3 +1,4 @@
+#include "../include/BasicShape.h"
 #include "../include/Rectangle.h"
 
 Rectangle::Rectangle(const double& l, const double& w) {

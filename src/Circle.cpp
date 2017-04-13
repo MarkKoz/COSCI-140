@@ -1,3 +1,4 @@
+#include "../include/BasicShape.h"
 #include "../include/Circle.h"
 
 Circle::Circle(const double& x, const double& y, const double& r) {
