@@ -8,6 +8,10 @@ Circle::Circle(const double& x, const double& y, const double& r) {
 	Circle::calcArea();
 }
 
+const double& Circle::getArea() const {
+	return BasicShape::getArea();
+}
+
 const double& Circle::getCenterX() const {
 	return centerX;
 }

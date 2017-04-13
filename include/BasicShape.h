@@ -8,7 +8,7 @@ public:
 	 *
 	 * @return              const lvalue reference to the area field
 	 */
-	const double& getArea() const;
+	virtual const double& getArea() const;
 
 	/**
 	 * Assigns the passed value to the area field.

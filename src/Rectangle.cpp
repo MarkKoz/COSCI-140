@@ -7,6 +7,10 @@ Rectangle::Rectangle(const double& l, const double& w) {
 	Rectangle::calcArea();
 }
 
+const double& Rectangle::getArea() const {
+	return BasicShape::getArea();
+}
+
 const double& Rectangle::getLength() const {
 	return length;
 }

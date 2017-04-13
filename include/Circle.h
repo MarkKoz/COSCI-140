@@ -3,7 +3,7 @@
 
 #include "BasicShape.h"
 
-class Circle : public BasicShape {
+class Circle : protected BasicShape {
 public:
 	/**
 	 * Constructs a Circle object with the given parameters and calculates
@@ -14,6 +14,13 @@ public:
 	 * @param   r           the circle's radius
 	 */
 	Circle(const double& x, const double& y, const double& r);
+
+	/**
+	 * Gets the area of the circle.
+	 *
+	 * @return              const lvalue reference to the area field
+	 */
+	const double& getArea() const;
 
 	/**
 	 * Gets the x-coordinate of the centre of the circle.

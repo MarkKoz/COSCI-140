@@ -3,7 +3,7 @@
 
 #include "BasicShape.h"
 
-class Rectangle : public BasicShape {
+class Rectangle : protected BasicShape {
 public:
 	/**
 	 * Constructs a Rectangle object with the given parameters and calculates
@@ -13,6 +13,13 @@ public:
 	 * @param   w           the width of the rectangle
 	 */
 	Rectangle(const double& l, const double& w);
+
+	/**
+	 * Gets the area of the rectangle.
+	 *
+	 * @return              const lvalue reference to the area field
+	 */
+	const double& getArea() const;
 
 	/**
 	 * Gets the length of the rectangle.
