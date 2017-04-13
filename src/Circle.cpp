@@ -1,17 +1,21 @@
 #include "../include/Circle.h"
 
 Circle::Circle(const double& x, const double& y, const double& r) {
+	centerX = x;
+	centerY = y;
+	radius = r;
 
+	Circle::calcArea();
 }
 
 const double& Circle::getCenterX() const {
-	return <#initializer#>;
+	return centerX;
 }
 
 const double& Circle::getCenterY() const {
-	return <#initializer#>;
+	return centerY;
 }
 
-void Circle::calcArea() override {
-
+void Circle::calcArea() {
+	setArea(3.14159 * radius * radius);
 }
