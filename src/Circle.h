@@ -104,4 +104,7 @@ const Item& Circle<Item>::ErrorAllocatingMemory::getValue() const {
 	return value;
 }
 
+template<class Item>
+int Circle<Item>::circleCount;
+
 #endif

@@ -82,7 +82,6 @@ template<class Item, class Item2>
 Rectangle<Item, Item2>::Rectangle() {
 	++rectangleCount;
 	rectangleWidth, rectangleLength = 0;
-
 }
 
 template<class Item, class Item2>
@@ -134,5 +133,8 @@ template<class Item, class Item2>
 const Item& Rectangle<Item, Item2>::ErrorAllocatingLengthOrWidth::getValue() const {
 	return value;
 }
+
+template<class Item, class Item2>
+int Rectangle<Item, Item2>::rectangleCount;
 
 #endif
