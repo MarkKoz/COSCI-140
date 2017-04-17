@@ -107,7 +107,8 @@ private:
 template<class Item, class Item2>
 Rectangle<Item, Item2>::Rectangle() {
 	++rectangleCount;
-	rectangleWidth, rectangleLength = 0;
+	rectangleWidth = 0;
+	rectangleLength = 0;
 }
 
 template<class Item, class Item2>
