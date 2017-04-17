@@ -29,13 +29,17 @@ public:
 	 *
 	 * @return
 	 */
-	const Item& getCircleRadius() const;
+	const Item& getCircleRadius() const {
+		return circleRadius;
+	}
 
 	/**
 	 *
 	 * @param   radius
 	 */
-	void setCircleRadius(const Item& radius);
+	void setCircleRadius(const Item& radius) {
+		circleRadius = radius;
+	}
 
 	/**
 	 *
@@ -46,13 +50,17 @@ public:
 		 *
 		 * @param   val
 		 */
-		ErrorAllocatingMemory(const Item& val);
+		ErrorAllocatingMemory(const Item& val) {
+			value = val;
+		}
 
 		/**
 		 *
 		 * @return
 		 */
-		const Item& getValue() const;
+		const Item& getValue() const {
+			return value;
+		}
 
 	private:
 		Item value;
@@ -82,26 +90,6 @@ Circle<Item>::Circle(const Item &radius) {
 template<class Item>
 const int& Circle<Item>::getCircleCount() const {
 	return circleCount;
-}
-
-template<class Item>
-const Item& Circle<Item>::getCircleRadius() const {
-	return circleRadius;
-}
-
-template<class Item>
-void Circle<Item>::setCircleRadius(const Item& radius) {
-	circleRadius = radius;
-}
-
-template<class Item>
-Circle<Item>::ErrorAllocatingMemory::ErrorAllocatingMemory(const Item& val) {
-	value = val;
-}
-
-template<class Item>
-const Item& Circle<Item>::ErrorAllocatingMemory::getValue() const {
-	return value;
 }
 
 template<class Item>
