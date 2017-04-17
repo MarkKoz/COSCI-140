@@ -1,7 +1,7 @@
 #include <cstring>
 #include <iostream>
 #include <string>
-#include "../include/ArrayOfObjects.h"
+#include "ArrayOfObjects.h"
 
 using namespace std;
 
