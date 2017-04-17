@@ -75,17 +75,12 @@ Develop a vector template class (almost) named `ArrayOfObjects`. The vector must
         * `rectangleLength = length;`
     * `public: class ErrorAllocatingLengthOrWidth`
         * Used to catch potential errors caused by negative values for the width or length of the rectangle.
+        * Accounts for length and width being different types.
         * `public: ErrorAllocatingLengthOrWidth(Item val)`
             * `value = val;`
-        * `public: ErrorAllocatingLengthOrWidth(Item2 val)`
-            * `value2 = val;`
         * `public: Item getValue() const`
             * `return value;`
-        * `public: Item2 getValue() const`
-            * `return value2;`
         * `private: Item value`
-            * Holds the value which caused the exception to be thrown.
-        * `private: Item2 value2`
             * Holds the value which caused the exception to be thrown.
     * `private: static int rectangleCount`
         * Keeps track of the number of rectangles.

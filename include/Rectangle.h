@@ -54,35 +54,23 @@ public:
 	/**
 	 *
 	 */
+	template<class T>
 	class ErrorAllocatingLengthOrWidth {
 	public:
 		/**
 		 *
 		 * @param   val
 		 */
-		ErrorAllocatingLengthOrWidth(const Item& val);
-
-		/**
-		 *
-		 * @param   val
-		 */
-		ErrorAllocatingLengthOrWidth(const Item2& val);
+		ErrorAllocatingLengthOrWidth(const T& val);
 
 		/**
 		 *
 		 * @return
 		 */
-		const Item& getValue() const;
-
-		/**
-		 *
-		 * @return
-		 */
-		const Item2& getValue() const;
+		const T& getValue() const;
 
 	private:
-		Item value;
-		Item2 value2;
+		T value;
 	};
 
 private:
