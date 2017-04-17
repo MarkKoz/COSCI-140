@@ -19,7 +19,7 @@ public:
 	 * @param width
 	 * @param length
 	 */
-	Rectangle(Item width, Item2 length);
+	Rectangle(const Item& width, const Item2& length);
 
 	/**
 	 *
@@ -31,25 +31,25 @@ public:
 	 *
 	 * @return
 	 */
-	Item getRectangleWidth() const;
+	const Item& getRectangleWidth() const;
 
 	/**
 	 *
 	 * @return
 	 */
-	Item2 getRectangleLength() const;
+	const Item2& getRectangleLength() const;
 
 	/**
 	 *
 	 * @param width
 	 */
-	void setRectangleWidth(Item width);
+	void setRectangleWidth(const Item& width);
 
 	/**
 	 *
 	 * @param length
 	 */
-	void setRectangleLength(Item2 length);
+	void setRectangleLength(const Item2& length);
 
 	/**
 	 *
@@ -60,25 +60,25 @@ public:
 		 *
 		 * @param   val
 		 */
-		ErrorAllocatingLengthOrWidth(Item val);
+		ErrorAllocatingLengthOrWidth(const Item& val);
 
 		/**
 		 *
 		 * @param   val
 		 */
-		ErrorAllocatingLengthOrWidth(Item2 val);
+		ErrorAllocatingLengthOrWidth(const Item2& val);
 
 		/**
 		 *
 		 * @return
 		 */
-		Item getValue() const;
+		const Item& getValue() const;
 
 		/**
 		 *
 		 * @return
 		 */
-		Item2 getValue() const;
+		const Item2& getValue() const;
 
 	private:
 		Item value;

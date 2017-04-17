@@ -37,7 +37,7 @@ Circle<Item>::ErrorAllocatingMemory::ErrorAllocatingMemory(const Item& val) {
 }
 
 template<class Item>
-const int& Circle<Item>::ErrorAllocatingMemory::getValue() const {
+const Item& Circle<Item>::ErrorAllocatingMemory::getValue() const {
 	return value;
 }
 
