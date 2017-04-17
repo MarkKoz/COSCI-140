@@ -17,7 +17,7 @@ public:
 	 *
 	 * @param   radius
 	 */
-	Circle(Item radius);
+	Circle(const Item& radius);
 
 	/**
 	 *
