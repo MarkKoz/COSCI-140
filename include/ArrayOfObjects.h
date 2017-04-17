@@ -16,9 +16,7 @@ public:
 	/**
 	 * Initialises ptrToArrayOfObjects to nullptr.
 	 */
-	ArrayOfObjects() {
-		ptrToArrayOfObjects = nullptr;
-	}
+	ArrayOfObjects();
 
 	/**
 	 * Constructs an empty array ptrToArrayOfObjects of objects of type Item of
@@ -27,13 +25,7 @@ public:
 	 * @param   arraySize   the size with which the array should be constructed
 	 * @throws  ErrorAllocatingPointerMemory  arraySize is less than zero
 	 */
-	ArrayOfObjects(int& arraySize) {
-		if (arraySize < 0){
-			throw ErrorAllocatingPointerMemory(arraySize);
-		}
-
-		ptrToArrayOfObjects = new Item[arraySize];
-	}
+	ArrayOfObjects(int& arraySize);
 
 	/**
 	 * Accesses array ptrToArrayOfObjects and returns the value at index x.
@@ -42,9 +34,7 @@ public:
 	 * @return              lvalue reference to the object in the array at index
 	 *                      x
 	 */
-	Item& operator[](const int& x) const {
-		return ptrToArrayOfObjects[x];
-	}
+	Item& operator[](const int& x) const;
 
 	/**
 	 * Used to catch potential errors caused by negative values in arraySize.
@@ -57,9 +47,7 @@ public:
 		 *
 		 * @param   val         the value which threw the exception
 		 */
-		ErrorAllocatingPointerMemory(const int& val) {
-			value = val;
-		}
+		ErrorAllocatingPointerMemory(const int& val);
 
 		/**
 		 * Gets the value of value, which threw the exception.
@@ -67,9 +55,7 @@ public:
 		 * @return              const lvalue reference to the value which threw
 		 *                      the exception
 		 */
-		const int& getValue() const {
-			return value;
-		}
+		const int& getValue() const;
 
 	private:
 		int value; // The value which threw the exception.
@@ -78,5 +64,7 @@ public:
 private:
 	Item* ptrToArrayOfObjects;
 };
+
+#include "../src/ArrayOfObjects.cpp"
 
 #endif

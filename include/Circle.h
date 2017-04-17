@@ -36,18 +36,14 @@ public:
 	 *
 	 * @return              const lvalue reference to circleRadius
 	 */
-	const Item& getCircleRadius() const {
-		return circleRadius;
-	}
+	const Item& getCircleRadius() const;
 
 	/**
 	 * Assigns the value of radius to the circle's radius circleRadius.
 	 *
 	 * @param   radius      the radius to which to set the circle
 	 */
-	void setCircleRadius(const Item& radius) {
-		circleRadius = radius;
-	}
+	void setCircleRadius(const Item& radius);
 
 	/**
 	 * Used to catch potential errors caused by negative values for the radius
@@ -61,9 +57,7 @@ public:
 		 *
 		 * @param   val         the value which threw the exception
 		 */
-		ErrorAllocatingMemory(const Item& val) {
-			value = val;
-		}
+		ErrorAllocatingMemory(const Item& val);
 
 		/**
 		 * Gets the value of value, which threw the exception.
@@ -71,9 +65,7 @@ public:
 		 * @return              const lvalue reference to the value which threw
 		 *                      the exception
 		 */
-		const Item& getValue() const {
-			return value;
-		}
+		const Item& getValue() const;
 
 	private:
 		Item value; // The value which threw the exception.
@@ -84,28 +76,6 @@ private:
 	Item circleRadius;
 };
 
-template<class Item>
-Circle<Item>::Circle() {
-	++circleCount;
-	circleRadius = 0;
-};
-
-template<class Item>
-Circle<Item>::Circle(const Item &radius) {
-	if (radius < 0) {
-		throw ErrorAllocatingMemory(radius);
-	}
-
-	++circleCount;
-	circleRadius = radius;
-};
-
-template<class Item>
-const int& Circle<Item>::getCircleCount() const {
-	return circleCount;
-}
-
-template<class Item>
-int Circle<Item>::circleCount;
+#include "../src/Circle.cpp"
 
 #endif

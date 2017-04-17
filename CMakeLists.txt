@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.6)
 project(Ch16-Quiz)
 
+include_directories(include)
 set(SOURCE_FILES
-		src/ArrayOfObjects.h
-		src/Circle.h
-		src/Main.cpp
-		src/Rectangle.h)
-
+		include/ArrayOfObjects.h
+		include/Circle.h
+		include/Rectangle.h
+		src/Main.cpp)
 add_executable(Ch16-Quiz ${SOURCE_FILES})
 
 list(APPEND FLAGS_WARN
