@@ -4,7 +4,13 @@ project(Ch16-Quiz)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
-		src/Main.cpp)
+		include/ArrayOfObjects.h
+		include/Circle.h
+		include/Rectangle.h
+		src/ArrayOfObjects.cpp
+		src/Circle.cpp
+		src/Main.cpp
+		src/Rectangle.cpp)
 
 set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -static")
 

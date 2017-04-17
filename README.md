@@ -6,10 +6,10 @@
 **Textbook:** [Gaddis, Tony. _Starting Out with C++ from Control Structures to Objects_. 8th ed.](https://www.pearsonhighered.com/program/Gaddis-Starting-Out-with-C-from-Control-Structures-to-Objects-plus-My-Programming-Lab-with-Pearson-e-Text-Access-Card-Package-8th-Edition/PGM112149.html) (ISBN-13: 978-0133769395)
 
 ### Tasks
-Develop a vector template class (almost) named `VectorOfObjects`. The vector must handle objects of type `Circle` or objects of type `Rectangle`, which means a `Circle` template class and a `Rectangle` template class must also be developed. Therefore three template classes, each with its own nested exception class, need to be developed so that the code in the given `Main.cpp` will run.
+Develop a vector template class (almost) named `ArrayOfObjects`. The vector must handle objects of type `Circle` or objects of type `Rectangle`, which means a `Circle` template class and a `Rectangle` template class must also be developed. Therefore three template classes, each with its own nested exception class, need to be developed so that the code in the given `Main.cpp` will run.
 
 ### Requirements
-* `template <class Item> class VectorOfObjects`
+* `template<class Item> class ArrayOfObjects`
     * `public: ArrayOfObjects()`
         * `ptrToArrayOfObjects = nullptr;`
     * `public: ArrayOfObjects(int arraySize)`
@@ -27,11 +27,11 @@ Develop a vector template class (almost) named `VectorOfObjects`. The vector mus
             * Holds the value which caused the exception to be thrown.
     * `private: Item* ptrToArrayOfObjects`
         * Pointer to an array of type `Item`, where `Item` may be `Circle` or `Rectangle`.
-* `template <class Item> class Circle`
+* `template<class Item> class Circle`
     * `public: Circle()`
         * `++circleCount;`
         * `circleRadius = 0;`
-    * `public: Circle(double radius)`
+    * `public: Circle(Item radius)`
         * `if (radius < 0) throw ErrorAllocatingMemory;`
         * `++circleCount;`
         * `circleRadius = radius;`
@@ -53,12 +53,12 @@ Develop a vector template class (almost) named `VectorOfObjects`. The vector mus
         * Keeps track of the number of circles.
     * `private: Item circleRadius`
         * Holds the radius of the circle.
-* `template <class Item, class Item2> class Rectangle`
+* `template<class Item, class Item2> class Rectangle`
     * `public: Rectangle()`
         * `++rectangleCount;`
         * `rectangleWidth = 0;`
         * `rectangleLength = 0;`
-    * `public: Circle(Item, width, Item2 length)`
+    * `public: Rectangle(Item width, Item2 length)`
         * `if (width < 0 || length < 0) throw ErrorAllocatingLengthOrWidth;`
         * `++rectangleCount;`
         * `rectangleWidth = width;`
@@ -75,9 +75,9 @@ Develop a vector template class (almost) named `VectorOfObjects`. The vector mus
         * `rectangleLength = length;`
     * `public: class ErrorAllocatingLengthOrWidth`
         * Used to catch potential errors caused by negative values for the width or length of the rectangle.
-        * `public: ErrorAllocatingMemory(Item val)`
+        * `public: ErrorAllocatingLengthOrWidth(Item val)`
             * `value = val;`
-        * `public: ErrorAllocatingMemory(Item2 val)`
+        * `public: ErrorAllocatingLengthOrWidth(Item2 val)`
             * `value2 = val;`
         * `public: Item getValue() const`
             * `return value;`
