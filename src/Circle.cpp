@@ -40,4 +40,3 @@ template<class Item>
 const Item& Circle<Item>::ErrorAllocatingMemory::getValue() const {
 	return value;
 }
-
