@@ -42,4 +42,4 @@ const Item& Circle<Item>::ErrorAllocatingMemory::getValue() const {
 }
 
 template<class Item>
-int Circle<Item>::circleCount;
+int Circle<Item>::circleCount = 0;

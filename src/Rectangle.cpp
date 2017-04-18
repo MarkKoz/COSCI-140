@@ -58,4 +58,4 @@ const Item& Rectangle<Item, Item2>::ErrorAllocatingLengthOrWidth::getValue() con
 }
 
 template<class Item, class Item2>
-int Rectangle<Item, Item2>::rectangleCount;
+int Rectangle<Item, Item2>::rectangleCount = 0;
