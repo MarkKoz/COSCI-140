@@ -20,11 +20,13 @@ Item& ArrayOfObjects<Item>::operator[](const int& x) const {
 }
 
 template<class Item>
-ArrayOfObjects<Item>::ErrorAllocatingPointerMemory::ErrorAllocatingPointerMemory(const int& val) {
+ArrayOfObjects<Item>::ErrorAllocatingPointerMemory::
+		ErrorAllocatingPointerMemory(const int& val) {
 	value = val;
 }
 
 template<class Item>
-const int& ArrayOfObjects<Item>::ErrorAllocatingPointerMemory::getValue() const {
+const int& ArrayOfObjects<Item>::
+		ErrorAllocatingPointerMemory::getValue() const {
 	return value;
 }

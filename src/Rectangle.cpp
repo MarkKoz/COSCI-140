@@ -48,12 +48,14 @@ void Rectangle<Item, Item2>::setRectangleLength(const Item2& length) {
 }
 
 template<class Item, class Item2>
-Rectangle<Item, Item2>::ErrorAllocatingLengthOrWidth::ErrorAllocatingLengthOrWidth(const Item& val) {
+Rectangle<Item, Item2>::ErrorAllocatingLengthOrWidth::
+		ErrorAllocatingLengthOrWidth(const Item& val) {
 	value = val;
 }
 
 template<class Item, class Item2>
-const Item& Rectangle<Item, Item2>::ErrorAllocatingLengthOrWidth::getValue() const {
+const Item& Rectangle<Item, Item2>::
+		ErrorAllocatingLengthOrWidth::getValue() const {
 	return value;
 }
 

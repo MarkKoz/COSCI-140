@@ -22,6 +22,7 @@ public:
 	 *
 	 * @param   width       the width of the rectangle
 	 * @param   length      the length of the rectangle
+	 * @throws  ErrorAllocatingLengthOrWidth  width or length is less than zero
 	 */
 	Rectangle(const Item& width, const Item2& length);
 
