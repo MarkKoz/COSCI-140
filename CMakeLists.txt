@@ -3,6 +3,8 @@ project(Ch17-Quiz)
 
 include_directories(include)
 set(SOURCE_FILES
+		include/Circle.h
+		src/Circle.cpp
 		src/Main.cpp)
 add_executable(Ch17-Quiz ${SOURCE_FILES})
 
