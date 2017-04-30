@@ -51,7 +51,7 @@ int main() {
 	system("pause");
 
 	// destroyList() should call the destructor of NodeList, which will destroy
-	// all the Circle objects in the list and set Head = NULL.
+	// all the Circle objects in the list and set head = NULL.
 	circleList_1.destroyList();
 	system("pause");
 
@@ -82,7 +82,7 @@ int main() {
 	NodeList circleList_3(circleList_2);
 
 	// destroyList() should call the destructor of NodeList, which will destroy
-	// all the Circle objects in the list and set Head = NULL.
+	// all the Circle objects in the list and set head = NULL.
 	circleList_2.destroyList();
 	cout << "circleList_2 destroyed\n";
 	system("pause");

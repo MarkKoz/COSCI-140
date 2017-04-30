@@ -5,7 +5,7 @@ include_directories(include)
 set(SOURCE_FILES
 		include/Circle.h
 		src/Circle.cpp
-		src/Main.cpp)
+		src/Main.cpp src/NodeList.cpp include/NodeList.h)
 add_executable(Ch17-Quiz ${SOURCE_FILES})
 
 list(APPEND FLAGS_WARN

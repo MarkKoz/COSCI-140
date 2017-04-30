@@ -1,6 +1,7 @@
-#include "../include/Circle.h"
+#include "Circle.h"
 
 Circle::Circle() {
+	nextNodeLink = nullptr;
 	++circleCount;
 	circleRadius = 0;
 };
@@ -10,9 +11,14 @@ Circle::Circle(const int &radius) {
 		throw ErrorAllocatingMemory(radius);
 	}
 
+	nextNodeLink = nullptr;
 	++circleCount;
 	circleRadius = radius;
 };
+
+Circle::~Circle() {
+
+}
 
 const int& Circle::getCircleCount() const {
 	return circleCount;
