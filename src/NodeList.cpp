@@ -6,6 +6,15 @@ NodeList::NodeList() {
 	head = nullptr;
 }
 
+NodeList::NodeList(const NodeList& list) {
+	head = nullptr;
+
+	// Iterates through every node in the list starting at head.
+	for (Circle* nodeIt = list.head; !nodeIt->nextNodeLink; nodeIt = nodeIt->nextNodeLink) {
+		prependNode(nodeIt);
+	}
+}
+
 void NodeList::appendNode(Circle* node) {
 	if (!head) { // If NodeList is empty, no need to search any further.
 		head = node;
@@ -74,10 +83,6 @@ bool NodeList::searchNode(int radius) {
 
 void NodeList::destroyList() {
 	NodeList::~NodeList();
-}
-
-NodeList::NodeList(const NodeList& list) {
-
 }
 
 NodeList::~NodeList() {

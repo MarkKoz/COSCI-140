@@ -7,6 +7,8 @@ class NodeList {
 public:
 	NodeList();
 
+	NodeList(const NodeList& list);
+
 	void appendNode(Circle* node);
 
 	void prependNode(Circle* node);
@@ -22,8 +24,6 @@ public:
 	void destroyList();
 
 private:
-	NodeList(const NodeList& list);
-
 	~NodeList();
 
 	Circle* head;
