@@ -62,6 +62,13 @@ void NodeList::displayNodes() {
 }
 
 bool NodeList::searchNode(int radius) {
+	// Iterates through every node in the list starting at head.
+	for (Circle* nodeIt = head; !nodeIt->nextNodeLink; nodeIt = nodeIt->nextNodeLink) {
+		if (nodeIt->getCircleRadius() == radius) {
+			return true;
+		}
+	}
+
 	return false;
 }
 
