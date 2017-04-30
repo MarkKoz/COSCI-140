@@ -73,7 +73,7 @@ bool NodeList::searchNode(int radius) {
 }
 
 void NodeList::destroyList() {
-
+	NodeList::~NodeList();
 }
 
 NodeList::NodeList(const NodeList& list) {
@@ -81,5 +81,14 @@ NodeList::NodeList(const NodeList& list) {
 }
 
 NodeList::~NodeList() {
+	Circle* nodeIt = head; // Starts the iteration from first node.
+	Circle* nodeNext = nullptr;
 
+	// Iterates until the last node is reached i.e. when
+	// nodeIt = nullptr
+	while (nodeIt) {
+		nodeNext = nodeIt->nextNodeLink; // Stores the pointer to the next node.
+		delete nodeIt;
+		nodeIt = nodeNext; // Advances to the next node in the list.
+	}
 }
