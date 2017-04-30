@@ -19,14 +19,20 @@ void NodeList::appendNode(Circle* node) {
 			nodeIt = nodeIt->nextNodeLink;
 		}
 
-		// Assigns the node being appended to nextNodeLink of the current
+		// Assigns the node being appended to the next of the current
 		// last node.
 		nodeIt->nextNodeLink = node;
 	}
 }
 
 void NodeList::prependNode(Circle* node) {
-
+	if (!head) { // If NodeList is empty, no need to search any further.
+		head = node;
+	} else {
+		// Assigns the current head to the next of the node being prepended.
+		node->nextNodeLink = head;
+		head = node; // Assigns the node being prepended to the head.
+	}
 }
 
 void NodeList::insertNodeAscending(Circle* node) {
