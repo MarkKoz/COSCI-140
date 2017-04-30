@@ -17,7 +17,7 @@ Circle::Circle(const int &radius) {
 };
 
 Circle::~Circle() {
-
+	--circleCount;
 }
 
 const int& Circle::getCircleCount() const {
@@ -26,10 +26,6 @@ const int& Circle::getCircleCount() const {
 
 const int& Circle::getCircleRadius() const {
 	return circleRadius;
-}
-
-void Circle::setCircleRadius(const int& radius) {
-	circleRadius = radius;
 }
 
 Circle::ErrorAllocatingMemory::ErrorAllocatingMemory(const int& val) {

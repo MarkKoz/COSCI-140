@@ -21,7 +21,7 @@ public:
 	Circle(const int &radius);
 
 	/**
-	 * Destroys the object.
+	 * Decrements circleCount when the object is destroyed.
 	 */
 	~Circle();
 
@@ -38,13 +38,6 @@ public:
 	 * @return              const lvalue reference to circleRadius
 	 */
 	const int& getCircleRadius() const;
-
-	/**
-	 * Assigns the value of radius to the circle's radius circleRadius.
-	 *
-	 * @param   radius      the radius to which to set the circle
-	 */
-	void setCircleRadius(const int& radius);
 
 	/**
 	 * Used to catch potential errors caused by negative values for the radius
@@ -73,7 +66,7 @@ public:
 	};
 
 private:
-	static int circleCount; // The total amount of Circles constructed.
+	static int circleCount; // The total amount of current Circle objects.
 	int circleRadius;
 };
 
