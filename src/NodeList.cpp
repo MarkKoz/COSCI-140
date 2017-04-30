@@ -143,6 +143,16 @@ void NodeList::destroyList() {
 	NodeList::~NodeList();
 }
 
+const NodeList* NodeList::operator=(const NodeList& rvalue) {
+	if (&rvalue != this) { // Checks self assignment.
+		this->destroyList();
+
+		return new NodeList(rvalue);
+	}
+
+	return this;
+}
+
 NodeList::~NodeList() {
 	Circle* nodeIt = head; // Starts the iteration from first node.
 	Circle* nodeNext = nullptr;

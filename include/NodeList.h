@@ -23,6 +23,8 @@ public:
 
 	void destroyList();
 
+	const NodeList* operator=(const NodeList& rvalue);
+
 private:
 	~NodeList();
 
