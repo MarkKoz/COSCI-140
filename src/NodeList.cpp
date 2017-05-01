@@ -23,7 +23,7 @@ NodeList::~NodeList() {
 
 	// Iterates until the last node is reached i.e. when
 	// nodeIt = nullptr
-	while (nodeIt) {
+	while (nodeIt != nullptr) {
 		nodeNext = nodeIt->nextNodeLink; // Stores the pointer to the next node.
 		delete nodeIt;
 		nodeIt = nodeNext; // Advances to the next node in the list.
@@ -125,7 +125,7 @@ void NodeList::insertNodeDescending(Circle* node) {
 	}
 }
 
-void NodeList::displayNodes() {
+void NodeList::displayNodes() const {
 	std::cout << "The values of the radii of the circles in the list are:\n";
 
 	// Iterates through every node in the list starting at head.
@@ -145,7 +145,7 @@ void NodeList::displayNodes() {
 	std::cout << '\n';
 }
 
-bool NodeList::searchNode(int radius) {
+bool NodeList::searchNode(int radius) const {
 	// Iterates through every node in the list starting at head.
 	for (Circle* nodeIt = head;
 	        nodeIt != nullptr;
@@ -158,7 +158,7 @@ bool NodeList::searchNode(int radius) {
 	return false;
 }
 
-void NodeList::destroyList() {
+void NodeList::destroyList() const {
 	this->~NodeList();
 }
 

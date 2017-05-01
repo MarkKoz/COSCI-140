@@ -19,11 +19,11 @@ public:
 
 	void insertNodeDescending(Circle* node);
 
-	void displayNodes();
+	void displayNodes() const;
 
-	bool searchNode(int radius);
+	bool searchNode(int radius) const;
 
-	void destroyList();
+	void destroyList() const;
 
 	NodeList& operator=(const NodeList& rvalue);
 
