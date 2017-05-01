@@ -11,15 +11,28 @@ NodeList::NodeList(const NodeList& list) {
 
 	// Iterates through every node in the list starting at head.
 	for (Circle* nodeIt = list.head;
-	        !nodeIt->nextNodeLink;
+	        nodeIt != nullptr;
 	        nodeIt = nodeIt->nextNodeLink) {
 		prependNode(nodeIt);
 	}
 }
 
+NodeList::~NodeList() {
+	Circle* nodeIt = head; // Starts the iteration from first node.
+	Circle* nodeNext = nullptr;
+
+	// Iterates until the last node is reached i.e. when
+	// nodeIt = nullptr
+	while (nodeIt) {
+		nodeNext = nodeIt->nextNodeLink; // Stores the pointer to the next node.
+		delete nodeIt;
+		nodeIt = nodeNext; // Advances to the next node in the list.
+	}
+}
+
 void NodeList::appendNode(Circle* node) {
-	if (node) {
-		if (!head) { // If the list is empty, no need to iterate.
+	if (node != nullptr) {
+		if (head == nullptr) { // If the list is empty, no need to iterate.
 			head = node;
 		} else {
 			Circle* nodeIt = head; // Starts the iteration from first node.
@@ -39,8 +52,8 @@ void NodeList::appendNode(Circle* node) {
 }
 
 void NodeList::prependNode(Circle* node) {
-	if (node) {
-		if (!head) { // If the list is empty, no need to iterate.
+	if (node != nullptr) {
+		if (head == nullptr) { // If the list is empty, no need to iterate.
 			head = node;
 		} else {
 			// Assigns the current head to the next of the node being prepended.
@@ -51,8 +64,8 @@ void NodeList::prependNode(Circle* node) {
 }
 
 void NodeList::insertNodeAscending(Circle* node) {
-	if (node) {
-		if (!head) { // If the list is empty, no need to iterate.
+	if (node != nullptr) {
+		if (head == nullptr) { // If the list is empty, no need to iterate.
 			head = node;
 		} else {
 			Circle* nodeIt = head; // Starts the iteration from first node.
@@ -67,7 +80,7 @@ void NodeList::insertNodeAscending(Circle* node) {
 				nodeIt = nodeIt->nextNodeLink;
 			}
 
-			if (!nodePrev) {
+			if (nodePrev != nullptr) {
 				// Prepends because the node is the smallest.
 				prependNode(node);
 			} else {
@@ -80,8 +93,8 @@ void NodeList::insertNodeAscending(Circle* node) {
 }
 
 void NodeList::insertNodeDescending(Circle* node) {
-	if (node) {
-		if (!head) { // If the list is empty, no need to iterate.
+	if (node != nullptr) {
+		if (head == nullptr) { // If the list is empty, no need to iterate.
 			head = node;
 		} else {
 			Circle* nodeIt = head; // Starts the iteration from first node.
@@ -96,7 +109,7 @@ void NodeList::insertNodeDescending(Circle* node) {
 				nodeIt = nodeIt->nextNodeLink;
 			}
 
-			if (!nodePrev) {
+			if (nodePrev == nullptr) {
 				// Prepends because the node is the largest.
 				prependNode(node);
 			} else {
@@ -113,7 +126,7 @@ void NodeList::displayNodes() {
 
 	// Iterates through every node in the list starting at head.
 	for (Circle* nodeIt = head;
-	        !nodeIt->nextNodeLink;
+	        nodeIt != nullptr;
 	        nodeIt = nodeIt->nextNodeLink) {
 		std::string delim = "";
 
@@ -131,7 +144,7 @@ void NodeList::displayNodes() {
 bool NodeList::searchNode(int radius) {
 	// Iterates through every node in the list starting at head.
 	for (Circle* nodeIt = head;
-	        !nodeIt->nextNodeLink;
+	        nodeIt != nullptr;
 	        nodeIt = nodeIt->nextNodeLink) {
 		if (nodeIt->getCircleRadius() == radius) {
 			return true;
@@ -142,29 +155,16 @@ bool NodeList::searchNode(int radius) {
 }
 
 void NodeList::destroyList() {
-	NodeList::~NodeList();
+	this->~NodeList();
 }
 
 NodeList& NodeList::operator=(const NodeList& rvalue) {
 	// Iterates through every node in the list starting at head.
 	for (Circle* nodeIt = rvalue.head;
-	        !nodeIt->nextNodeLink;
+	        nodeIt != nullptr;
 	        nodeIt = nodeIt->nextNodeLink) {
 		prependNode(nodeIt);
 	}
 
 	return *this;
-}
-
-NodeList::~NodeList() {
-	Circle* nodeIt = head; // Starts the iteration from first node.
-	Circle* nodeNext = nullptr;
-
-	// Iterates until the last node is reached i.e. when
-	// nodeIt = nullptr
-	while (nodeIt) {
-		nodeNext = nodeIt->nextNodeLink; // Stores the pointer to the next node.
-		delete nodeIt;
-		nodeIt = nodeNext; // Advances to the next node in the list.
-	}
 }

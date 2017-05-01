@@ -9,6 +9,8 @@ public:
 
 	NodeList(const NodeList& list);
 
+	~NodeList();
+
 	void appendNode(Circle* node);
 
 	void prependNode(Circle* node);
@@ -26,8 +28,6 @@ public:
 	NodeList& operator=(const NodeList& rvalue);
 
 private:
-	~NodeList();
-
 	Circle* head;
 };
 
