@@ -28,6 +28,8 @@ NodeList::~NodeList() {
 		delete nodeIt;
 		nodeIt = nodeNext; // Advances to the next node in the list.
 	}
+
+	head = nullptr;
 }
 
 void NodeList::appendNode(Circle* node) {
@@ -73,14 +75,15 @@ void NodeList::insertNodeAscending(Circle* node) {
 
 			// Iterates until a radius larger than the radius of the node to
 			// be inserted is reached.
-			while (nodeIt->getCircleRadius() < node->getCircleRadius()) {
+			while (nodeIt != nullptr &&
+			       nodeIt->getCircleRadius() < node->getCircleRadius()) {
 				// Saves the current node in the iteration before advancing.
 				nodePrev = nodeIt;
 				// Advances to the next node in the list.
 				nodeIt = nodeIt->nextNodeLink;
 			}
 
-			if (nodePrev != nullptr) {
+			if (nodePrev == nullptr) {
 				// Prepends because the node is the smallest.
 				prependNode(node);
 			} else {
@@ -102,7 +105,8 @@ void NodeList::insertNodeDescending(Circle* node) {
 
 			// Iterates until a radius smaller than the radius of the node to
 			// be inserted is reached.
-			while (nodeIt->getCircleRadius() > node->getCircleRadius()) {
+			while (nodeIt != nullptr &&
+			       nodeIt->getCircleRadius() > node->getCircleRadius()) {
 				// Saves the current node in the iteration before advancing.
 				nodePrev = nodeIt;
 				// Advances to the next node in the list.
@@ -163,7 +167,7 @@ NodeList& NodeList::operator=(const NodeList& rvalue) {
 	for (Circle* nodeIt = rvalue.head;
 	        nodeIt != nullptr;
 	        nodeIt = nodeIt->nextNodeLink) {
-		prependNode(nodeIt);
+		prependNode(new Circle(nodeIt->getCircleRadius()));
 	}
 
 	return *this;

@@ -12,13 +12,6 @@ public:
 	Circle();
 
 	/**
-	 * Creates a copy of a given Circle object.
-	 *
-	 * @param   circle      the Circle object to be copied
-	 */
-	Circle(const Circle& circle);
-
-	/**
 	 * Constructs a circle with a circleRadius of radius and increments
 	 * circleCount by one.
 	 *

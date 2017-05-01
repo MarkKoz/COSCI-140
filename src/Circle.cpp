@@ -6,12 +6,6 @@ Circle::Circle() {
 	circleRadius = 0;
 };
 
-Circle::Circle(const Circle& circle) {
-	nextNodeLink = nullptr;
-	++circleCount;
-	circleRadius = circle.getCircleRadius();
-}
-
 Circle::Circle(const int &radius) {
 	if (radius < 0) {
 		throw ErrorAllocatingMemory(radius);
