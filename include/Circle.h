@@ -12,13 +12,20 @@ public:
 	Circle();
 
 	/**
+	 * Creates a copy of a given Circle object.
+	 *
+	 * @param   circle      the Circle object to be copied
+	 */
+	Circle(const Circle& circle);
+
+	/**
 	 * Constructs a circle with a circleRadius of radius and increments
 	 * circleCount by one.
 	 *
 	 * @param   radius      the radius of the circle
 	 * @throws  ErrorAllocatingMemory   radius is less than zero
 	 */
-	Circle(const int &radius);
+	Circle(const int& radius);
 
 	/**
 	 * Decrements circleCount when the object is destroyed.
@@ -26,7 +33,7 @@ public:
 	~Circle();
 
 	/**
-	 * Gets the total number of circle objects that have been constructed.
+	 * Gets the total number of Circle objects currently instantiated.
 	 *
 	 * @return              const lvalue reference to circleCount
 	 */
@@ -66,7 +73,8 @@ public:
 	};
 
 private:
-	static int circleCount; // The total amount of current Circle objects.
+	// The total amount of Circle objects currently instantiated.
+	static int circleCount;
 	int circleRadius;
 };
 
