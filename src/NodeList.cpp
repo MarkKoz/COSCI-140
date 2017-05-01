@@ -10,7 +10,9 @@ NodeList::NodeList(const NodeList& list) {
 	head = nullptr;
 
 	// Iterates through every node in the list starting at head.
-	for (Circle* nodeIt = list.head; !nodeIt->nextNodeLink; nodeIt = nodeIt->nextNodeLink) {
+	for (Circle* nodeIt = list.head;
+	        !nodeIt->nextNodeLink;
+	        nodeIt = nodeIt->nextNodeLink) {
 		prependNode(nodeIt);
 	}
 }
@@ -143,14 +145,15 @@ void NodeList::destroyList() {
 	NodeList::~NodeList();
 }
 
-const NodeList* NodeList::operator=(const NodeList& rvalue) {
-	if (&rvalue != this) { // Checks self assignment.
-		this->destroyList();
-
-		return new NodeList(rvalue);
+NodeList& NodeList::operator=(const NodeList& rvalue) {
+	// Iterates through every node in the list starting at head.
+	for (Circle* nodeIt = rvalue.head;
+	        !nodeIt->nextNodeLink;
+	        nodeIt = nodeIt->nextNodeLink) {
+		prependNode(nodeIt);
 	}
 
-	return this;
+	return *this;
 }
 
 NodeList::~NodeList() {

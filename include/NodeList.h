@@ -23,7 +23,7 @@ public:
 
 	void destroyList();
 
-	const NodeList* operator=(const NodeList& rvalue);
+	NodeList& operator=(const NodeList& rvalue);
 
 private:
 	~NodeList();
