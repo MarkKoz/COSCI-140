@@ -3,7 +3,7 @@
 
 class Circle {
 public:
-	Circle *nextNodeLink;
+	Circle *nextNodeLink; // Pointer to the next node in the linked list.
 
 	/**
 	 * Constructs a circle with a circleRadius of 0 and increments circleCount
@@ -21,7 +21,7 @@ public:
 	Circle(const int& radius);
 
 	/**
-	 * Decrements circleCount when the object is destroyed.
+	 * Decrements circleCount by one when the object is destroyed.
 	 */
 	~Circle();
 

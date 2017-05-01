@@ -158,6 +158,8 @@ bool NodeList::searchNode(int radius) const {
 	return false;
 }
 
+// What's the point of this? Why isn't the destructor just called directly or
+// indirectly via a delete expression?
 void NodeList::destroyList() const {
 	this->~NodeList();
 }
