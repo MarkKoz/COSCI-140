@@ -13,7 +13,7 @@ NodeList::NodeList(const NodeList& list) {
 	for (Circle* nodeIt = list.head;
 	        nodeIt != nullptr;
 	        nodeIt = nodeIt->nextNodeLink) {
-		prependNode(nodeIt);
+		prependNode(new Circle(nodeIt->getCircleRadius()));
 	}
 }
 
