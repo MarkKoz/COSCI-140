@@ -37,7 +37,7 @@ int main() {
 	     << endl;
 
 	// Creates am empty list to store Circle objects.
-	NodeList circleList_1 = new NodeList();
+	NodeList circleList_1;
 
 	// Calls appendNode().
 	circleList_1.appendNode(circle2);
@@ -63,7 +63,7 @@ int main() {
 	circle4 = new Circle(40);
 
 	// Creates a new list.
-	NodeList circleList_2 = new NodeList();
+	NodeList circleList_2;
 
 	// Calls prependNode(); means last in, first out.
 	circleList_2.prependNode(circle2); // Last node in the list.
@@ -98,9 +98,6 @@ int main() {
 	Circle* circle33 = new Circle(33);
 	Circle* circle44 = new Circle(44);
 
-	// This is a legal statement since circleList_1 was destroyed earlier.
-	circleList_1 = new NodeList();
-
 	// Regardless of the value of the radius of each Circle and the order
 	// in which circles are added to the list, each Circle address MUST be
 	// placed in the list at the EXACT and correct position so that
@@ -115,7 +112,7 @@ int main() {
 	circleList_1.displayNodes();
 	system("pause");
 
-	NodeList circleList_4 = new NodeList();
+	NodeList circleList_4;
 
 	// Calls overloaded operator=.
 	// Calls prependNode() to copy the list.
@@ -134,7 +131,7 @@ int main() {
 	Circle* circle53 = new Circle(53);
 
 	// Creates a list to store the Circle objects just created.
-	NodeList circleList_5 = new NodeList();
+	NodeList circleList_5;
 
 	// Regardless of the value of the radius of each Circle and the order
 	// in which circles are added to the list, each Circle address MUST be
