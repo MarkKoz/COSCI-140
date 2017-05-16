@@ -58,6 +58,32 @@ public:
 	 */
 	int getLength() const;
 
+	/**
+	 * Validates the passed String object consists only of alphabetical
+	 * letters. Prompts for a new input if the string is invalid until a
+	 * valid input is entered.
+	 *
+	 * Alphabetical letters are any of:
+	 * a b c d e f g h i j k l m n o p q r s t u v w x y z
+	 * A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+	 *
+	 * @param   str         const lvalue reference to the String object to
+	 *                      validate
+	 */
+	static void validateAlpha(String& str);
+
+	/**
+	 * Validates the passed String object consist only of decimal digit
+	 * characters. Prompts for a new input if the string is invalid until a
+	 * valid input is entered.
+	 *
+	 * Decimal digits are any of: 0 1 2 3 4 5 6 7 8 9
+	 *
+	 * @param   str         const lvalue reference to the String object to
+	 *                      validate
+	 */
+	static void validateDigit(String& str);
+
 	// TODO: Add a better description.
 	/**
 	 * Binary infix assignment operator overload.
@@ -68,18 +94,6 @@ public:
 	 *                      side of the expression
 	 */
 	String& operator=(const String& rvalue);
-
-	/**
-	 * Unary postfix subscript operator overload.
-	 *
-	 * Accesses the value of this String and retrieves the character at the
-	 * passed index.
-	 *
-	 * @param   index       the index at which to access this String.
-	 * @return              const lvalue reference to the char at the passed
-	 *                      index
-	 */
-	char& operator[](int index) const;
 
 	/**
 	 * Binary infix addition operator overload.
@@ -173,32 +187,17 @@ public:
 	 */
 	bool operator>=(const String& rvalue) const;
 
-
 	/**
-	 * Validates the passed String object consists only of alphabetical
-	 * letters. Prompts for a new input if the string is invalid until a
-	 * valid input is entered.
+	 * Unary postfix subscript operator overload.
 	 *
-	 * Alphabetical letters are any of:
-	 * a b c d e f g h i j k l m n o p q r s t u v w x y z
-	 * A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+	 * Accesses the value of this String and retrieves the character at the
+	 * passed index.
 	 *
-	 * @param   str         const lvalue reference to the String object to
-	 *                      validate
+	 * @param   index       the index at which to access this String.
+	 * @return              const lvalue reference to the char at the passed
+	 *                      index
 	 */
-	static void validateAlpha(String& str);
-
-	/**
-	 * Validates the passed String object consist only of decimal digit
-	 * characters. Prompts for a new input if the string is invalid until a
-	 * valid input is entered.
-	 *
-	 * Decimal digits are any of: 0 1 2 3 4 5 6 7 8 9
-	 *
-	 * @param   str         const lvalue reference to the String object to
-	 *                      validate
-	 */
-	static void validateDigit(String& str);
+	char& operator[](int index) const;
 
 private:
 	char* userInput; // C string for holding user input.

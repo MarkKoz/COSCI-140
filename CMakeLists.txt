@@ -4,7 +4,8 @@ project(Final)
 include_directories(include)
 set(SOURCE_FILES
 		include/String.h
-		src/Main.cpp)
+		src/Main.cpp
+		src/String.cpp)
 add_executable(Final ${SOURCE_FILES})
 
 list(APPEND FLAGS_WARN
