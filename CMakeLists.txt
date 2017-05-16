@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.7)
 project(Final)
 
-include_directories(include)
 set(SOURCE_FILES
 		include/String.h
 		src/Main.cpp
 		src/String.cpp)
 add_executable(Final ${SOURCE_FILES})
+target_include_directories(Final PUBLIC include/)
 
 list(APPEND FLAGS_WARN
 		-Wall

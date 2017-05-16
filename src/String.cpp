@@ -1,3 +1,4 @@
+#include <iostream>
 #include "String.h"
 
 String::String() {
@@ -27,6 +28,42 @@ String::~String() {
 
 int String::getLength() const {
 	return length;
+}
+
+void String::append(const char* str, int size) {
+	// TODO: Pass a c string instead so the overloaded constructor can be used.
+	if (data == nullptr || length == 0) { // If this String is empty.
+		data = new char[size];
+		length = size;
+
+		for (int i = 0; i < size; ++i) { // Copies the String to be appended.
+			data[i] = str[i];
+		}
+	} else {
+		char buffer[length];
+		int bufLen = length;
+
+		// Copies this String into the buffer.
+		for (int i = 0; i < length; ++i) {
+			buffer[i] = data[i];
+		}
+
+		// Deletes data and creates a new array with enough space for both
+		// Strings.
+		delete[] data;
+		length += size;
+		data = new char[length];
+
+		// Copies the String in the buffer.
+		for (int i = 0; i < bufLen; ++i) {
+			data[i] = buffer[i];
+		}
+
+		// Copies the String to be appended.
+		for (int i = bufLen; i < length; ++i) {
+			data[i] = str[i - bufLen];
+		}
+	}
 }
 
 String::Result String::compare(const String& rvalue) const {
@@ -82,16 +119,25 @@ std::ostream& operator<<(std::ostream& os, const String& str) {
 
 std::istream& operator>>(std::istream& is, String& str) {
 	const int size = static_cast<int>(is.width()); // Size of the stream.
+	int extracted = 0;
+	char buffer[128];
+	int length = 0;
+	char c = static_cast<char>(is.rdbuf()->sgetc());
 
-	// If data array can't be reused, a new array of istream's size needs to
-	// be created.
-	if (size != str.length) {
-		delete[] str.data;
-		str.length = size;
-		str.data = new char[str.length];
+	while (extracted < size) {
+		if (length == sizeof(buffer) / sizeof(char)) {
+			str.append(buffer, sizeof(buffer) / sizeof(char));
+			length = 0;
+		}
+
+//		buffer[length++] = static_cast<char>(is.get());
+		buffer[length++] = c;
+		++extracted;
+		c = static_cast<char>(is.rdbuf()->snextc());
 	}
 
-	is >> str.data;
+	str.append(buffer, length);
+	is.width(0);
 
 	return is;
 }

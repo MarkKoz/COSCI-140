@@ -66,6 +66,8 @@ public:
 	 */
 	int getLength() const;
 
+	void append(const char* str, int size);
+
 	/**
 	 * Compares this String and the passed String. If the lengths are
 	 * unequal, returns based on string length. Otherwise, a lexicographical
