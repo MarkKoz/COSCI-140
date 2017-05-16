@@ -82,7 +82,23 @@ std::istream& operator>>(std::istream& is, String& str) {
 }
 
 String& String::operator+(const String& rvalue) {
-	return <#initializer#>;
+	char* buffer = data; // Stores data in a buffer before deleting it.
+	int bufLen = length;
+
+	// Deletes data and creates a new array with enough space for both Strings.
+	delete[] data;
+	length += rvalue.getLength();
+	data = new char[length];
+
+	for (int i = 0; i < bufLen; ++i) { // Copies left String.
+		data[i] = buffer[i];
+	}
+
+	for (int i = bufLen; i < length; ++i) { // Copies right String.
+		data[i] = rvalue[i - bufLen];
+	}
+
+	return *this;
 }
 
 bool String::operator==(const String& rvalue) const {
@@ -110,5 +126,5 @@ bool String::operator>=(const String& rvalue) const {
 }
 
 char& String::operator[](int index) const {
-	return <#initializer#>;
+	return data[index];
 }
