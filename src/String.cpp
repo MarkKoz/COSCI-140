@@ -38,7 +38,23 @@ void String::validateDigit(String& str) {
 }
 
 String& String::operator=(const String& rvalue) {
-	return <#initializer#>;
+	int rLength = rvalue.getLength();
+
+	if (this != &rvalue) { // Checks for self-assignment.
+		// If data array can't be reused, a new array of rvalue's size needs to
+		// be created.
+		if (rLength != length) {
+			delete[] data;
+			length = rLength;
+			data = new char[length];
+		}
+
+		for (int i = 0; i < length; ++i) { // Populates the array.
+			data[i] = rvalue.data[i];
+		}
+	}
+
+	return *this;
 }
 
 std::ostream& operator<<(std::ostream& os, const String& str) {
