@@ -30,7 +30,12 @@ int String::getLength() const {
 }
 
 String::Result String::compare(const String& rvalue) const {
-	for (int i = 0; i < (length < rvalue.length ? length : rvalue.length); ++i) {
+	if (length != rvalue.length) { // Returns based on string length
+		return length < rvalue.length ? Result::lesser : Result::greater;
+	}
+
+	// Otherwise performs lexicographical comparison.
+	for (int i = 0; i < length; ++i) {
 		if (data[i] != rvalue.data[i]) { // First unequal values reached.
 			return data[i] < rvalue.data[i] ? Result::lesser : Result::greater;
 		}

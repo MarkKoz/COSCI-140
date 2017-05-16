@@ -67,11 +67,9 @@ public:
 	int getLength() const;
 
 	/**
-	 * Performs a lexicographical comparison on this String and the passed
-	 * String.
-	 *
-	 * The amount of characters from the two Strings on which to perform the
-	 * comparison is the value of the lesser length of the two Strings.
+	 * Compares this String and the passed String. If the lengths are
+	 * unequal, returns based on string length. Otherwise, a lexicographical
+	 * comparison is performed.
 	 *
 	 * @param   str         the other String to compare
 	 * @return              Result::Lesser if this String is less than the
