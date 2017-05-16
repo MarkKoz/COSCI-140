@@ -110,7 +110,7 @@ int main() {
 	String string4 = string3 + "world";
 	std::cout << '\n' << string4 << '\n';
 
-	std::cout << "Program complete.\n";
+	std::cout << "\nProgram complete.\n";
 }
 
 

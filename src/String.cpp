@@ -145,21 +145,7 @@ std::istream& operator>>(std::istream& is, String& str) {
 }
 
 String& String::operator+(const String& rvalue) {
-	char* buffer = data; // Stores data in a buffer before deleting it.
-	int bufLen = length;
-
-	// Deletes data and creates a new array with enough space for both Strings.
-	delete[] data;
-	length += rvalue.getLength();
-	data = new char[length];
-
-	for (int i = 0; i < bufLen; ++i) { // Copies the left String.
-		data[i] = buffer[i];
-	}
-
-	for (int i = bufLen; i < length; ++i) { // Copies the right String.
-		data[i] = rvalue[i - bufLen];
-	}
+	append(rvalue.data, rvalue.length);
 
 	return *this;
 }
