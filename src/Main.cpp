@@ -2,7 +2,7 @@
 #include "myStringClass.h"
 
 /**
- * Compares two given String objects against eachother and prints to console
+ * Compares two passed String objects against each other and prints to console
  * the results.
  *
  * By default, comparisons are made using operators ==, <, and >. However, if
