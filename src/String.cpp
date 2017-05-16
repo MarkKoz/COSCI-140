@@ -120,62 +120,26 @@ std::ostream& operator<<(std::ostream& os, const String& str) {
 }
 
 std::istream& operator>>(std::istream& is, String& str) {
-	std::ios::iostate flags = std::ios::goodbit; // Stream state flags.
+	const int BUF_MAX = 128; // Capacity of the buffer.
+	char buffer[BUF_MAX];
+	int length = 0;
+	char c = static_cast<char>(is.get()); // Extracts a char from the stream.
 
-	int extracted = 0; // Count of chars extracted from the stream.
-	// Prepares the stream for formatted input.
-	const std::istream::sentry sen(is);
-
-	if (sen) { // If preparation completed without errors.
-		try {
-			const int width = static_cast<int>(is.width()); // Width of stream.
-			// Arbitrary large number - does not actually represent the maximum
-			// number of chars of this String.
-			// TODO: Why is this necessary?
-			const int size = width > 0 ? width : 2147483645;
-			const int BUF_MAX = 128; // Capacity of the buffer.
-
-			char buffer[BUF_MAX];
-			int length = 0; // Count of extracted chars stored in the buffer.
-			// Reads the char at the current position of the stream buffer.
-			char c = static_cast<char>(is.rdbuf()->sgetc());
-
-			while (extracted < size && c != EOF && !isspace(c)) {
-				// Appends the contents of the buffer if it is full.
-				if (length == BUF_MAX) {
-					str.append(buffer, sizeof(buffer) / sizeof(char));
-					length = 0; // So the buffer's contents can be overridden.
-				}
-
-				buffer[length++] = c; // Stores the char in the buffer.
-				++extracted;
-				// Advances to the next position in the stream buffer and
-				// reads the char at that position.
-				c = static_cast<char>(is.rdbuf()->snextc());
-			}
-
-			str.append(buffer, length);
-
-			// TODO: Why isn't setstate used right away?
-			if (c == EOF) { // Sets eofbit in addition to goodbit.
-				flags |= std::ios::eofbit;
-			}
-
-			// TODO: Why is this necessary?
-			is.width(0);
-		} catch (...) {
-			// TODO: Which exceptions exactly are being caught here?
-			is.setstate(std::ios::badbit);
+	// EOF check may be redundant since istream::get() should stop if reached.
+	// TODO: Maybe check !is.eof() instead?
+	while (c != EOF && !isspace(c)) {
+		// Appends the contents of the buffer if it is full.
+		if (length == BUF_MAX) {
+			str.append(buffer, BUF_MAX);
+			length = 0; // Reset so the buffer's contents can be overridden.
 		}
+
+		buffer[length++] = c; // Inserts the extracted char into the buffer.
+		is.get(c); // Extracts the next char from the stream.
 	}
 
-	if (!extracted) { // If no chars were extracted.
-		is.setstate(std::ios::failbit);
-	}
-
-	if (flags != 0) { // If goodbit isn't the only flag set.
-		is.setstate(flags);
-	}
+	// Appends the contents of the buffer to this String.
+	str.append(buffer, length);
 
 	return is;
 }
