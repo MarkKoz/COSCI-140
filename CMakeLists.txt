@@ -3,7 +3,7 @@ project(Final)
 
 include_directories(include)
 set(SOURCE_FILES
-		include/myStringClass.h
+		include/String.h
 		src/Main.cpp)
 add_executable(Final ${SOURCE_FILES})
 

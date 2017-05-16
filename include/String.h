@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-class myStringClass {
+class String {
 	/**
 	 * Stream insertion operator overload.
 	 *
@@ -14,7 +14,7 @@ class myStringClass {
 	 *                      inserted into the stream
 	 * @return              lvalue reference to the passed ostream object
 	 */
-	friend std::ostream& operator<<(std::ostream& os, const myStringClass& str);
+	friend std::ostream& operator<<(std::ostream& os, const String& str);
 
 	/**
 	 * Stream extraction operator overload.
@@ -27,28 +27,28 @@ class myStringClass {
 	 *                      the value read will be assigned
 	 * @return              lvalue reference to the passed istream object
 	 */
-	friend std::istream& operator>>(std::istream& is, myStringClass& str);
+	friend std::istream& operator>>(std::istream& is, String& str);
 
 public:
 	/**
 	 * Constructs an empty String object.
 	 */
-	myStringClass();
+	String();
 
 	// TODO: Add a better description.
 	/**
 	 * Overloaded constructor.
 	 *
-	 * @param   str         pointer to the const C string to be set as the
+	 * @param   cstr        pointer to the const C string to be set as the
 	 *                      value of the constructed String object.
 	 */
-	myStringClass(const char* str);
+	String(const char* cstr);
 
 	// TODO: Add a better description.
 	/**
 	 * Destructor.
 	 */
-	~myStringClass();
+	~String();
 
 	// TODO: Add a better description and return value.
 	/**
@@ -56,7 +56,7 @@ public:
 	 *
 	 * @return              the length of the value of this String object
 	 */
-	int stringLength() const;
+	int getLength() const;
 
 	// TODO: Add a better description.
 	/**
@@ -67,7 +67,7 @@ public:
 	 * @return              lvalue reference to String object on the left
 	 *                      side of the expression
 	 */
-	myStringClass& operator=(const myStringClass& rvalue);
+	String& operator=(const String& rvalue);
 
 	/**
 	 * Unary postfix subscript operator overload.
@@ -91,7 +91,7 @@ public:
 	 * @return              lvalue reference to String object on the left
 	 *                      side of the expression
 	 */
-	myStringClass& operator+(const myStringClass& rvalue);
+	String& operator+(const String& rvalue);
 
 	/**
 	 * Binary infix equal to operator overload.
@@ -103,7 +103,7 @@ public:
 	 *                      the right side of the expression
 	 * @return              true if the values are equal; false otherwise
 	 */
-	bool operator==(const myStringClass& rvalue) const;
+	bool operator==(const String& rvalue) const;
 
 	/**
 	 * Binary infix not equal to operator overload.
@@ -115,7 +115,7 @@ public:
 	 *                      the right side of the expression
 	 * @return              true if the values are not equal; false otherwise
 	 */
-	bool operator!=(const myStringClass& rvalue) const;
+	bool operator!=(const String& rvalue) const;
 
 	/**
 	 * Binary infix less than operator overload.
@@ -129,7 +129,7 @@ public:
 	 * @return              true if the left value is less than the right value;
 	 *                      false otherwise
 	 */
-	bool operator<(const myStringClass& rvalue) const;
+	bool operator<(const String& rvalue) const;
 
 	/**
 	 * Binary infix greater than operator overload.
@@ -143,7 +143,7 @@ public:
 	 * @return              true if the left value is greater than the right
 	 *                      value; false otherwise
 	 */
-	bool operator>(const myStringClass& rvalue) const;
+	bool operator>(const String& rvalue) const;
 
 	/**
 	 * Binary infix less than or equal to operator overload.
@@ -157,7 +157,7 @@ public:
 	 * @return              true if the left value is less than or equal to the
 	 *                      right value; false otherwise
 	 */
-	bool operator<=(const myStringClass& rvalue) const;
+	bool operator<=(const String& rvalue) const;
 
 	/**
 	 * Binary infix greater than or equal to operator overload.
@@ -171,7 +171,7 @@ public:
 	 * @return              true if the left value is greater than or equal
 	 *                      to the right value; false otherwise
 	 */
-	bool operator>=(const myStringClass& rvalue) const;
+	bool operator>=(const String& rvalue) const;
 
 
 	/**
@@ -186,7 +186,7 @@ public:
 	 * @param   str         const lvalue reference to the String object to
 	 *                      validate
 	 */
-	static void validateUserInput(myStringClass& str);
+	static void validateAlpha(String& str);
 
 	/**
 	 * Validates the passed String object consist only of decimal digit
@@ -198,7 +198,7 @@ public:
 	 * @param   str         const lvalue reference to the String object to
 	 *                      validate
 	 */
-	static void validateUserInt(myStringClass& str);
+	static void validateDigit(String& str);
 
 private:
 	char* userInput; // C string for holding user input.
