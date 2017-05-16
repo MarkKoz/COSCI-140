@@ -50,7 +50,6 @@ public:
 	 */
 	~String();
 
-	// TODO: Add a better description and return value.
 	/**
 	 * Gets the length of the value of this String object.
 	 *
@@ -200,8 +199,8 @@ public:
 	char& operator[](int index) const;
 
 private:
-	char* userInput; // C string for holding user input.
-	int userInputLength;
+	char* data; // An array to hold the value of this String object as chars.
+	int length; // Number of characters.
 };
 
 #endif
