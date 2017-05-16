@@ -31,6 +31,15 @@ class String {
 
 public:
 	/**
+	 * Enumeration of possible results of a comparison.
+	 */
+	enum Result {
+		lesser = -1,
+		equal = 0,
+		greater = 1
+	};
+
+	/**
 	 * Constructs an empty String object.
 	 */
 	String();
@@ -56,6 +65,21 @@ public:
 	 * @return              the length of the value of this String object
 	 */
 	int getLength() const;
+
+	/**
+	 * Performs a lexicographical comparison on this String and the passed
+	 * String.
+	 *
+	 * The amount of characters from the two Strings on which to perform the
+	 * comparison is the value of the lesser length of the two Strings.
+	 *
+	 * @param   str         the other String to compare
+	 * @return              Result::Lesser if this String is less than the
+	 *                      passed string; Result::Greater if this String is
+	 *                      greater than the passed string; Result::Equal
+	 *                      otherwise
+	 */
+	Result compare(const String& str) const;
 
 	/**
 	 * Validates the passed String object consists only of alphabetical

@@ -1,4 +1,4 @@
-#include <String.h>
+#include "String.h"
 
 String::String() {
 	data == nullptr;
@@ -27,6 +27,16 @@ String::~String() {
 
 int String::getLength() const {
 	return length;
+}
+
+String::Result String::compare(const String& rvalue) const {
+	for (int i = 0; i < (length < rvalue.length ? length : rvalue.length); ++i) {
+		if (data[i] != rvalue.data[i]) { // First unequal values reached.
+			return data[i] < rvalue.data[i] ? Result::lesser : Result::greater;
+		}
+	}
+
+	return Result::equal; // Everything is equal.
 }
 
 void String::validateAlpha(String& str) {
@@ -90,11 +100,11 @@ String& String::operator+(const String& rvalue) {
 	length += rvalue.getLength();
 	data = new char[length];
 
-	for (int i = 0; i < bufLen; ++i) { // Copies left String.
+	for (int i = 0; i < bufLen; ++i) { // Copies the left String.
 		data[i] = buffer[i];
 	}
 
-	for (int i = bufLen; i < length; ++i) { // Copies right String.
+	for (int i = bufLen; i < length; ++i) { // Copies the right String.
 		data[i] = rvalue[i - bufLen];
 	}
 
@@ -102,27 +112,27 @@ String& String::operator+(const String& rvalue) {
 }
 
 bool String::operator==(const String& rvalue) const {
-	return false;
+	return compare(rvalue) == Result::equal;
 }
 
 bool String::operator!=(const String& rvalue) const {
-	return false;
+	return compare(rvalue) != Result::equal;
 }
 
 bool String::operator<(const String& rvalue) const {
-	return false;
+	return compare(rvalue) == Result::lesser;
 }
 
 bool String::operator>(const String& rvalue) const {
-	return false;
+	return compare(rvalue) == Result::greater;
 }
 
 bool String::operator<=(const String& rvalue) const {
-	return false;
+	return compare(rvalue) == Result::lesser || Result::equal;
 }
 
 bool String::operator>=(const String& rvalue) const {
-	return false;
+	return compare(rvalue) == Result::greater || Result::equal;
 }
 
 char& String::operator[](int index) const {
