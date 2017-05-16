@@ -66,7 +66,7 @@ std::ostream& operator<<(std::ostream& os, const String& str) {
 }
 
 std::istream& operator>>(std::istream& is, String& str) {
-	const size = static_cast<int>(is.width()); // Size of the stream.
+	const int size = static_cast<int>(is.width()); // Size of the stream.
 
 	// If data array can't be reused, a new array of istream's size needs to
 	// be created.
