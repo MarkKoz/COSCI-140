@@ -52,7 +52,7 @@ int main() {
 
 	// Overloaded stream insertion operator.
 	std::cout << "Hello " << first << " " << last
-	          << ". Your age is: " << age << "years.\n\n";
+	          << ". Your age is: " << age << " years.\n\n";
 
 	String string1 = "abx"; // Overloaded constructor.
 	String string2 = "ax";
