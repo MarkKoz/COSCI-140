@@ -8,14 +8,14 @@ String::String() {
 String::String(const char* cstr) {
 	length = 0;
 
-	while (*(cstr + length) != '\0') { // Determines the length of cstr.
+	while (cstr[length] != '\0') { // Determines the length of cstr.
 		++length;
 	}
 
 	data = new char[length]; // Creates a char array of the appropriate length.
 
 	for (int i = 0; i < length; ++i) { // Populates the array.
-		data[i] = *(cstr + i);
+		data[i] = cstr[i];
 	}
 }
 
@@ -42,11 +42,15 @@ String& String::operator=(const String& rvalue) {
 }
 
 std::ostream& operator<<(std::ostream& os, const String& str) {
-	return <#initializer#>;
+	for (int i = 0; i < length; ++i) {
+		os << data[i];
+	}
+
+	return os;
 }
 
 std::istream& operator>>(std::istream& is, String& str) {
-	return <#initializer#>;
+	return is;
 }
 
 String& String::operator+(const String& rvalue) {
