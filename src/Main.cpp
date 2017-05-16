@@ -40,20 +40,21 @@ void strcmp(myStringClass& lvalue,
 int main() {
 	myStringClass last, first, age; // Default constructor.
 
-	std::cout << "Enter your first name only\n";
+	std::cout << "Enter your forename:\n";
 	std::cin >> first; // Overloaded stream extraction operator.
 	myStringClass::validateUserInput(first);
 
-	std::cout << "what is your last name?\n";
+	std::cout << "Enter your surname:\n";
 	std::cin >> last;
 	myStringClass::validateUserInput(last);
 
-	std::cout << "enter your age\n";
+	std::cout << "Enter your age in years:\n";
 	std::cin >> age;
 	myStringClass::validateUserInt(age);
 
 	// Overloaded stream insertion operator.
-	std::cout << "hello " << first << " " << last << ", age: " << age << '\n';
+	std::cout << "Hello " << first << " " << last
+	          << ". Your age is: " << age << "years.\n\n";
 
 	myStringClass string1 = "abx"; // Overloaded constructor.
 	myStringClass string2 = "ax";
@@ -90,30 +91,28 @@ int main() {
 	strcmp(string1, string2);
 	strcmp(string1, string2, true);
 
-	myStringClass arrayOfNames[5]; // Array of myStringClass.
+	myStringClass arrNames[5]; // Array of myStringClass.
 
-	for (int x = 0; x < 5; x++) {
-		std::cout << "enter name " << x + 1 << '\n';
-		std::cin >> arrayOfNames[x];
-		myStringClass::validateUserInput(arrayOfNames[x]);
+	std::cout << '\n';
+
+	for (int i = 0; i < 5; ++i) {
+		std::cout << "Enter name #" << i + 1 << ":\n";
+		std::cin >> arrNames[i];
+		myStringClass::validateUserInput(arrNames[i]);
 	}
 
 	std::cout << "The names you entered are:\n";
 
-	for (int x = 0; x < 5; x++) {
-		std::cout << arrayOfNames[x] << '\n';
+	for (int i = 0; i < 5; ++i) {
+		std::cout << arrNames[i] << '\n';
 	}
 
-	string2 = "Hello ";
+	string2 = "hello, ";
 	myStringClass string3(string2); // Copy constructor.
-	myStringClass string4 = string3 + "World";
+	myStringClass string4 = string3 + "world";
+	std::cout << '\n' << string4 << '\n';
 
-	std::cout << string4 << '\n';
-
-	std::cout << "Good-bye\n";
-	system("pause");
-
-	return 0;
+	std::cout << "Program complete.\n";
 }
 
 
