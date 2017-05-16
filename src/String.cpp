@@ -58,14 +58,26 @@ String& String::operator=(const String& rvalue) {
 }
 
 std::ostream& operator<<(std::ostream& os, const String& str) {
-	for (int i = 0; i < length; ++i) {
-		os << data[i];
+	for (int i = 0; i < str.length; ++i) {
+		os << str.data[i];
 	}
 
 	return os;
 }
 
 std::istream& operator>>(std::istream& is, String& str) {
+	const size = static_cast<int>(is.width()); // Size of the stream.
+
+	// If data array can't be reused, a new array of istream's size needs to
+	// be created.
+	if (size != str.length) {
+		delete[] str.data;
+		str.length = size;
+		str.data = new char[str.length];
+	}
+
+	is >> str.data;
+
 	return is;
 }
 
