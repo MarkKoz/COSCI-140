@@ -1,6 +1,42 @@
 #include <iostream>
 #include "myStringClass.h"
 
+/**
+ * Compares two given String objects against eachother and prints to console
+ * the results.
+ *
+ * By default, comparisons are made using operators ==, <, and >. However, if
+ * optional parameter orEquals is true, ==, <=, and >= are used instead.
+ *
+ * @param   lvalue      the String object to be on the left side of the
+ *                      comparison
+ * @param   rvalue      the String object to be on the right side of the
+ *                      comparison
+ * @param   orEquals    if < and > comparisons should be <= and >=
+ */
+void strcmp(myStringClass& lvalue,
+            myStringClass& rvalue,
+            bool orEquals = false) {
+	// Overloaded relational operators.
+	if (!orEquals) {
+		if (lvalue == rvalue) {
+			std::cout << lvalue << " = " << rvalue << '\n';
+		} else if (lvalue < rvalue) {
+			std::cout << lvalue << " < " << rvalue << '\n';
+		} else {
+			std::cout << lvalue << " > " << rvalue << '\n';
+		}
+	} else {
+		if (lvalue == rvalue) {
+			std::cout << lvalue << " = " << rvalue << '\n';
+		} else if (lvalue <= rvalue) {
+			std::cout << lvalue << " <= " << rvalue << '\n';
+		} else {
+			std::cout << lvalue << " >= " << rvalue << '\n';
+		}
+	}
+}
+
 int main() {
 	myStringClass last, first, age; // Default constructor.
 
@@ -21,159 +57,38 @@ int main() {
 
 	myStringClass string1 = "abx"; // Overloaded constructor.
 	myStringClass string2 = "ax";
-
-	// Overloaded relational operators (equals, less than, & greater than).
-	if (string1 == string2) {
-		std::cout << string1 << " = " << string2;
-	} else if (string1 < string2) {
-		std::cout << string1 << " < " << string2;
-	} else {
-		std::cout << string1 << " > " << string2;
-	}
-	std::cout << '\n';
+	strcmp(string1, string2);
+	strcmp(string1, string2, true);
 
 	string1 = "axb";
 	string2 = "aa";
-
-	if (string1 == string2) {
-		std::cout << string1 << " = " << string2 << '\n';
-	} else if (string1 < string2) {
-		std::cout << string1 << " < " << string2 << '\n';
-	} else {
-		std::cout << string1 << " > " << string2 << '\n';
-	}
+	strcmp(string1, string2);
+	strcmp(string1, string2, true);
 
 	string1 = "ab";
 	string2 = "axb";
-
-	if (string1 == string2) {
-		std::cout << string1 << " = " << string2 << '\n';
-	} else if (string1 < string2) {
-		std::cout << string1 << " < " << string2 << '\n';
-	} else {
-		std::cout << string1 << " > " << string2 << '\n';
-	}
+	strcmp(string1, string2);
+	strcmp(string1, string2, true);
 
 	string1 = "ax";
 	string2 = "aax";
-
-	if (string1 == string2) {
-		std::cout << string1 << " = " << string2 << '\n';
-	} else if (string1 < string2) {
-		std::cout << string1 << " < " << string2 << '\n';
-	} else {
-		std::cout << string1 << " > " << string2 << '\n';
-	}
+	strcmp(string1, string2);
+	strcmp(string1, string2, true);
 
 	string1 = "abcz";
 	string2 = "abc";
-
-	if (string1 == string2) {
-		std::cout << string1 << " = " << string2 << '\n';
-	} else if (string1 < string2) {
-		std::cout << string1 << " < " << string2 << '\n';
-	} else {
-		std::cout << string1 << " > " << string2 << '\n';
-	}
+	strcmp(string1, string2);
+	strcmp(string1, string2, true);
 
 	string1 = "abc";
 	string2 = "abcz";
-
-	if (string1 == string2) {
-		std::cout << string1 << " = " << string2 << '\n';
-	} else if (string1 < string2) {
-		std::cout << string1 << " < " << string2 << '\n';
-	} else {
-		std::cout << string1 << " > " << string2 << '\n';
-	}
+	strcmp(string1, string2);
+	strcmp(string1, string2, true);
 
 	string1 = "abc";
 	string2 = "abc";
-
-	if (string1 == string2) {
-		std::cout << string1 << " = " << string2 << '\n';
-	} else if (string1 < string2) {
-		std::cout << string1 << " < " << string2 << '\n';
-	} else {
-		std::cout << string1 << " > " << string2 << '\n';
-	}
-
-	string1 = "abx";
-	string2 = "ax";
-
-	if (string1 == string2) {
-		std::cout << string1 << " = " << string2 << '\n';
-	} else if (string1 <= string2) {
-		std::cout << string1 << " <= " << string2 << '\n';
-	} else {
-		std::cout << string1 << " >= " << string2 << '\n';
-	}
-
-	string1 = "axb";
-	string2 = "aa";
-
-	if (string1 == string2) {
-		std::cout << string1 << " = " << string2 << '\n';
-	} else if (string1 <= string2) {
-		std::cout << string1 << " <= " << string2 << '\n';
-	} else {
-		std::cout << string1 << " >= " << string2 << '\n';
-	}
-
-	string1 = "ab";
-	string2 = "axb";
-
-	if (string1 == string2) {
-		std::cout << string1 << " = " << string2 << '\n';
-	} else if (string1 <= string2) {
-		std::cout << string1 << " <= " << string2 << '\n';
-	} else {
-		std::cout << string1 << " >= " << string2 << '\n';
-	}
-
-	string1 = "ax";
-	string2 = "aax";
-
-	if (string1 == string2) {
-		std::cout << string1 << " = " << string2 << '\n';
-	} else if (string1 <= string2) {
-		std::cout << string1 << " <= " << string2 << '\n';
-	} else {
-		std::cout << string1 << " >= " << string2 << '\n';
-	}
-
-	string1 = "abcz";
-	string2 = "abc";
-
-	if (string1 == string2) {
-		std::cout << string1 << " = " << string2 << '\n';
-	} else if (string1 <= string2) {
-		std::cout << string1 << " <= " << string2 << '\n';
-	} else {
-		std::cout << string1 << " >= " << string2 << '\n';
-	}
-
-	string1 = "abc";
-	string2 = "abcz";
-
-	if (string1 == string2) {
-		std::cout << string1 << " = " << string2 << '\n';
-	} else if (string1 <= string2) {
-		std::cout << string1 << " <= " << string2 << '\n';
-	} else {
-		std::cout << string1 << " >= " << string2 << '\n';
-	}
-
-	string1 = "abc";
-	string2 = "abc";
-
-	if (string1 == string2) {
-		std::cout << string1 << " = " << string2 << '\n';
-	} else if (string1 <= string2) {
-		std::cout << string1 << " <= " << string2 << '\n';
-	} else {
-		std::cout << string1 << " >= " << string2 << '\n';
-	}
+	strcmp(string1, string2);
+	strcmp(string1, string2, true);
 
 	myStringClass arrayOfNames[5]; // Array of myStringClass.
 
