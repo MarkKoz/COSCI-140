@@ -86,10 +86,13 @@ public:
 	 * unequal, returns based on string length. Otherwise, a lexicographical
 	 * comparison is performed.
 	 *
+	 * If the comparison finds the Strings to be equal, the return value will
+	 * be based on the Strings' lengths.
+	 *
 	 * @param   str         the other String to compare
 	 * @return              Result::Lesser if this String is less than the
-	 *                      passed string; Result::Greater if this String is
-	 *                      greater than the passed string; Result::Equal
+	 *                      passed String; Result::Greater if this String is
+	 *                      greater than the passed String; Result::Equal
 	 *                      otherwise
 	 */
 	Result compare(const String& str) const;
@@ -107,7 +110,7 @@ public:
 	static void validateAlpha(String& str);
 
 	/**
-	 * Validates the passed String consist only of decimal digit characters.
+	 * Validates the passed String consists only of decimal digit characters.
 	 * If invalid, prompts for a new input until a valid input is entered.
 	 *
 	 * Decimal digits are any of: 0 1 2 3 4 5 6 7 8 9
@@ -141,7 +144,7 @@ public:
 	/**
 	 * Binary infix equal to operator overload.
 	 *
-	 * Determines if two Strings equal ech other by calling String::compare
+	 * Determines if two Strings equal each other by calling String::compare
 	 * to perform a lexicographical comparison.
 	 *
 	 * @param   rvalue      the String on the right side of the expression
@@ -217,7 +220,7 @@ public:
 	 * Accesses this String like an array and retrieves the character at the
 	 * passed index.
 	 *
-	 * @param   index       the index at which to access this String.
+	 * @param   index       the index at which to access this String
 	 * @return              the char at the passed index
 	 */
 	char& operator[](int index) const;

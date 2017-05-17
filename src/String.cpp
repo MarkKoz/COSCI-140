@@ -52,18 +52,24 @@ void String::append(const char* str, int size) {
 }
 
 String::Result String::compare(const String& rvalue) const {
-	if (length != rvalue.length) { // Returns based on string length.
-		return length < rvalue.length ? Result::lesser : Result::greater;
-	}
+	// The smaller of the two lengths.
+	int len = length < rvalue.length ? length : rvalue.length;
+	String::Result result = Result::equal;
 
-	// Otherwise performs lexicographical comparison.
-	for (int i = 0; i < length; ++i) {
+	// Lexicographical comparison.
+	for (int i = 0; i < len && result == Result::equal; ++i) {
 		if (data[i] != rvalue[i]) { // First unequal values reached.
-			return data[i] < rvalue[i] ? Result::lesser : Result::greater;
+			result = data[i] < rvalue[i] ? Result::lesser : Result::greater;
 		}
 	}
 
-	return Result::equal; // Everything is equal.
+	// If Strings are found to be equal but lengths are unequal, returns
+	// based on length.
+	if (result == Result::equal && length != rvalue.length) {
+		return length < rvalue.length ? Result::lesser : Result::greater;
+	}
+
+	return result; // Otherwise returns comparison result
 }
 
 void String::validateAlpha(String& str) {
