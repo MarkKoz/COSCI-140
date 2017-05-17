@@ -1,6 +1,6 @@
-#include <cstring>
 #include <cctype>
 #include <cstdio>
+#include <cstring>
 #include <iostream>
 #include <stdexcept>
 #include "../include/String.h"
@@ -43,7 +43,7 @@ void String::append(const char* str, int size) {
 	char buffer[length + 1]; // Buffer to hold both strings. +1 for null.
 	buffer[0] = '\0'; // strcat needs a null terminator in the dest string.
 	std::strcat(buffer, data); // Appends this String to the buffer.
-	std::strcat(buffer, str); // Appends the passed c string to the buffer.
+	std::strcat(buffer, str); // Appends the passed C string to the buffer.
 
 	// Resizes this String to be able to hold both strings.
 	delete[] data;

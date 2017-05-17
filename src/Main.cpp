@@ -2,16 +2,14 @@
 #include "../include/String.h"
 
 /**
- * Compares two passed String objects against each other and prints to console
- * the results.
+ * Compares two passed String against each other and prints to console the
+ * results.
  *
  * By default, comparisons are made using operators ==, <, and >. However, if
  * optional parameter orEquals is true, ==, <=, and >= are used instead.
  *
- * @param   lvalue      the String object to be on the left side of the
- *                      comparison
- * @param   rvalue      the String object to be on the right side of the
- *                      comparison
+ * @param   lvalue      the String on the left side of the comparison
+ * @param   rvalue      the String on the right side of the comparison
  * @param   orEquals    if < and > comparisons should be <= and >=
  */
 void strcmp(String& lvalue, String& rvalue, bool orEquals = false) {

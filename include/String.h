@@ -7,25 +7,26 @@ class String {
 	/**
 	 * Stream insertion operator overload.
 	 *
-	 * Inserts the value of the passed String object into the passed ostream.
+	 * Inserts the characters of the passed String into the passed ostream.
 	 *
-	 * @param   os          lvalue reference to the ostream object
-	 * @param   str         const lvalue reference to the String object to be
-	 *                      inserted into the stream
-	 * @return              lvalue reference to the passed ostream object
+	 * @param   os          the ostream object
+	 * @param   str         the String to be inserted into the stream
+	 * @return              the ostream object
 	 */
 	friend std::ostream& operator<<(std::ostream& os, const String& str);
 
 	/**
 	 * Stream extraction operator overload.
 	 *
-	 * Extracts the value from the passed istream and assigns it to the passed
-	 * String object.
+	 * Extracts characters from the passed istream and assigns them to the
+	 * passed String. Stops extracting characters from the stream if EOF is
+	 * reached or if a whitespace character is reached as defined by
+	 * std::locale::classic.
 	 *
-	 * @param   is          lvalue reference to the istream object
-	 * @param   str         lvalue reference to the String object to which
-	 *                      the value read will be assigned
-	 * @return              lvalue reference to the passed istream object
+	 * @param   is          the istream object
+	 * @param   str         the String to which the extracted characters will be
+	 *                      assigned
+	 * @return              the istream object
 	 */
 	friend std::istream& operator>>(std::istream& is, String& str);
 
@@ -40,34 +41,44 @@ public:
 	};
 
 	/**
-	 * Constructs an empty String object.
+	 * Constructs an empty String.
 	 */
 	String();
 
+	/**
+	 * Constructs a String which is a copy of the passed String.
+	 *
+	 * @param str
+	 */
 	String(const String& str);
 
-	// TODO: Add a better description.
 	/**
-	 * Overloaded constructor.
+	 * Constructs a String with the value of the passed C String.
 	 *
-	 * @param   cstr        pointer to the const C string to be set as the
-	 *                      value of the constructed String object.
+	 * @param   cstr        the C string the value of which will be given to
+	 *                      the constructed String
 	 */
 	String(const char* cstr);
 
-	// TODO: Add a better description.
 	/**
-	 * Destructor.
+	 * Deletes the internal C string which holds this String's character data.
 	 */
 	~String();
 
 	/**
-	 * Gets the length of the value of this String object.
+	 * Gets the length of this String.
 	 *
-	 * @return              the length of the value of this String object
+	 * @return              the length of this String
 	 */
 	int getLength() const;
 
+	/**
+	 * Appends the passed amount of characters from the passed C string to
+	 * this String.
+	 *
+	 * @param   str         the C string to append
+	 * @param   size        the amount of characters to append
+	 */
 	void append(const char* str, int size);
 
 	/**
@@ -84,149 +95,136 @@ public:
 	Result compare(const String& str) const;
 
 	/**
-	 * Validates the passed String object consists only of alphabetical
-	 * letters. Prompts for a new input if the string is invalid until a
-	 * valid input is entered.
+	 * Validates the passed String consists only of alphabetical letters. If
+	 * invalid, prompts for a new input until a valid input is entered.
 	 *
 	 * Alphabetical letters are any of:
 	 * a b c d e f g h i j k l m n o p q r s t u v w x y z
 	 * A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
 	 *
-	 * @param   str         const lvalue reference to the String object to
-	 *                      validate
+	 * @param   str         the String to validate
 	 */
 	static void validateAlpha(String& str);
 
 	/**
-	 * Validates the passed String object consist only of decimal digit
-	 * characters. Prompts for a new input if the string is invalid until a
-	 * valid input is entered.
+	 * Validates the passed String consist only of decimal digit characters.
+	 * If invalid, prompts for a new input until a valid input is entered.
 	 *
 	 * Decimal digits are any of: 0 1 2 3 4 5 6 7 8 9
 	 *
-	 * @param   str         const lvalue reference to the String object to
-	 *                      validate
+	 * @param   str         the String to validate
 	 */
 	static void validateDigit(String& str);
 
-	// TODO: Add a better description.
 	/**
 	 * Binary infix assignment operator overload.
 	 *
-	 * @param   rvalue      const lvalue reference to the String object on
-	 *                      the right side of the expression
-	 * @return              lvalue reference to String object on the left
-	 *                      side of the expression
+	 * Performs non copy-and-swap copy assignment i.e. assigns the value of the
+	 * passed String to this String by copy.
+	 *
+	 * @param   rvalue      the String on the right side of the expression
+	 * @return              this String
 	 */
 	String& operator=(const String& rvalue);
 
 	/**
 	 * Binary infix addition operator overload.
 	 *
-	 * Concatenates the String objects on both sides of the expression.
+	 * Concatenates two Strings. Uses String::append to perform the
+	 * concatenation.
 	 *
-	 * @param   rvalue      const lvalue reference to the String object on
-	 *                      the right side of the expression
-	 * @return              lvalue reference to String object on the left
-	 *                      side of the expression
+	 * @param   rvalue      the String on the right side of the expression
+	 * @return              this String
 	 */
 	String& operator+(const String& rvalue);
 
 	/**
 	 * Binary infix equal to operator overload.
 	 *
-	 * Determines if the values of the String objects on both sides of the
-	 * expression equal each other.
+	 * Determines if two Strings equal ech other by calling String::compare
+	 * to perform a lexicographical comparison.
 	 *
-	 * @param   rvalue      const lvalue reference to the String object on
-	 *                      the right side of the expression
-	 * @return              true if the values are equal; false otherwise
+	 * @param   rvalue      the String on the right side of the expression
+	 * @return              true if the Strings are equal; false otherwise
 	 */
 	bool operator==(const String& rvalue) const;
 
 	/**
 	 * Binary infix not equal to operator overload.
 	 *
-	 * Determines if the values of the String objects on both sides of the
-	 * expression do not equal each other.
+	 * Determines if two Strings do not equal each other by calling
+	 * String::compare to perform a lexicographical comparison.
 	 *
-	 * @param   rvalue      const lvalue reference to the String object on
-	 *                      the right side of the expression
-	 * @return              true if the values are not equal; false otherwise
+	 * @param   rvalue      the String on the right side of the expression
+	 * @return              true if the Strings are not equal; false otherwise
 	 */
 	bool operator!=(const String& rvalue) const;
 
 	/**
 	 * Binary infix less than operator overload.
 	 *
-	 * Determines if the value of the String object on the left side of the
-	 * expression is less than the value of the String object on the right
-	 * side of the expression.
+	 * Determines if this String is less than the passed String by calling
+	 * String::compare to perform a lexicographical comparison.
 	 *
-	 * @param   rvalue      const lvalue reference to the String object on
-	 *                      the right side of the expression
-	 * @return              true if the left value is less than the right value;
-	 *                      false otherwise
+	 * @param   rvalue      the String on the right side of the expression
+	 * @return              true if the left String is less than the right
+	 *                      String; false otherwise
 	 */
 	bool operator<(const String& rvalue) const;
 
 	/**
 	 * Binary infix greater than operator overload.
 	 *
-	 * Determines if the value of the String object on the left side of the
-	 * expression is greater than the value of the String object on the right
-	 * side of the expression.
+	 * Determines if this String is greater than the passed String by calling
+	 * String::compare to perform a lexicographical comparison.
 	 *
-	 * @param   rvalue      const lvalue reference to the String object on
-	 *                      the right side of the expression
-	 * @return              true if the left value is greater than the right
-	 *                      value; false otherwise
+	 * @param   rvalue      the String on the right side of the expression
+	 * @return              true if the left String is greater than the right
+	 *                      String; false otherwise
 	 */
 	bool operator>(const String& rvalue) const;
 
 	/**
 	 * Binary infix less than or equal to operator overload.
 	 *
-	 * Determines if the value of the String object on the left side of the
-	 * expression is less than or equal to the value of the String object on
-	 * the right side of the expression.
+	 * Determines if this String is less than or equal to the passed String
+	 * by calling String::compare to perform a lexicographical comparison.
 	 *
-	 * @param   rvalue      const lvalue reference to the String object on
-	 *                      the right side of the expression
-	 * @return              true if the left value is less than or equal to the
-	 *                      right value; false otherwise
+	 * String::compare is called to perform a lexicographical comparison on
+	 * the two Strings.
+	 *
+	 * @param   rvalue      the String on the right side of the expression
+	 * @return              true if the left String is less than or equal to the
+	 *                      right String; false otherwise
 	 */
 	bool operator<=(const String& rvalue) const;
 
 	/**
 	 * Binary infix greater than or equal to operator overload.
 	 *
-	 * Determines if the value of the String object on the left side of the
-	 * expression is greater than or equal to the value of the String object on
-	 * the right side of the expression.
+	 * Determines if this String is greater than or equal to the passed String
+	 * by calling String::compare to perform a lexicographical comparison.
 	 *
-	 * @param   rvalue      const lvalue reference to the String object on
-	 *                      the right side of the expression
-	 * @return              true if the left value is greater than or equal
-	 *                      to the right value; false otherwise
+	 * @param   rvalue      the String on the right side of the expression
+	 * @return              true if the left String is greater than or equal
+	 *                      to the right String; false otherwise
 	 */
 	bool operator>=(const String& rvalue) const;
 
 	/**
 	 * Unary postfix subscript operator overload.
 	 *
-	 * Accesses the value of this String and retrieves the character at the
+	 * Accesses this String like an array and retrieves the character at the
 	 * passed index.
 	 *
 	 * @param   index       the index at which to access this String.
-	 * @return              const lvalue reference to the char at the passed
-	 *                      index
+	 * @return              the char at the passed index
 	 */
 	char& operator[](int index) const;
 
 private:
-	char* data; // An array to hold the value of this String object as chars.
-	int length; // Number of characters.
+	char* data; // C string which represents the value of this String.
+	int length; // Number of characters excluding the null terminator.
 };
 
 #endif
