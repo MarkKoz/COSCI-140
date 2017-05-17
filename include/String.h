@@ -44,6 +44,8 @@ public:
 	 */
 	String();
 
+	String(const String& str);
+
 	// TODO: Add a better description.
 	/**
 	 * Overloaded constructor.

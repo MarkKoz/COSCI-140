@@ -1,5 +1,5 @@
 #include <iostream>
-#include "String.h"
+#include "../include/String.h"
 
 /**
  * Compares two passed String objects against each other and prints to console

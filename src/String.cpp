@@ -1,11 +1,19 @@
+#include <cstring>
 #include <cctype>
 #include <iostream>
-#include <streambuf>
-#include "String.h"
+#include <stdexcept>
+#include "../include/String.h"
 
 String::String() {
-	data == nullptr;
+	// Creates an empty char array with null terminator.
+	data = new char[1] {'\0'};
 	length = 0;
+}
+
+String::String(const String& str) {
+	data = new char[str.length + 1];
+	length = str.length;
+	strcpy(data, str.data);
 }
 
 String::String(const char* cstr) {
@@ -15,17 +23,13 @@ String::String(const char* cstr) {
 		++length;
 	}
 
-	data = new char[length]; // Creates a char array of the appropriate length.
-
-	for (int i = 0; i < length; ++i) { // Populates the array.
-		data[i] = cstr[i];
-	}
+	// Creates a char array of the appropriate length. + 1 for null terminator.
+	data = new char[length + 1];
+	strcpy(data, cstr);
 }
 
 String::~String() {
-	if (data != nullptr) {
-		delete[] data;
-	}
+	delete[] data;
 }
 
 int String::getLength() const {
@@ -33,50 +37,28 @@ int String::getLength() const {
 }
 
 void String::append(const char* str, int size) {
-	// TODO: Pass a c string instead so the overloaded constructor can be used.
-	if (data == nullptr || length == 0) { // If this String is empty.
-		data = new char[size];
-		length = size;
+	length += size; // Length of both strings
 
-		for (int i = 0; i < size; ++i) { // Copies the String to be appended.
-			data[i] = str[i];
-		}
-	} else {
-		char buffer[length];
-		int bufLen = length;
+	char buffer[length + 1]; // Buffer to hold both strings. +1 for null.
+	buffer[0] = '\0'; // strcat needs a null terminator in the dest string.
+	std::strcat(buffer, data); // Appends this String to the buffer.
+	std::strcat(buffer, str); // Appends the passed c string to the buffer.
 
-		// Copies this String into the buffer.
-		for (int i = 0; i < length; ++i) {
-			buffer[i] = data[i];
-		}
-
-		// Deletes data and creates a new array with enough space for both
-		// Strings.
-		delete[] data;
-		length += size;
-		data = new char[length];
-
-		// Copies the String in the buffer.
-		for (int i = 0; i < bufLen; ++i) {
-			data[i] = buffer[i];
-		}
-
-		// Copies the String to be appended.
-		for (int i = bufLen; i < length; ++i) {
-			data[i] = str[i - bufLen];
-		}
-	}
+	// Resizes this String to be able to hold both strings.
+	delete[] data;
+	data = new char[length + 1];
+	std::strcpy(data, buffer); // Copies the buffer into this String.
 }
 
 String::Result String::compare(const String& rvalue) const {
-	if (length != rvalue.length) { // Returns based on string length
+	if (length != rvalue.length) { // Returns based on string length.
 		return length < rvalue.length ? Result::lesser : Result::greater;
 	}
 
 	// Otherwise performs lexicographical comparison.
 	for (int i = 0; i < length; ++i) {
-		if (data[i] != rvalue.data[i]) { // First unequal values reached.
-			return data[i] < rvalue.data[i] ? Result::lesser : Result::greater;
+		if (data[i] != rvalue[i]) { // First unequal values reached.
+			return data[i] < rvalue[i] ? Result::lesser : Result::greater;
 		}
 	}
 
@@ -84,28 +66,56 @@ String::Result String::compare(const String& rvalue) const {
 }
 
 void String::validateAlpha(String& str) {
+	bool isInvalid;
 
+	do {
+		isInvalid = false; // Resets boolean at the start of every iteration.
+
+		for (int i = 0; i < str.length && !isInvalid; ++i) {
+			if (!isalpha(str[i])) {
+				isInvalid = true;
+			}
+		}
+
+		if (isInvalid) { // Prompts for a new input.
+			std::cout << "The input entered does not consist solely of "
+					"alphabetical characters. Please try again:\n";
+			std::cin >> str;
+		}
+	} while (isInvalid);
 }
 
 void String::validateDigit(String& str) {
+	bool isInvalid;
 
+	do {
+		isInvalid = false; // Resets boolean at the start of every iteration.
+
+		for (int i = 0; i < str.length && !isInvalid; ++i) {
+			if (!isdigit(str[i])) {
+				isInvalid = true;
+			}
+		}
+
+		if (isInvalid) { // Prompts for a new input.
+			std::cout << "The input entered does not consist solely of decimal "
+					"digits. Please try again:\n";
+			std::cin >> str;
+		}
+	} while (isInvalid);
 }
 
 String& String::operator=(const String& rvalue) {
-	int rLength = rvalue.getLength();
-
 	if (this != &rvalue) { // Checks for self-assignment.
 		// If data array can't be reused, a new array of rvalue's size needs to
 		// be created.
-		if (rLength != length) {
+		if (rvalue.length != length) {
 			delete[] data;
-			length = rLength;
-			data = new char[length];
+			length = rvalue.length;
+			data = new char[length + 1]; // + 1 for null terminator.
 		}
 
-		for (int i = 0; i < length; ++i) { // Populates the array.
-			data[i] = rvalue.data[i];
-		}
+		strcpy(data, rvalue.data);
 	}
 
 	return *this;
@@ -113,13 +123,18 @@ String& String::operator=(const String& rvalue) {
 
 std::ostream& operator<<(std::ostream& os, const String& str) {
 	for (int i = 0; i < str.length; ++i) {
-		os << str.data[i];
+		os << str[i];
 	}
 
 	return os;
 }
 
 std::istream& operator>>(std::istream& is, String& str) {
+	// Replaces the passed String with an empty String.
+	delete[] str.data;
+	str.length = 0;
+	str.data = new char[1] {'\0'};
+
 	const int BUF_MAX = 128; // Capacity of the buffer.
 	char buffer[BUF_MAX];
 	int length = 0;
@@ -175,5 +190,9 @@ bool String::operator>=(const String& rvalue) const {
 }
 
 char& String::operator[](int index) const {
+	if (index > length || index < 0) {
+		throw std::out_of_range("String::operator[](): index is out of range.");
+	}
+
 	return data[index];
 }
