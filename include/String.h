@@ -82,12 +82,9 @@ public:
 	void append(const char* str, int size);
 
 	/**
-	 * Compares this String and the passed String. If the lengths are
-	 * unequal, returns based on string length. Otherwise, a lexicographical
-	 * comparison is performed.
-	 *
-	 * If the comparison finds the Strings to be equal, the return value will
-	 * be based on the Strings' lengths.
+	 * Performs a lexicographical comparison on this String and the passed
+	 * String. If the comparison finds the Strings to be equal, the return
+	 * value will be based on the Strings' lengths.
 	 *
 	 * @param   str         the other String to compare
 	 * @return              Result::Lesser if this String is less than the
