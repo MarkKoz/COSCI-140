@@ -1,5 +1,6 @@
 #include <cstring>
 #include <cctype>
+#include <cstdio>
 #include <iostream>
 #include <stdexcept>
 #include "../include/String.h"
@@ -13,7 +14,7 @@ String::String() {
 String::String(const String& str) {
 	data = new char[str.length + 1];
 	length = str.length;
-	strcpy(data, str.data);
+	std::strcpy(data, str.data);
 }
 
 String::String(const char* cstr) {
@@ -25,7 +26,7 @@ String::String(const char* cstr) {
 
 	// Creates a char array of the appropriate length. + 1 for null terminator.
 	data = new char[length + 1];
-	strcpy(data, cstr);
+	std::strcpy(data, cstr);
 }
 
 String::~String() {
@@ -79,7 +80,7 @@ void String::validateAlpha(String& str) {
 
 		if (isInvalid) { // Prompts for a new input.
 			std::cout << "The input entered does not consist solely of "
-					"alphabetical characters. Please try again:\n";
+					"alphabetical characters. Please try again: ";
 			std::cin >> str;
 		}
 	} while (isInvalid);
@@ -98,8 +99,9 @@ void String::validateDigit(String& str) {
 		}
 
 		if (isInvalid) { // Prompts for a new input.
-			std::cout << "The input entered does not consist solely of decimal "
-					"digits. Please try again:\n";
+			std::cout << "The input entered does not consist solely of "
+					"decimal "
+					"digits. Please try again: ";
 			std::cin >> str;
 		}
 	} while (isInvalid);

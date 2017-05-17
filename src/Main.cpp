@@ -38,20 +38,20 @@ void strcmp(String& lvalue, String& rvalue, bool orEquals = false) {
 int main() {
 	String last, first, age; // Default constructor.
 
-	std::cout << "Enter your forename:\n";
+	std::cout << "Enter your forename: ";
 	std::cin >> first; // Overloaded stream extraction operator.
 	String::validateAlpha(first);
 
-	std::cout << "Enter your surname:\n";
+	std::cout << "Enter your surname: ";
 	std::cin >> last;
 	String::validateAlpha(last);
 
-	std::cout << "Enter your age in years:\n";
+	std::cout << "Enter your age in years: ";
 	std::cin >> age;
 	String::validateDigit(age);
 
 	// Overloaded stream insertion operator.
-	std::cout << "Hello " << first << " " << last
+	std::cout << "\nHello " << first << " " << last
 	          << ". Your age is: " << age << " years.\n\n";
 
 	String string1 = "abx"; // Overloaded constructor.
@@ -94,12 +94,12 @@ int main() {
 	std::cout << '\n';
 
 	for (int i = 0; i < 5; ++i) {
-		std::cout << "Enter name #" << i + 1 << ":\n";
+		std::cout << "Enter name #" << i + 1 << ": ";
 		std::cin >> arrNames[i];
 		String::validateAlpha(arrNames[i]);
 	}
 
-	std::cout << "The names you entered are:\n";
+	std::cout << "\nThe names you entered are:\n";
 
 	for (int i = 0; i < 5; ++i) {
 		std::cout << arrNames[i] << '\n';
